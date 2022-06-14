@@ -20,6 +20,7 @@ reset_migrations:
 	rm -f src/newsletters/migrations/0001_initial.py
 	rm -f src/pages/migrations/0001_initial.py
 	rm -f src/questions/migrations/0001_initial.py
+	rm -f src/tags/migrations/0001_initial.py
 	rm -f src/tutorials/migrations/0001_initial.py
 
 migrate:

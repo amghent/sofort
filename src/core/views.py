@@ -1,25 +1,22 @@
 from django.shortcuts import render
 
-from core.context import get_meta
-from core.models import Setting
+from core.context import *
 from interests.models import InterestGroup
 
 
 def index(request):
     meta = get_meta()
-    meta["current_page"] = "index.html"
+    meta["current_page"] = "home"
 
-    settings_data = Setting.objects.all()
-    settings = {}
-
-    for setting in settings_data:
-        settings[setting.name] = setting.text
+    navigation_menu = get_navigation_menu()
+    settings = get_settings()
 
     interest_groups = list(InterestGroup.objects.all())
 
     context = {
         "meta": meta,
         "settings": settings,
+        "navigation_menu": navigation_menu,
         "interest_groups": interest_groups
     }
 

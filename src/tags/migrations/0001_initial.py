@@ -10,19 +10,14 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('members', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='InterestGroup',
+            name='Tag',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', core.fields.UniqueCharField(max_length=30, unique=True)),
-                ('slug', core.fields.UniqueCharField(max_length=30, unique=True)),
-                ('description', core.fields.MandatoryCharField(max_length=150)),
-                ('welcome', core.fields.MandatoryTextField()),
-                ('members', models.ManyToManyField(to='members.member')),
+                ('name', core.fields.UniqueCharField(max_length=25, unique=True)),
             ],
             options={
                 'abstract': False,

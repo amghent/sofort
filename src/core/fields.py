@@ -50,6 +50,20 @@ class UniqueCharField(MandatoryCharField):
         super(UniqueCharField, self).__init__(unique=True, *args, **kwargs)
 
 
+class OptionalTextField(models.TextField):
+    def __init__(self, *args, **kwargs):
+        presets = ["blank", "null", "default"]
+
+        for pre in presets:
+            if pre in kwargs:
+                del kwargs[pre]
+
+        super(OptionalTextField, self).__init__(blank=True, null=False, default="", *args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
 class MandatoryTextField(models.TextField):
     def __init__(self, *args, **kwargs):
         presets = ["blank", "null"]
@@ -123,6 +137,34 @@ class DefaultFieldNow(models.DateTimeField):
                 del kwargs[pre]
 
         super(DefaultFieldNow, self).__init__(blank=False, null=False, default=now, *args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
+class DefaultFieldTrue(models.BooleanField):
+    def __init__(self, *args, **kwargs):
+        presets = ["blank", "null", "default"]
+
+        for pre in presets:
+            if pre in kwargs:
+                del kwargs[pre]
+
+        super(DefaultFieldTrue, self).__init__(blank=False, null=False, default=True, *args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
+class DefaultFieldFalse(models.BooleanField):
+    def __init__(self, *args, **kwargs):
+        presets = ["blank", "null", "default"]
+
+        for pre in presets:
+            if pre in kwargs:
+                del kwargs[pre]
+
+        super(DefaultFieldFalse, self).__init__(blank=False, null=False, default=False, *args, **kwargs)
 
     class Meta:
         abstract = True

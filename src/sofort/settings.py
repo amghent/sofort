@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'newsletters.apps.NewslettersConfig',
     'pages.apps.PagesConfig',
     'questions.apps.QuestionsConfig',
+    'tags.apps.TagsConfig',
     'tutorials.apps.TutorialsConfig'
 ]
 
