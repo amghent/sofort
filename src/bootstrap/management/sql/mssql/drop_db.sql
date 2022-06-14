@@ -1,0 +1,3 @@
+DROP USER IF EXISTS sofort;
+DROP DATABASE IF EXISTS sofort_dev;
+GO

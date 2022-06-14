@@ -1,0 +1,10 @@
+DROP DATABASE IF EXISTS "sofort-dev";
+DROP SCHEMA IF EXISTS "sofort-dev";
+DROP ROLE IF EXISTS sofort;
+
+CREATE ROLE sofort PASSWORD 'sofort';
+ALTER ROLE sofort WITH LOGIN;
+ALTER ROLE sofort WITH CREATEDB;
+
+CREATE DATABASE "sofort-dev";
+CREATE SCHEMA "sofort-dev";

@@ -88,9 +88,31 @@ WSGI_APPLICATION = 'sofort.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'sqlite3': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+
+    "microsoft": {
+        "ENGINE": "mssql",
+        "NAME": "sofort_dev",
+        "USER": "sofort",
+        "PASSWORD": "Sofort_pwd",
+        "HOST": "localhost",
+        "PORT": "1433",
+        "OPTIONS": {
+            "driver": "ODBC Driver 17 for SQL Server",
+            "Encrypt": "no",
+        },
+    },
+
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sofort-dev',
+        'USER': 'sofort',
+        'PASSWORD': 'sofort',
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
