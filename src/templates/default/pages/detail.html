@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Image and welcome -->
+    <div class="row gx-3 gx-lg-4 align-items-center my-4">
+        <div class="col-lg-6">
+            <img class="img-fluid rounded mb-3 mb-lg-0" src="{{ static("images/home.jpg") }}"
+                 alt="{{ meta.application_name }} home page"/>
+        </div>
+        <div class="col-lg-6">
+            <h1 class="font-weight-light">{{ settings.application_title }}</h1>
+            <p>{{ settings.welcome_text }}</p>
+        </div>
+    </div>
+
+    <!-- Important message -->
+    {% if settings.important_message %}
+        <div class="card text-white bg-secondary my-2 py-2 text-center">
+            <div class="card-body"><p class="text-white m-0">{{ settings.important_message }}</p></div>
+        </div>
+    {% endif %}
+    
+    <!-- Interest group cards-->
+    <div class="row gx-3 gx-lg-4">
+        {% for ig in interest_groups %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ ig.name }}</h2>
+                        <p class="card-text">{{ ig.description }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-sm" href="#">Go to {{  ig.name }}'s home</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
