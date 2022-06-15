@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.core.management.base import BaseCommand
 
 from core.models import Setting
@@ -22,7 +23,18 @@ class Command(BaseCommand):
 
     @staticmethod
     def __upload_settings():
+        current_year = datetime.now().year
+        start_year = 2022
+        copyright_year = f"{start_year}"
+        
+        if current_year > start_year:
+            copyright_year += f"-{current_year}"            
+        
+        Setting(name="application_name", text="SOFORT").save()
+        Setting(name="application_application_long_name", text="SOftware FORum Tool").save()
         Setting(name="application_title", text="Welcome at SOFORT").save()
+        Setting(name="authors", text="Yves Vindevogel").save()
+        Setting(name="copyright", text=f"© { copyright_year }, Arcelor Mittal Ghent").save()
 
         Setting(name="welcome_text", text="Welcome at Arcelor Mittal's SOFORT. This tool provides a common place to "
                                           "ask your questions about your domain of expertise.").save()
@@ -53,8 +65,8 @@ class Command(BaseCommand):
         py_group.name = "AM Python"
         py_group.slug = "python"
         py_group.description = "AM Python group working around data science."
-        py_group.welcome = "Welcome to the AM Python Interest Group. " \
-                           "This group is all about data science, Jupyter notebooks, Pandas, Numpy, Plotly, ..."
+        py_group.about = "Welcome to the AM Python Interest Group. " \
+                         "This group is all about data science, Jupyter notebooks, Pandas, Numpy, Plotly, ..."
 
         py_group.save()
 
@@ -91,6 +103,23 @@ class Command(BaseCommand):
         faq.save()
 
         faq.authors.add(self.__get_member("sidviny"))
+        
+        under_construction = Page()
+
+        under_construction.title = "Under Construction"
+        under_construction.slug = "under_construction"
+
+        under_construction.intro = ""
+        under_construction.content = "This tool is still being developed and this page is not yet finished"
+
+        under_construction.show_in_navigation = False
+        under_construction.show_in_footer = False
+        # under_construction.menu_title = ""
+
+        under_construction.save()
+
+        under_construction.authors.add(self.__get_member("sidviny"))
+
 
     @staticmethod
     def __get_member(member_name: str) -> Member:

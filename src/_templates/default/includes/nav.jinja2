@@ -1,30 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container px-3">
-        <a class="navbar-brand" href="{{ url("index") }}">{{ meta.application_name }}</a>
+    <div class="container-fluid px-3">
+        <i class="fa-solid fa-user"></i>
+        <a class="navbar-brand" href="{{ url('index') }}">{{ settings.application_name }}</a>
+        
+        {% if meta.side_bar == true %}
+            <button class="btn btn-primary" id="sidebarToggle">Toggle menu</button>
+        {% endif %}
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-1 mb-lg-0">
                 {% if meta.current_page == "home" %}
                     <li class="nav-item"><a class="nav-link active" aria-current="page"
-                                            href="{{ url("index") }}">Home</a></li>
+                                            href="{{ url('index') }}">Home</a></li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" aria-current="page"
-                                            href="{{ url("index") }}">Home</a></li>
+                                            href="{{ url('index') }}">Home</a></li>
                 {% endif %}
 
                 {% for menu in navigation_menu %}
                     {% if meta.current_page == "pages_detail" and meta.slug == menu.slug %}
                         <li class="nav-item">
                             <a class="nav-link active"
-                               href="{{ url("pages_detail", args=[menu.slug]) }}">{{ menu.menu_title }}</a>
+                               href="{{ url('page_detail', args=[menu.slug]) }}">{{ menu.menu_title }}</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="{{ url("pages_detail", args=[menu.slug]) }}">{{ menu.menu_title }}</a>
+                               href="{{ url('page_detail', args=[menu.slug]) }}">{{ menu.menu_title }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}

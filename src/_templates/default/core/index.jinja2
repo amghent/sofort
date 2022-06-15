@@ -1,14 +1,14 @@
-{% extends "base.html" %}
+{% extends "base.jinja2" %}
 
 {% block content %}
-    <div class="container px-2 px-lg-3">
+    <div class="container-fluid px-2 px-lg-3">
         <!-- Image and welcome -->
         <div class="row gx-3 gx-lg-4 align-items-center my-4">
-            <div class="col-lg-6">
-                <img class="img-fluid rounded mb-3 mb-lg-0" src="{{ static("images/home.jpg") }}"
+            <div class="col-lg-4">
+                <img class="img-fluid rounded mb-3 mb-lg-0" src="{{ static('images/home.jpg') }}"
                      alt="{{ meta.application_name }} home page"/>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <h1 class="font-weight-light">{{ settings.application_title }}</h1>
                 <p>{{ settings.welcome_text }}</p>
             </div>

@@ -8,7 +8,7 @@ class InterestGroup(CoreModel):
     name = UniqueCharField(max_length=30)
     slug = UniqueCharField(max_length=30)
     description = MandatoryCharField(max_length=150)
-    welcome = MandatoryTextField()
+    about = MandatoryTextField()
 
     members = ManyToManyField(Member)
 

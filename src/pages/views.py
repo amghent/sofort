@@ -5,9 +5,7 @@ from pages.models import Page
 
 
 def detail(request, slug):
-    meta = get_meta()
-    meta["current_page"] = "pages_detail"
-    meta["slug"] = slug
+    meta = get_meta(current_page="pages_detail", slug=slug)
 
     navigation_menu = get_navigation_menu()
     settings = get_settings()
@@ -21,4 +19,4 @@ def detail(request, slug):
         "page": page
     }
 
-    return render(request, "pages/detail.html", context)
+    return render(request, "pages/detail.jinja2", context)

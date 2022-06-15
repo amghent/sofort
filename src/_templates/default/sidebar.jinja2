@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% include "includes/head.jinja2" %}
+    {% include "includes/head-sb.jinja2" %}
 
-    <body>
+
+    <body class="d-flex flex-column min-vh-100">
         {% include "includes/nav.jinja2" %}
 
-        {% block content %}{% endblock %}
+        <div class="d-flex" id="wrapper">
+            {% block sidebar %}{% endblock %}
+            {% block content%}{% endblock%}
+        </div>
 
         {% include "includes/footer.jinja2" %}
         {% include "includes/bootstrap_js.jinja2" %}

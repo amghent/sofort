@@ -1,16 +1,14 @@
 from core.models import Setting
 from pages.models import Page
-from sofort import globals
 
 
-def get_meta():
-    return {
-        "application_name": globals.APPLICATION_NAME,
-        "application_long_name": globals.APPLICATION_LONG_NAME,
-        "authors": "Yves Vindevogel",
-        "copyright": globals.COPYRIGHT
-    }
+def get_meta(**kwargs):
+    meta = {}
+    
+    for k in kwargs:
+        meta[k] = kwargs[k]
 
+    return meta
 
 def get_navigation_menu():
     return list(Page.objects.filter(show_in_navigation=True))
