@@ -70,7 +70,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates', 'default')
+            os.path.join(BASE_DIR, '..', 'templates', 'default')
         ],
         'APP_DIRS': False,
         'OPTIONS': {
@@ -99,33 +99,15 @@ WSGI_APPLICATION = 'sofort.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+###
+# sidviny - 2022-06-15
+# This database will go in /db.  Make sure it exists.
+#
 DATABASES = {
-    'sqlite3': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-
-    "microsoft": {
-        "ENGINE": "mssql",
-        "NAME": "sofort_dev",
-        "USER": "sofort",
-        "PASSWORD": "Sofort_pwd",
-        "HOST": "localhost",
-        "PORT": "1433",
-        "OPTIONS": {
-            "driver": "ODBC Driver 17 for SQL Server",
-            "Encrypt": "no",
-        },
-    },
-
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sofort-dev',
-        'USER': 'sofort',
-        'PASSWORD': 'sofort',
-        'HOST': 'localhost',
-        'PORT': 5432,
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, '..', '..', 'db', 'db.sqlite3'),
+    },
 }
 
 
@@ -166,7 +148,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'templates', 'default', 'static'),
+    os.path.join(BASE_DIR, '..', 'templates', 'default', 'static'),
 ]
 
 # Default primary key field type
