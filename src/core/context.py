@@ -1,6 +1,9 @@
-from core.models import Setting
-from pages.models import Page
+from django.urls import reverse
 
+###
+# To avoid circular references, 
+# put the imports for the SOFORT modules within the functions
+###
 
 def get_meta(**kwargs):
     meta = {}
@@ -11,10 +14,14 @@ def get_meta(**kwargs):
     return meta
 
 def get_navigation_menu():
+    from pages.models import Page
+
     return list(Page.objects.filter(show_in_navigation=True))
 
 
 def get_settings():
+    from core.models import Setting
+    
     settings_data = Setting.objects.all()
     settings = {}
 

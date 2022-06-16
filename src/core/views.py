@@ -1,10 +1,14 @@
 from django.shortcuts import render
 
-from core.context import *
-from interests.models import InterestGroup
-
+###
+# To avoid circular references, 
+# put the imports for the SOFORT modules within the functions
+###
 
 def index(request):
+    from core.context import get_meta, get_navigation_menu, get_settings
+    from interests.models import InterestGroup
+    
     meta = get_meta(current_page="home")
     #meta["current_page"] = "home"
 

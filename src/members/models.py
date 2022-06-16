@@ -1,8 +1,14 @@
-from core.fields import CoreModel, UniqueCharField, MandatoryCharField, UniqueEmailField, DefaultFieldNow, \
-    DefaultFieldTrue
+###
+# To avoid circular references, 
+# put the imports for the SOFORT modules within the functions 
+# (except CoreModel which cannot be imported inline because of the inheritance)
+###
 
+from core.fields import CoreModel
 
 class Member(CoreModel):
+    from core.fields import UniqueCharField, MandatoryCharField, UniqueEmailField, DefaultFieldNow, DefaultFieldTrue
+    
     member_name = UniqueCharField(max_length=20)
     first_name = MandatoryCharField(max_length=50)
     last_name = MandatoryCharField(max_length=75)

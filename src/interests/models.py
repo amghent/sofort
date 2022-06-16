@@ -1,10 +1,17 @@
 from django.db.models import ManyToManyField
 
-from core.models import CoreModel, UniqueCharField, MandatoryTextField, MandatoryCharField
-from members.models import Member
+###
+# To avoid circular references, 
+# put the imports for the SOFORT modules within the functions 
+# (except CoreModel which cannot be imported inline because of the inheritance)
+###
 
+from core.models import CoreModel
 
 class InterestGroup(CoreModel):
+    from core.models import UniqueCharField, MandatoryTextField, MandatoryCharField
+    from members.models import Member
+
     name = UniqueCharField(max_length=30)
     slug = UniqueCharField(max_length=30)
     description = MandatoryCharField(max_length=150)
