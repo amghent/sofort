@@ -6,7 +6,7 @@ from django.db import models
 # (except CoreModel which cannot be imported inline because of the inheritance)
 ###
 
-from core.fields import CoreModel
+from core.fields import CoreModel, MandatoryCharField
 
 class QuestionCommon(CoreModel):
     from members.models import Member

@@ -31,7 +31,7 @@ class Command(BaseCommand):
             copyright_year += f"-{current_year}"            
         
         Setting(name="application_name", text="SOFORT").save()
-        Setting(name="application_application_long_name", text="SOftware FORum Tool").save()
+        Setting(name="application_long_name", text="SOftware FORum Tool").save()
         Setting(name="application_title", text="Welcome at SOFORT").save()
         Setting(name="authors", text="Yves Vindevogel").save()
         Setting(name="copyright", text=f"© { copyright_year }, Arcelor Mittal Ghent").save()

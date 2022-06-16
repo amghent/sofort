@@ -18,7 +18,7 @@ def index(request, interest):
     side_bar = get_side_bar(slug=interest)
 
     interest_group = InterestGroup.objects.get(slug=interest)
-    questions = Question.objects.get(interest_group=interest_group)
+    questions = Question.objects.filter(interest_group=interest_group)
 
     context = {
         "meta": meta,
