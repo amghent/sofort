@@ -137,13 +137,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'nl-be'
+TIME_ZONE = 'Europe/Brussels'
 USE_I18N = True
-
 USE_TZ = True
+DATE_TIME_FORMAT = '%Y-%m-%d %H:%M'
 
 
 # Static files (CSS, JavaScript, Images)
