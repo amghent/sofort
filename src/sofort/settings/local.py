@@ -70,7 +70,11 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [
-            os.path.join(BASE_DIR, '..', '_templates', 'default')
+            os.path.join(BASE_DIR, '..', '_templates', 'default'),
+            os.path.join(BASE_DIR, '..', 'core', 'templates'),
+            os.path.join(BASE_DIR, '..', 'interests', 'templates'),
+            os.path.join(BASE_DIR, '..', 'pages', 'templates'),
+            os.path.join(BASE_DIR, '..', 'questions', 'templates')
         ],
         'APP_DIRS': False,
         'OPTIONS': {
