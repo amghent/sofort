@@ -5,6 +5,7 @@ from django.shortcuts import render
 # put the imports for the SOFORT modules within the functions
 ###
 
+
 def index(request, interest):
     # to avoid circular references, get_side_bar must be declared inline
     from core.context import get_meta, get_navigation_menu, get_settings

@@ -5,6 +5,7 @@ from django.urls import reverse
 # put the imports for the SOFORT modules within the functions
 ###
 
+
 def get_side_bar(slug):
     from interests import views as interests_views
     from pages import views as pages_views

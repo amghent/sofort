@@ -1,9 +1,8 @@
-from django.urls import reverse
-
 ###
 # To avoid circular references, 
 # put the imports for the SOFORT modules within the functions
 ###
+
 
 def get_meta(**kwargs):
     meta = {}
@@ -12,6 +11,7 @@ def get_meta(**kwargs):
         meta[k] = kwargs[k]
 
     return meta
+
 
 def get_navigation_menu():
     from pages.models import Page

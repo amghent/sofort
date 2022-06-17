@@ -6,7 +6,8 @@ from django.db import models
 # (except CoreModel which cannot be imported inline because of the inheritance)
 ###
 
-from core.fields import CoreModel, MandatoryCharField
+from core.fields import CoreModel
+
 
 class QuestionCommon(CoreModel):
     from members.models import Member
@@ -21,7 +22,8 @@ class QuestionCommon(CoreModel):
     
     class Meta:
         abstract = True
-    
+
+
 class Question(QuestionCommon):
     from interests.models import InterestGroup
     from core.fields import MandatoryCharField
@@ -38,7 +40,8 @@ class QuestionAnswer(QuestionCommon):
 
     class Meta:
         abstract = False
-    
+
+
 class QuestionDiscussion(QuestionCommon):
     question_answer = models.ForeignKey(QuestionAnswer, on_delete=models.CASCADE)
 

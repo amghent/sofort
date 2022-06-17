@@ -8,6 +8,7 @@ from django.db.models import ManyToManyField
 
 from core.models import CoreModel
 
+
 class InterestGroup(CoreModel):
     from core.models import UniqueCharField, MandatoryTextField, MandatoryCharField
     from members.models import Member

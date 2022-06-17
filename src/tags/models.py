@@ -6,6 +6,7 @@
 
 from core.fields import CoreModel
 
+
 class Tag(CoreModel):
     from core.fields import UniqueCharField
     

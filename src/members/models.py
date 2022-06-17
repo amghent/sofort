@@ -6,6 +6,7 @@
 
 from core.fields import CoreModel
 
+
 class Member(CoreModel):
     from core.fields import UniqueCharField, MandatoryCharField, UniqueEmailField, DefaultFieldNow, DefaultFieldTrue
     

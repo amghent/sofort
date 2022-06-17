@@ -114,12 +114,10 @@ class Command(BaseCommand):
 
         under_construction.show_in_navigation = False
         under_construction.show_in_footer = False
-        # under_construction.menu_title = ""
 
         under_construction.save()
 
         under_construction.authors.add(self.__get_member("sidviny"))
-
 
     @staticmethod
     def __get_member(member_name: str) -> Member:

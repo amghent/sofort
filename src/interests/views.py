@@ -5,6 +5,7 @@ from django.shortcuts import render
 # put the imports for the SOFORT modules within the functions 
 ###
 
+
 def interest_group_detail(request, slug):
     from core.context import get_meta, get_settings, get_navigation_menu
     from interests.models import InterestGroup
@@ -26,6 +27,7 @@ def interest_group_detail(request, slug):
     }
 
     return render(request, "interests/interest_group_detail.jinja2", context)
+
 
 def interest_group_about(request, slug):
     from core.context import get_meta, get_settings, get_navigation_menu
