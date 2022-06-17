@@ -31,3 +31,30 @@ def index(request, interest):
     }
 
     return render(request, "questions/index.jinja2", context)
+
+
+def detail(request, interest, uuid):
+    # to avoid circular references, get_side_bar must be declared inline
+    from core.context import get_meta, get_navigation_menu, get_settings
+    from interests.context import get_side_bar
+    from interests.models import InterestGroup
+    from questions.models import Question
+
+    meta = get_meta(current_page="questions_detail", interest=interest)
+    navigation_menu = get_navigation_menu()
+    settings = get_settings()
+    side_bar = get_side_bar(slug=interest)
+
+    interest_group = InterestGroup.objects.get(slug=interest)
+    question = Question.objects.get(id=uuid)
+
+    context = {
+        "meta": meta,
+        "settings": settings,
+        "navigation_menu": navigation_menu,
+        "side_bar": side_bar,
+        "interest_group": interest_group,
+        "question": question
+    }
+
+    return render(request, "questions/detail.jinja2", context)

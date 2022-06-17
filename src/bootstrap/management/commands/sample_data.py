@@ -5,6 +5,7 @@ from core.models import Setting
 from interests.models import InterestGroup
 from members.models import Member
 from pages.models import Page
+from questions.models import Question, QuestionAnswer
 from tags.models import Tag
 
 
@@ -18,6 +19,7 @@ class Command(BaseCommand):
         self.__upload_tags()
         self.__upload_interest_groups()
         self.__upload_pages()
+        self.__upload_questions()
 
         print("sample data created")
 
@@ -119,9 +121,42 @@ class Command(BaseCommand):
 
         under_construction.authors.add(self.__get_member("sidviny"))
 
+    def __upload_questions(self):
+        q1 = Question()
+
+        q1.author = self.__get_member("sidviny")
+        q1.title = "Why is SOFORT written in Python ?"
+        q1.text = "I was wondering why SOFORT is written in Python, and Django ?"
+        q1.interest_group = self.__get_interest_group("python")
+
+        q1.save()
+
+        a1 = QuestionAnswer()
+
+        a1.question = q1
+        a1.author = self.__get_member("sidviny")
+        a1.text = "It was written in Python because Python is the best programming language at this moment."
+
+        a1.save()
+
+        a2 = QuestionAnswer()
+
+        a2.question = q1
+        a2.author = self.__get_member("sidviny")
+        a2.text = "It was written in Python because Python is the best programming language at this moment."
+
+        a2.save()
+
     @staticmethod
     def __get_member(member_name: str) -> Member:
         member = Member.objects.get(member_name=member_name)
         assert member is not None
 
         return member
+
+    @staticmethod
+    def __get_interest_group(slug: str) -> InterestGroup:
+        ig = InterestGroup.objects.get(slug=slug)
+        assert ig is not None
+
+        return ig
