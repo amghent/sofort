@@ -1,12 +1,12 @@
-{% extends "sidebar.jinja2" %}
+{% extends "editor.jinja2" %}
 
 {% block sidebar%}
     <div class="border-end bg-white" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light">{{ interest_group.name }}</div>
-        
+
         <div class="list-group list-group-flush border-bottom m-0 p-0">
             {% for sb in side_bar%}
-                <a class="list-group-item list-group-item-action list-group-item-light px-3 py-2" 
+                <a class="list-group-item list-group-item-action list-group-item-light px-3 py-2"
                 href="{{ sb.href }}">{{ sb.title }}</a>
             {% endfor%}
         </div>
@@ -14,10 +14,61 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid px-2 px-lg-3">
-        <div class="mt-3">
-            <h1>{{ question.title }}</h1>
+    <div class="container-fluid px-2 px-lg-3 mt-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <article>
+                    <header class="mb-4">
+                        <h1 class="fw-bolder mb-1">{{ question.title }}</h1>
+                        <div class="text-muted fst-italic mb-2">{{ question.created_at | dt_to_user_frmt }} - {{ question.author }}</div>
+                        <!-- for tags
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a -->
+                    </header>
+
+                    <section class="mb-5">
+                        <p>{{ question.text }}</p>
+                    </section>
+                </article>
+
+                <section class="mb-5">
+                    <div class="card bg-light">
+                        <div class="card-body">
+
+                            {% for a in answers %}
+                            <div class="d-flex mb-4">
+                                <div class="flex-shrink-0">
+                                    <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                </div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">{{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</div>
+                                    <p>{{ a.text }}</p>
+
+                                    {% for d in discussions %}
+                                        {% if d.question_answer == a %}
+                                            <div class="d-flex mt-4">
+                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                                <div class="ms-3">
+                                                    <div class="fw-bold">{{ d.author }} - {{ d.created_at | dt_to_user_frmt }}</div>
+                                                    <p>{{ d.text }}</p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    <form class="mb-4">
+                                        <textarea class="form-control" placeholder="Join the discussion"></textarea>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            <form class="mb-4">
+                                <textarea class="form-control" rows="3" placeholder="Your answer goes there"></textarea>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 {% endblock %}
-

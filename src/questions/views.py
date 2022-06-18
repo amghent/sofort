@@ -4,6 +4,7 @@ from django.shortcuts import render
 # To avoid circular references, 
 # put the imports for the SOFORT modules within the functions
 ###
+from questions.models import QuestionAnswer, QuestionDiscussion
 
 
 def index(request, interest):
@@ -19,7 +20,7 @@ def index(request, interest):
     side_bar = get_side_bar(slug=interest)
 
     interest_group = InterestGroup.objects.get(slug=interest)
-    questions = Question.objects.filter(interest_group=interest_group)
+    questions = Question.objects.filter(interest_group=interest_group).order_by("-created_at")
 
     context = {
         "meta": meta,
@@ -47,6 +48,8 @@ def detail(request, interest, uuid):
 
     interest_group = InterestGroup.objects.get(slug=interest)
     question = Question.objects.get(id=uuid)
+    answers = QuestionAnswer.objects.filter(question=question.id)
+    discussions = QuestionDiscussion.objects.filter(question_answer__question_id=question.id)
 
     context = {
         "meta": meta,
@@ -54,7 +57,9 @@ def detail(request, interest, uuid):
         "navigation_menu": navigation_menu,
         "side_bar": side_bar,
         "interest_group": interest_group,
-        "question": question
+        "question": question,
+        "answers": answers,
+        "discussions": discussions
     }
 
     return render(request, "questions/detail.jinja2", context)

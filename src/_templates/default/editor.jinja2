@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% include "includes/datatables/head.jinja2" %}
+    {% include "includes/editor/head.jinja2" %}
 
 
     <body class="d-flex flex-column min-vh-100">
@@ -15,7 +15,5 @@
         {% include "includes/common/bootstrap_js.jinja2" %}
 
         <script src="{{ static('js/scripts.js') }}"></script>
-
-        {% block datatable_scripting %}{% endblock %}
     </body>
 </html>

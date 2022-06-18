@@ -5,7 +5,7 @@ from core.models import Setting
 from interests.models import InterestGroup
 from members.models import Member
 from pages.models import Page
-from questions.models import Question, QuestionAnswer
+from questions.models import Question, QuestionAnswer, QuestionDiscussion
 from tags.models import Tag
 
 
@@ -122,6 +122,8 @@ class Command(BaseCommand):
         under_construction.authors.add(self.__get_member("sidviny"))
 
     def __upload_questions(self):
+        sidviny = self.__get_member("sidviny")
+
         q1 = Question()
 
         q1.author = self.__get_member("sidviny")
@@ -134,7 +136,7 @@ class Command(BaseCommand):
         a1 = QuestionAnswer()
 
         a1.question = q1
-        a1.author = self.__get_member("sidviny")
+        a1.author = sidviny
         a1.text = "It was written in Python because Python is the best programming language at this moment."
 
         a1.save()
@@ -142,10 +144,51 @@ class Command(BaseCommand):
         a2 = QuestionAnswer()
 
         a2.question = q1
-        a2.author = self.__get_member("sidviny")
-        a2.text = "It was written in Python because Python is the best programming language at this moment."
+        a2.author = sidviny
+        a2.text = "Django is a great framework for fast development of this kind of tools"
 
         a2.save()
+
+        d1 = QuestionDiscussion()
+
+        d1.question_answer = a1
+        d1.author = sidviny
+        d1.text = "That's great !"
+
+        d1.save()
+
+        d2 = QuestionDiscussion()
+
+        d2.question_answer = a1
+        d2.author = sidviny
+        d2.text = "Indeed, it is"
+
+        d2.save()
+
+        q2 = Question()
+
+        q2.author = self.__get_member("sidviny")
+        q2.title = "What are pandas ?"
+        q2.text = "What are pandas and what do they have to do with snakes ?"
+        q2.interest_group = self.__get_interest_group("python")
+
+        q2.save()
+
+        a3 = QuestionAnswer()
+
+        a3.question = q2
+        a3.author = sidviny
+        a3.text = "Pandas are not animals, dude !"
+
+        a3.save()
+
+        d3 = QuestionDiscussion()
+
+        d3.question_answer = a3
+        d3.author = sidviny
+        d3.text = "Oh, sorry, my mistake"
+
+        d3.save()
 
     @staticmethod
     def __get_member(member_name: str) -> Member:
