@@ -5,13 +5,18 @@
 # note: On windows, use Cmder to run this.  
 #
 SHELL := /bin/bash
+MS_SQLCMD := /opt/mssql-tools/bin/sqlcmd
 
-SQLCMD := /opt/mssql-tools/bin/sqlcmd
-
+###
+#
 install:
 	poetry update
 	poetry install
+#
+###
 
+###
+#
 reset_migrations:
 	rm -f src/bookmarks/migrations/0001_initial.py
 	rm -f src/core/migrations/0001_initial.py
@@ -25,69 +30,80 @@ reset_migrations:
 	rm -f src/questions/migrations/0001_initial.py
 	rm -f src/tags/migrations/0001_initial.py
 	rm -f src/tutorials/migrations/0001_initial.py
-
-###
-# settings for local development at Arcelor Mittal Ghent
-create_db_am:
-	rm -f ./db/db.sqlite3
-
-migrate_am:
-	python src/manage.py makemigrations --settings=sofort.settings.am
-	python src/manage.py migrate --settings=sofort.settings.am
-
-superuser_am:
-	python src/manage.py auto_create_superuser --settings=sofort.settings.am
-
-sample_data_am:
-	python src/manage.py sample_data --settings=sofort.settings.am
-
-reset_db_am: create_db_am reset_migrations migrate_am superuser_am sample_data_am
-
-run_am: migrate_am
-	python src/manage.py runserver --settings=sofort.settings.am
 #
 ###
 
 ###
-# settings for local development at vindevoy's Linux pc
-create_db_local:
+#
+validate:
+ifndef SETTINGS
+	@echo "Specify SETTINGS to set the environment"
+	@exit 1
+endif
+#
+###
+
+###
+#
+login: validate
+ifeq ("$(SETTINGS)", "sofort.settings.mssql")
+	source ./src/bootstrap/management/config/mssql/sa.secret && \
+	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/drop_login.sql  && \
+	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/create_login.sql
+endif
+#
+###
+
+###
+#
+create_db: validate
+ifeq ("$(SETTINGS)", "sofort.settings.sqlite3")
+	rm -rf ./db/db.sqlite3
+endif
+
+ifeq ("$(SETTINGS)", "sofort.settings.postgres")
 	sudo -u postgres psql -d postgres -f src/bootstrap/management/sql/postgres/create_db.sql ;
+endif
 
-migrate_local:
-	python src/manage.py makemigrations --settings=sofort.settings.local
-	python src/manage.py migrate --settings=sofort.settings.local
-
-superuser_local:
-	python src/manage.py auto_create_superuser --settings=sofort.settings.local
-
-sample_data_local:
-	python src/manage.py sample_data --settings=sofort.settings.local
-
-reset_db_local: create_db_local reset_migrations migrate_local superuser_local sample_data_local
-
-run_local: migrate_local
-	python src/manage.py runserver --settings=sofort.settings.local
+ifeq ("$(SETTINGS)", "sofort.settings.mssql")
+	source ./src/bootstrap/management/config/mssql/sa.secret && \
+	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/drop_db.sql && \
+	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/create_db.sql
+endif
 #
 ###
 
-##
-#	Database commands SQL server - To be tested again
+###
 #
-ms_sa_secret:
-	@ source ./src/bootstrap/management/config/mssql/sa.secret
-
-ms_drop_login: ms_sa_secret
-	@ $(SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/drop_login.sql
-
-ms_create_login:
-	@ $(SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/create_login.sql
-
-ms_drop_db:
-	@ $(SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/drop_db.sql
-
-ms_create_db:
-	@ $(SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/create_db.sql
-
-ms_reset_db: ms_drop_db ms_create_db
+migrate: validate
+	python src/manage.py makemigrations --settings=$(SETTINGS)
+	python src/manage.py migrate --settings=$(SETTINGS)
 #
-##
+###
+
+###
+#
+superuser: validate
+	python src/manage.py auto_create_superuser --settings=$(SETTINGS)
+#
+###
+
+###
+#
+sample_data: validate
+	python src/manage.py sample_data --settings=$(SETTINGS)
+#
+###
+
+###
+#
+reset_db: validate create_db reset_migrations migrate superuser sample_data
+#
+###
+
+###
+#
+run: validate migrate
+	python src/manage.py runserver --settings=$(SETTINGS)
+#
+###

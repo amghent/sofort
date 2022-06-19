@@ -1,3 +1,4 @@
-CREATE LOGIN sofort WITH PASSWORD='Sofort_pwd'
+CREATE LOGIN sofort
+    WITH PASSWORD='Sofort_pwd'
 GO
 

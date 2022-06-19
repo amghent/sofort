@@ -1,3 +1,5 @@
-DROP USER IF EXISTS sofort;
-DROP DATABASE IF EXISTS sofort_dev;
+USE master
+GO
+
+DROP DATABASE IF EXISTS sofort
 GO
