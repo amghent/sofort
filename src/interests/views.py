@@ -13,12 +13,18 @@ def interest_group_detail(request, slug):
     
     interest_group = InterestGroup.objects.get(slug=slug)
 
+    load = {
+        "sidebar": True,
+        "datatables": False,
+        "editor": False
+    }
     meta = get_meta(current_page="interest_group_detail", slug=slug, side_bar=True)
-    navigation_menu = get_navigation_menu()
     settings = get_settings()
+    navigation_menu = get_navigation_menu()
     side_bar = get_side_bar(slug)
     
     context = {
+        "load": load,
         "meta": meta,
         "settings": settings,
         "navigation_menu": navigation_menu,
@@ -35,13 +41,19 @@ def interest_group_about(request, slug):
     from interests.context import get_side_bar
 
     interest_group = InterestGroup.objects.get(slug=slug)
-    
+
+    load = {
+        "sidebar": True,
+        "datatables": False,
+        "editor": False
+    }
     meta = get_meta(current_page="interest_group_about", slug=slug, side_bar=True)
-    navigation_menu = get_navigation_menu()
     settings = get_settings()
+    navigation_menu = get_navigation_menu()
     side_bar = get_side_bar(slug)
 
     context = {
+        "load": load,
         "meta": meta,
         "settings": settings,
         "navigation_menu": navigation_menu,

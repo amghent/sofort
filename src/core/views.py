@@ -9,15 +9,20 @@ from django.shortcuts import render
 def index(request):
     from core.context import get_meta, get_navigation_menu, get_settings
     from interests.models import InterestGroup
-    
-    meta = get_meta(current_page="home")
-
-    navigation_menu = get_navigation_menu()
-    settings = get_settings()
 
     interest_groups = list(InterestGroup.objects.all())
 
+    load = {
+        "sidebar": False,
+        "datatables": False,
+        "editor": False
+    }
+    meta = get_meta(current_page="home")
+    settings = get_settings()
+    navigation_menu = get_navigation_menu()
+
     context = {
+        "load": load,
         "meta": meta,
         "settings": settings,
         "navigation_menu": navigation_menu,
