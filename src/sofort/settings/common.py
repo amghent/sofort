@@ -12,6 +12,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'grappelli',
+    'filebrowser',
+    
     'bootstrap.apps.BootstrapConfig',
     'core.apps.CoreConfig',
 
@@ -88,7 +91,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'nl-be'
+LANGUAGE_CODE = 'en-US'
 TIME_ZONE = 'Europe/Brussels'
 USE_I18N = True
 USE_TZ = True
@@ -99,5 +102,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR.parent, '_templates', 'default', 'static'),
 ]
+
+MEDIA_URL = 'media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR.parent.parent, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
