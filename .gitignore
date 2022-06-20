@@ -3,6 +3,8 @@
 
 __pycache__/
 
+media/
+
 *.secret
 *.log
 *.sqlite3
