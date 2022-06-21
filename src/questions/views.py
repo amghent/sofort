@@ -4,60 +4,76 @@ from django.shortcuts import render
 # To avoid circular references, 
 # put the imports for the SOFORT modules within the functions
 ###
-from questions.models import QuestionAnswer, QuestionDiscussion
 
 
 def index(request, interest):
-    # to avoid circular references, get_side_bar must be declared inline
-    from core.context import get_meta, get_navigation_menu, get_settings
-    from interests.context import get_side_bar
-    from interests.models import InterestGroup
     from questions.models import Question
 
-    interest_group = InterestGroup.objects.get(slug=interest)
-    questions = Question.objects.filter(interest_group=interest_group).order_by("-created_at")
-
-    load = {
-        "sidebar": True,
-        "datatables": True,
-        "editor": False
-    }
-    meta = get_meta(current_page="questions_index", interest=interest)
-    settings = get_settings()
-    navigation_menu = get_navigation_menu()
-    side_bar = get_side_bar(slug=interest)
-
-    context = {
-        "load": load,
-        "meta": meta,
-        "settings": settings,
-        "navigation_menu": navigation_menu,
-        "side_bar": side_bar,
-        "interest_group": interest_group,
-        "questions": questions
-    }
+    context, interest_group = __common_context(interest=interest, current_page="questions_index")
+    context["load"]["editor"] = False  # Override
+    context["questions"] = Question.objects.filter(interest_group=interest_group).order_by("-created_at")
 
     return render(request, "questions/index.jinja2", context)
 
 
 def detail(request, interest, uuid):
-    # to avoid circular references, get_side_bar must be declared inline
+    from questions.models import Question, QuestionAnswer, QuestionDiscussion
+
+    context, interest_group = __common_context(interest=interest, current_page="questions_detail")
+
+    question = Question.objects.get(id=uuid)
+
+    context["datatables"] = False
+    context["question"] = question
+    context["answers"] = QuestionAnswer.objects.filter(question=question.id)
+    context["discussions"] = QuestionDiscussion.objects.filter(question_answer__question_id=question.id)
+
+    return render(request, "questions/detail.jinja2", context)
+
+
+def new(request, interest):
+    context, interest_group = __common_context(interest=interest, current_page="questions_new")
+
+    context["datatables"] = False
+
+    return render(request, "questions/new.jinja2", context)
+
+
+def post(request, interest):
+    from questions.models import Question
+    from members.models import Member
+
+    context, interest_group = __common_context(interest=interest, current_page="questions_post")
+
+    question = Question()
+
+    question.title = request.POST["title"]
+    question.text = request.POST["text"]
+    question.author = Member.objects.get(member_name="sidviny")
+    question.interest_group = interest_group
+
+    question.save()
+
+
+    context["question"] = question
+
+    return render(request=request, template_name="questions/detail.jinja2", context=context)
+
+
+def __common_context(interest, current_page):
+    from interests.models import InterestGroup
     from core.context import get_meta, get_navigation_menu, get_settings
     from interests.context import get_side_bar
-    from interests.models import InterestGroup
-    from questions.models import Question
 
     interest_group = InterestGroup.objects.get(slug=interest)
-    question = Question.objects.get(id=uuid)
-    answers = QuestionAnswer.objects.filter(question=question.id)
-    discussions = QuestionDiscussion.objects.filter(question_answer__question_id=question.id)
 
     load = {
         "sidebar": True,
-        "datatables": False,
+        "datatables": True,
         "editor": True
     }
-    meta = get_meta(current_page="questions_detail", interest=interest)
+
+    meta = get_meta(current_page=current_page, interest=interest)
     settings = get_settings()
     navigation_menu = get_navigation_menu()
     side_bar = get_side_bar(slug=interest)
@@ -69,9 +85,6 @@ def detail(request, interest, uuid):
         "navigation_menu": navigation_menu,
         "side_bar": side_bar,
         "interest_group": interest_group,
-        "question": question,
-        "answers": answers,
-        "discussions": discussions
     }
 
-    return render(request, "questions/detail.jinja2", context)
+    return context, interest_group

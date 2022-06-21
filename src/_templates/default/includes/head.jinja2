@@ -34,7 +34,7 @@
         <script type="text/javascript">
             tinymce.init(
             {
-                selector: 'textarea',
+                selector: 'textarea.enabled',
                 inline: false,
                 width: '100%',
                 height: 300,
@@ -44,6 +44,19 @@
                     {text: 'Python', value: 'python'},
                     {text: 'Makefile', value: 'makefile'},
                 ],
+                readonly: false,
+            });
+
+            tinymce.init(
+            {
+                selector: 'textarea.disabled',
+                inline: false,
+                width: '100%',
+                height: 300,
+                plugins: 'autoresize',
+                toolbar: '',
+                menubar: '',
+                readonly: true,
             });
       </script>
     {% endif %}
