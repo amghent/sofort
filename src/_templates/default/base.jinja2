@@ -5,7 +5,7 @@
     <body class="d-flex flex-column min-vh-100">
         {% include "includes/nav.jinja2" %}
 
-        <div class="d-flex" id="wrapper">
+        <div class="d-flex flex-row" id="page-wrapper">
             {% if load.sidebar %}
                 {% block sidebar %}{% endblock %}
             {% endif %}
