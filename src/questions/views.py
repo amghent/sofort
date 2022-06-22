@@ -19,10 +19,9 @@ def index(request, interest):
 def detail(request, interest, uuid):
     from questions.models import Question, QuestionAnswer, QuestionDiscussion
 
-    context, interest_group = __common_context(interest=interest, current_page="questions_detail")
-
     question = Question.objects.get(id=uuid)
 
+    context, _ = __common_context(interest=interest, current_page="questions_detail")
     context["datatables"] = False
     context["question"] = question
     context["answers"] = QuestionAnswer.objects.filter(question=question.id)
@@ -32,8 +31,7 @@ def detail(request, interest, uuid):
 
 
 def new(request, interest):
-    context, interest_group = __common_context(interest=interest, current_page="questions_new")
-
+    context, _ = __common_context(interest=interest, current_page="questions_new")
     context["datatables"] = False
 
     return render(request, "questions/new.jinja2", context)
@@ -54,7 +52,6 @@ def post(request, interest):
 
     question.save()
 
-
     context["question"] = question
 
     return render(request=request, template_name="questions/detail.jinja2", context=context)
@@ -62,29 +59,13 @@ def post(request, interest):
 
 def __common_context(interest, current_page):
     from interests.models import InterestGroup
-    from core.context import get_meta, get_navigation_menu, get_settings
-    from interests.context import get_side_bar
+    from core.context import get_default_context
+    from interests.context import get_sidebar
 
     interest_group = InterestGroup.objects.get(slug=interest)
 
-    load = {
-        "sidebar": True,
-        "datatables": True,
-        "editor": True
-    }
-
-    meta = get_meta(current_page=current_page, interest=interest)
-    settings = get_settings()
-    navigation_menu = get_navigation_menu()
-    side_bar = get_side_bar(slug=interest)
-
-    context = {
-        "load": load,
-        "meta": meta,
-        "settings": settings,
-        "navigation_menu": navigation_menu,
-        "side_bar": side_bar,
-        "interest_group": interest_group,
-    }
+    context = get_default_context(current_page=current_page, interest=interest)
+    context["sidebar"] =get_sidebar(slug=interest)
+    context["interest_group"] = interest_group
 
     return context, interest_group

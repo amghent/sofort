@@ -7,26 +7,15 @@ from django.shortcuts import render
 
 
 def index(request):
-    from core.context import get_meta, get_navigation_menu, get_settings
+    from core.context import get_default_context
     from interests.models import InterestGroup
 
     interest_groups = list(InterestGroup.objects.all())
 
-    load = {
-        "sidebar": False,
-        "datatables": False,
-        "editor": False
-    }
-    meta = get_meta(current_page="home")
-    settings = get_settings()
-    navigation_menu = get_navigation_menu()
-
-    context = {
-        "load": load,
-        "meta": meta,
-        "settings": settings,
-        "navigation_menu": navigation_menu,
-        "interest_groups": interest_groups
-    }
+    context = get_default_context(current_page="home")
+    context["load"]["datatables"] = False
+    context["load"]["sidebar"] = False
+    context["load"]["editor"] = False
+    context["interest_groups"] = interest_groups
 
     return render(request, "core/index.jinja2", context)

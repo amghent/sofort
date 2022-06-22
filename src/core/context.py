@@ -4,7 +4,23 @@
 ###
 
 
-def get_meta(**kwargs):
+def get_default_context(**kwargs):
+    context = {
+        "settings": __get_settings(),
+        "load": {
+            "sidebar": True,
+            "datatables": True,
+            "editor": True
+        },
+        "meta": __get_meta(kwargs=kwargs),
+        "navigation_menu": __get_navigation_menu(),
+        "layout": __get_layout()
+    }
+    
+    return context
+    
+    
+def __get_meta(**kwargs):
     meta = {}
     
     for k in kwargs:
@@ -13,13 +29,13 @@ def get_meta(**kwargs):
     return meta
 
 
-def get_navigation_menu():
+def __get_navigation_menu():
     from pages.models import Page
 
     return list(Page.objects.filter(show_in_navigation=True))
 
 
-def get_settings():
+def __get_settings():
     from core.models import Setting
     
     settings_data = Setting.objects.all()
@@ -29,3 +45,8 @@ def get_settings():
         settings[setting.name] = setting.text
 
     return settings
+
+def __get_layout():
+    layout = {}
+    
+    return layout
