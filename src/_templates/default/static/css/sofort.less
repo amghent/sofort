@@ -1,0 +1,36 @@
+@import "styles.less";
+@import "sofort-bs.less";
+
+
+/*
+    Own sofort classes to easily update the margins, paddings, ... on the bootstrap components
+
+ */
+
+.gx-2 {}
+.gx-lg-3 {}
+
+@media (min-width: 1200px) {
+    .gx-2 {
+        --bs-gutter-x: 0.5rem;
+    }
+
+    .gx-lg-3 {
+        --bs-gutter-x: 1rem;
+    }
+
+    .sf_index_welcome {
+        .row();
+        .gx-2();
+        .gx-lg-3();
+        .align-items-center();
+        .py-3();
+        .mx-1()
+    }
+}
+
+.sf_index_welcome_image {
+    .img-fluid();
+    .rounded();
+    .mb-3()
+}

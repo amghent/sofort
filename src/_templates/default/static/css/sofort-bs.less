@@ -1,0 +1,28 @@
+
+/*
+    Overrides on the default styles.css supplied by startbootstrap
+ */
+
+:root {
+    --nav-height: 48px;
+    /* --nav-height is not used to set the height itself because that would fix it also when the menu is visible */
+    --footer-height: 40px;
+}
+
+footer {
+    height: var(--footer-height);
+}
+
+#sidebar-wrapper {
+    width: auto;
+    min-height: calc(100vh - var(--nav-height) - var(--footer-height));
+}
+
+#page-wrapper {
+    min-height: calc(100vh - var(--nav-height) - var(--footer-height));
+    width: 100%;
+}
+
+#sidebar-wrapper .list-group {
+    width: 12rem;
+}

@@ -103,7 +103,14 @@ reset_db: validate create_db reset_migrations migrate superuser sample_data
 
 ###
 #
-run: validate migrate
+css:
+	lessc ./src/_templates/default/static/css/sofort.less ./src/_templates/default/static/css/sofort.css
+#
+###
+
+###
+#
+run: validate css migrate
 	python src/manage.py runserver --settings=$(SETTINGS)
 #
 ###
