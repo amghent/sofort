@@ -47,6 +47,6 @@ def __get_settings():
     return settings
 
 def __get_layout():
-    layout = {}
+    from core.layout import Layout
     
-    return layout
+    return Layout()

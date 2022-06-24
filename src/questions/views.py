@@ -59,12 +59,12 @@ def post(request, interest):
 
 def __common_context(interest, current_page):
     from interests.models import InterestGroup
-    from core.context import get_default_context
+    from core.context import Context
     from interests.context import get_sidebar
 
     interest_group = InterestGroup.objects.get(slug=interest)
 
-    context = get_default_context(current_page=current_page, interest=interest)
+    context = Context(current_page=current_page, interest=interest).get()
     context["sidebar"] =get_sidebar(slug=interest)
     context["interest_group"] = interest_group
 
