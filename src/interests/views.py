@@ -36,3 +36,17 @@ def interest_group_about(request, slug):
     context["interest_group"] = interest_group
 
     return render(request, "interests/interest_group_about.jinja2", context)
+
+
+def interest_group_under_construction(request, slug):
+    from core.context import Context
+    from interests.models import InterestGroup
+    from interests.context import get_sidebar
+
+    interest_group = InterestGroup.objects.get(slug=slug)
+
+    context = Context(current_page="interest_group_under_construction", slug=slug, sidebar=True).get()
+    context["sidebar"] = get_sidebar(slug)
+    context["interest_group"] = interest_group
+
+    return render(request, "interests/interest_group_under_construction.jinja2", context)
