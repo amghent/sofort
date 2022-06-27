@@ -18,6 +18,4 @@ def index(request):
     context["load"]["editor"] = False
     context["interest_groups"] = interest_groups
 
-    print(context)
-    
     return render(request, "core/index.jinja2", context)
