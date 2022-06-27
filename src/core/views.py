@@ -19,3 +19,20 @@ def index(request):
     context["interest_groups"] = interest_groups
 
     return render(request, "core/index.jinja2", context)
+
+def check_login(request):
+    from core.context import Context
+    from interests.models import InterestGroup
+
+    print(f"User: {request.POST['username']}")
+    print(f"Pwd: {request.POST['password']}")
+    
+    interest_groups = list(InterestGroup.objects.all())
+
+    context = Context(current_page="home").get()
+    context["load"]["datatables"] = False
+    context["load"]["sidebar"] = False
+    context["load"]["editor"] = False
+    context["interest_groups"] = interest_groups
+
+    return render(request, "core/index.jinja2", context)

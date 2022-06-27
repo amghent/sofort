@@ -1,0 +1,24 @@
+{% from "core/common.jinja2" import sf_common %}
+
+<div class="card">
+    <div class="card-header">Login</div>
+
+    <div class="card-body">
+        <form method="POST" action="{{ url('check_login') }}"
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+            <label for="username" class="{{ sf_common.layout.form_label }}">User name:</label>
+            <input type="text" id="username" name="username" 
+                class="{{ sf_common.layout.form_control }}" 
+                required data-validation-required-message="Please enter your user name."/>
+
+            <label for="password" class="{{ sf_common.layout.form_label }}">Password:</label>
+            <input type="password" id="password" name="password" 
+                class="{{ sf_common.layout.form_control }}" 
+                required data-validation-required-message="Please enter your password."/>    
+
+            <button type="submit" class="{{ sf_common.layout.submit_button }}">Submit</button>
+        </form>
+    </div>
+
+</div>
