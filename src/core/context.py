@@ -12,7 +12,7 @@ class Context:
                 "datatables": True,
                 "editor": True
             },
-            "meta": self.__get_meta(kwargs=kwargs),
+            "meta": self.__get_meta(**kwargs),  # Do not pass as named parameters (kwargs=kwargs)
             "navigation_menu": self.__get_navigation_menu(),
         }
 
@@ -21,8 +21,6 @@ class Context:
 
     @staticmethod
     def __get_meta(**kwargs):
-        print(kwargs)
-
         meta = {}
 
         for k in kwargs:
