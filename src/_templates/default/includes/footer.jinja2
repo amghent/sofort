@@ -1,5 +1,7 @@
-<footer class="{{ layout.sf_footer }}">
-    <div class="{{ layout.sf_footer_container }}">
-        <p class="{{ layout.sf_footer_text }}">{{ settings.copyright }}</p>
+{% from "core/settings.jinja2" import sf_core %}
+
+<footer class="{{ sf_core.layout.footer.wrapper }}">
+    <div class="{{ sf_core.layout.footer.container }}">
+        <p class="{{ sf_core.layout.footer.text }}">{{ settings.copyright }}</p>
     </div>
 </footer>

@@ -1,5 +1,9 @@
+{% from "core/settings.jinja2" import sf_core %}
+
 {% if settings.important_message %}
-    <div class="card text-white bg-secondary my-2 py-2 text-center">
-        <div class="card-body"><p class="text-white m-0">{{ settings.important_message }}</p></div>
+    <div class="{{ sf_core.layout.important.card }}">
+        <div class="{{ sf_core.layout.important.card_body }}">
+            <p class="{{ sf_core.layout.important.card_text }}">{{ settings.important_message }}</p>
+        </div>
     </div>
 {% endif %}

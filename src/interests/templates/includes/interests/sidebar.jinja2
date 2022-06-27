@@ -1,9 +1,11 @@
-<div class="border-end" id="sidebar-wrapper">
-    <div class="sidebar-heading border-bottom bg-light">{{ interest_group.name }}</div>
+{% from "interests/settings.jinja2" import sf_interests %}
+
+<div class="{{ sf_interests.layout.sidebar.wrapper }}" id="sidebar-wrapper">
+    <div class="{{ sf_interests.layout.sidebar.heading }}">{{ interest_group.name }}</div>
     
-    <div class="list-group list-group-flush border-bottom m-0 p-0">
+    <div class="{{ sf_interests.layout.sidebar.list }}">
         {% for sb in sidebar%}
-            <a class="list-group-item list-group-item-action list-group-item-light px-2 py-1" 
+            <a class="{{ sf_interests.layout.sidebar.item }}"
             href="{{ sb.href }}">{{ sb.title }}</a>
         {% endfor%}
     </div>

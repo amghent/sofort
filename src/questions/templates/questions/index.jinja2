@@ -1,18 +1,23 @@
 {% extends "base.jinja2" %}
 
+{% from "questions/settings.jinja2" import sf_questions %}
+{% from "core/common.jinja2" import sf_common%}
+
 {% block sidebar %}
-    {% include "includes/interest_group_sidebar.jinja2" %}
+    {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid px-2 px-lg-3">
-        <div class="mt-3">
-            <a href="{{ url('questions_new', args=[interest_group.slug]) }}" class="btn btn-primary float-end" id="newQuestion">New Question</a>
+    <div id="content-wrapper" class="container-fluid">
+        <div>
+            <a href="{{ url('questions_new', args=[interest_group.slug]) }}"
+               class="{{ sf_questions.layout.index.buttons.new }}" id="new_question">New Question</a>
         </div>
-        <div class="mt-5">
+
+        <div>
             <h1>Questions</h1>    
 
-            <table id="questions_dt" class="table table-striped" style="width:100%">
+            <table id="questions_dt" class="{{ sf_common.layout.datatable }}">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -33,20 +38,13 @@
                         </tr>
                     {% endfor %}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Created</th>
-                    </tr>
-                </tfoot>
-            </table>        
+            </table>
         </div>
     </div>
 {% endblock %}
 
 {% block datatable_scripting %}
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
             $('#questions_dt').DataTable();
         });

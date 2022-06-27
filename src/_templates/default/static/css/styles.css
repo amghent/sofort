@@ -5,7 +5,6 @@
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-small-business/blob/master/LICENSE)
 */
 /*!
-/*!
 * Start Bootstrap - Simple Sidebar v6.0.5 (https://startbootstrap.com/template/simple-sidebar)
 * Copyright 2013-2022 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
@@ -5066,11 +5065,9 @@ textarea.form-control-lg {
   display: flex;
   flex-direction: column;
   padding-left: 0;
-  margin-bottom: 3px;
+  margin-bottom: 0;
   border-radius: 0.25rem;
 }
-
-.list-group.list-group-flush {}
 
 .list-group-numbered {
   list-style-type: none;

@@ -65,7 +65,7 @@ def __common_context(interest, current_page):
     interest_group = InterestGroup.objects.get(slug=interest)
 
     context = Context(current_page=current_page, interest=interest).get()
-    context["sidebar"] =get_sidebar(slug=interest)
+    context["sidebar"] = get_sidebar(slug=interest)
     context["interest_group"] = interest_group
 
     return context, interest_group

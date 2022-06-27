@@ -1,13 +1,16 @@
-<div class="row gx-3 gx-lg-4">
+{% from "core/settings.jinja2" import sf_core %}
+
+<div class="{{ sf_core.layout.interest_groups.wrapper }}">
     {% for ig in interest_groups %}
-        <div class="col-md-4 mb-3">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">{{ ig.name }}</h2>
-                    <p class="card-text">{{ ig.description }}</p>
+        <div class="{{ sf_core.layout.interest_groups.group }}">
+            <div class="{{ sf_core.layout.interest_groups.card }}">
+                <div class="{{ sf_core.layout.interest_groups.card_body }}">
+                    <h2 class="{{ sf_core.layout.interest_groups.card_title }}">{{ ig.name }}</h2>
+                    <p class="{{ sf_core.layout.interest_groups.card_text }}">{{ ig.description }}</p>
                 </div>
-                <div class="card-footer">
-                    <a class="btn btn-primary btn-sm" href="{{ url('interest_group_detail', args = [ig.slug]) }}">Go to {{  ig.name }}'s home</a>
+                <div class="{{ sf_core.layout.interest_groups.card_footer }}">
+                    <a class="{{ sf_core.layout.interest_groups.card_button }}"
+                       href="{{ url('interest_group_detail', args = [ig.slug]) }}">Go to {{  ig.name }}'s home</a>
                 </div>
             </div>
         </div>

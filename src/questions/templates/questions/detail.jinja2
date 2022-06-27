@@ -1,65 +1,81 @@
 {% extends "base.jinja2" %}
 
+{% from "questions/settings.jinja2" import sf_questions %}
+{% from "core/common.jinja2" import sf_common %}
+
 {% block sidebar %}
-    {% include "includes/interest_group_sidebar.jinja2" %}
+    {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid px-2 px-lg-3">
+    <div id="content-wrapper" class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 mt-3">
-                <article>
-                    <header class="mb-3">
-                        <h1 class="fw-bolder mb-1">{{ question.title }}</h1>
-                        <div class="text-muted fst-italic mb-2">{{ question.created_at | dt_to_user_frmt }} - {{ question.author }}</div>
-                        <!-- for tags
-                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a -->
-                    </header>
+            <article>
+                <header class="{{ sf_questions.layout.detail.question.header }}">
+                    <h1>{{ question.title }}</h1>
+                    <div class="{{ sf_questions.layout.detail.question.user_date }}">
+                        {{ question.created_at | dt_to_user_frmt }} - {{ question.author }}</div>
+                    <!-- for tags
+                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a -->
+                </header>
 
-                    <section class="mb-3">
+                <section class="{{ sf_questions.layout.detail.question.section }}">
+                    <label>
                         <textarea class="disabled">{{ question.text }}</textarea>
-                    </section>
-                </article>
-
-                <section class="mb-5">
-                    <div class="card bg-light">
-                        <div class="card-body">
-
-                            {% for a in answers %}
-                            <div class="d-flex mb-4">
-                                <div class="flex-shrink-0">
-                                    <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-                                </div>
-                                <div class="ms-2 w-100">
-                                    <div class="fw-bold">{{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</div>
-                                    <p>{{ a.text }}</p>
-
-                                    {% for d in discussions %}
-                                        {% if d.question_answer == a %}
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">{{ d.author }} - {{ d.created_at | dt_to_user_frmt }}</div>
-                                                    <p>{{ d.text }}</p>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-
-                                    <form class="mb-3">
-                                        <textarea class="form-control enabled" placeholder="Join the discussion"></textarea>
-                                    </form>
-                                </div>
-                            </div>
-                            {% endfor %}
-
-                            <form class="mb-3">
-                                <textarea class="form-control enabled" rows="3" placeholder="Your answer goes there"></textarea>
-                            </form>
-                        </div>
-                    </div>
+                    </label>
                 </section>
-            </div>
+            </article>
+
+            <section>
+                <div class="{{ sf_questions.layout.detail.answers.wrapper }}">
+
+                    {% for a in answers %}
+                        <div class="{{ sf_questions.layout.detail.answer.wrapper }}">
+                            <div class="{{ sf_common.layout.avatar.wrapper }}">
+                                <img class="{{ sf_common.layout.avatar.image }}"
+                                     src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                     alt="{{ a.author }}" />
+                            </div>
+                            <div class="{{ sf_questions.layout.detail.discussions.wrapper }} w-100">
+                                <div class="{{ sf_questions.layout.detail.answer.author }}">
+                                    {{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</div>
+                                <p>{{ a.text }}</p>
+
+                                {% for d in discussions %}
+                                    {% if d.question_answer == a %}
+                                        <div class="{{ sf_questions.layout.detail.discussion.wrapper }}">
+                                            <div class="{{ sf_common.layout.avatar.wrapper }}">
+                                                <img class="{{ sf_common.layout.avatar.image }}"
+                                                     src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                     alt="{{ a.author }}" />
+                                            </div>
+                                            <div class="{{ sf_questions.layout.detail.discussion.text }}">
+                                                <div class="{{ sf_questions.layout.detail.discussion.author }}">
+                                                    {{ d.author }} - {{ d.created_at | dt_to_user_frmt }}</div>
+                                                <p>{{ d.text }}</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <form>
+                                    <label>
+                                        <textarea class="form-control enabled" placeholder="Reply to this answer">
+                                        </textarea>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <form>
+                        <label>
+                            <textarea id="new_answer" class="form-control enabled"
+                                      placeholder="Your answer goes there"></textarea>
+                        </label>
+                    </form>
+                </div>
+            </section>
         </div>
     </div>
 {% endblock %}
