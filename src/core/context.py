@@ -12,7 +12,7 @@ class Context:
         member = None
 
         if user is not None:
-            member = MemberContext().get_member_from_username(username=user.username)
+            member = MemberContext().get_member_from_username(user=user)
 
         self.context = {
             "user": user,

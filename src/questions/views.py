@@ -43,7 +43,7 @@ def new(request, interest: str):
 @login_required
 def post(request, interest: str):
     from questions.models import Question
-    from members.models import Member
+    from members.context import Context as MemberContext
 
     context, interest_group = __common_context(request=request, interest=interest, current_page="questions_post")
 
@@ -51,7 +51,7 @@ def post(request, interest: str):
 
     question.title = request.POST["title"]
     question.text = request.POST["text"]
-    question.author = Member.objects.get(member_name="sidviny")
+    question.author = MemberContext.get_member_from_username(user=request.user)
     question.interest_group = interest_group
 
     question.save()

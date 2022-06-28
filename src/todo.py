@@ -2,6 +2,7 @@
 # TODO: Messages should be on base.jinja2 so it's included everywhere by default
 # FIXME: Update the copyright
 
-# FIXME: Username is sidviny everywhere
 # FIXME: Save button on answers
 # FIXME: Save button on discussions
+
+# FIXME: URGENT - Submit new question does not work
