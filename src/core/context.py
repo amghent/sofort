@@ -3,9 +3,20 @@
 # put the imports for the SOFORT modules within the functions
 ###
 
+
 class Context:
-    def __init__(self, **kwargs):
+    def __init__(self, request, **kwargs):
+        from members.context import Context as MemberContext
+
+        user = request.user
+        member = None
+
+        if user is not None:
+            member = MemberContext().get_member_from_username(user.username)
+
         self.context = {
+            "user": user,
+            "member": member,
             "settings": self.__get_settings(),
             "load": {
                 "sidebar": True,

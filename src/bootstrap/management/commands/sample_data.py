@@ -62,6 +62,16 @@ class Command(BaseCommand):
         Tag(name="dex").save()
 
     def __upload_interest_groups(self):
+        sofort_group = InterestGroup()
+
+        sofort_group.name = "SOFORT"
+        sofort_group.slug = "sofort"
+        sofort_group.description = "Group of people working on this tool."
+        sofort_group.about = "Welcome to the SOFORT Interest Group. " \
+                             "Seems you like the tool and want to help us grow it !"
+
+        sofort_group.save()
+
         py_group = InterestGroup()
 
         py_group.name = "AM Python"

@@ -110,3 +110,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR.parent.parent, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # TODO: Autofield can be used maybe to generate a simple ID for a question,
 # which is more readable than the UUID in the URL
+
+LOGIN_URL = 'index'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'

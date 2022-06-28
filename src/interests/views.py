@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 ###
@@ -6,6 +7,7 @@ from django.shortcuts import render
 ###
 
 
+@login_required
 def interest_group_detail(request, slug):
     from core.context import Context
     from interests.models import InterestGroup
@@ -13,7 +15,7 @@ def interest_group_detail(request, slug):
     
     interest_group = InterestGroup.objects.get(slug=slug)
 
-    context = Context(current_page="interest_group_detail", slug=slug, sidebar=True).get()
+    context = Context(request=request, current_page="interest_group_detail", slug=slug, sidebar=True).get()
     context["load"]["datatables"] = False
     context["load"]["editor"] = False
     context["sidebar"] = get_sidebar(slug)
@@ -22,6 +24,7 @@ def interest_group_detail(request, slug):
     return render(request, "interests/interest_group_detail.jinja2", context)
 
 
+@login_required
 def interest_group_about(request, slug):
     from core.context import Context
     from interests.models import InterestGroup
@@ -29,7 +32,7 @@ def interest_group_about(request, slug):
 
     interest_group = InterestGroup.objects.get(slug=slug)
 
-    context = Context(current_page="interest_group_about", slug=slug, sidebar=True).get()
+    context = Context(request=request, current_page="interest_group_about", slug=slug, sidebar=True).get()
     context["load"]["datatables"] = False
     context["load"]["editor"] = False
     context["sidebar"] = get_sidebar(slug)
@@ -38,6 +41,7 @@ def interest_group_about(request, slug):
     return render(request, "interests/interest_group_about.jinja2", context)
 
 
+@login_required
 def interest_group_under_construction(request, slug):
     from core.context import Context
     from interests.models import InterestGroup
@@ -45,7 +49,7 @@ def interest_group_under_construction(request, slug):
 
     interest_group = InterestGroup.objects.get(slug=slug)
 
-    context = Context(current_page="interest_group_under_construction", slug=slug, sidebar=True).get()
+    context = Context(request=request, current_page="interest_group_under_construction", slug=slug, sidebar=True).get()
     context["sidebar"] = get_sidebar(slug)
     context["interest_group"] = interest_group
 

@@ -1,0 +1,35 @@
+{% from "core/settings.jinja2" import sf_core %}
+
+{% if message is defined %}
+    {% if message.status == "SUCCESS" %}
+        <div class="{{ sf_core.layout.messages.success.card }}">
+            <div class="{{ sf_core.layout.messages.success.card_body }}">
+                <p class="{{ sf_core.layout.messages.success.card_text }}">{{ message.text }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if message.status == "INFO" %}
+        <div class="{{ sf_core.layout.messages.info.card }}">
+            <div class="{{ sf_core.layout.messages.info.card_body }}">
+                <p class="{{ sf_core.layout.messages.info.card_text }}">{{ message.text }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if message.status == "WARN" %}
+        <div class="{{ sf_core.layout.messages.warning.card }}">
+            <div class="{{ sf_core.layout.messages.warning.card_body }}">
+                <p class="{{ sf_core.layout.messages.warning.card_text }}">{{ message.text }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if message.status == "ERROR" %}
+        <div class="{{ sf_core.layout.messages.error.card }}">
+            <div class="{{ sf_core.layout.messages.error.card_body }}">
+                <p class="{{ sf_core.layout.messages.error.card_text }}">{{ message.text }}</p>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

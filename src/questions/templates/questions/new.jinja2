@@ -13,7 +13,7 @@
             <h1>New Question</h1>
 
             <form method="POST" action="{{ url('questions_post', args=[interest_group.slug]) }}">
-                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 
                 <label for="title" class="{{ sf_common.layout.form_label }}">Title:</label>
                 <input type="text" id="title" name="title" 
@@ -21,8 +21,8 @@
                     required data-validation-required-message="Please enter the title."/>
 
                 <label for="text">Question:</label>
-                <textarea id="text" name="text" class="{{ sf_questions.layout.new.form.text }} enabled
-                    required data-validation-required-message="Please enter the content of the question." 
+                <textarea id="text" name="text" class="{{ sf_questions.layout.new.form.text }} enabled"
+                          required data-validation-required-message="Please enter the content of the question."
                     aria-describedby="textHelp"></textarea>
                 <div id="textHelp" class="{{ sf_common.layout.form_help }}">
                     Please provide as much detail as possible. If possible, also a screenshot.</div>

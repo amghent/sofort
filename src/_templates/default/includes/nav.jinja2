@@ -4,7 +4,7 @@
     <div class="{{ sf_core.layout.nav.container }}">
         <i class="{{ sf_core.layout.nav.icon }}"></i>
         <a class="{{ sf_core.layout.nav.brand }}" href="{{ url('index') }}">{{ settings.application_name }}</a>
-        
+
         {% if meta.side_bar == true %}
             <button class="{{ sf_core.layout.nav.sb_toggle }}" id="sidebarToggle">Toggle menu</button>
         {% endif %}
@@ -16,7 +16,6 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <p>{{ meta.current_page }}</p>
             <ul class="navbar-nav ms-auto mb-0">
                 {% if meta.current_page == "home" %}
                     <li class="{{ sf_core.layout.menu.item }}">
@@ -41,6 +40,13 @@
                         </li>
                     {% endif %}
                 {% endfor %}
+
+                {% if user.username != "" %}
+                    <li class="{{ sf_core.layout.menu.item }}">
+                        <a class="{{ sf_core.layout.menu.item_inactive }}" aria-current="page"
+                                            href="{{ url('logout_user') }}">Logout ({{ user.username }})</a></li>
+                {% endif %}
+
             </ul>
         </div>
     </div>
