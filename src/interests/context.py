@@ -6,7 +6,7 @@ from django.urls import reverse
 ###
 
 
-def get_sidebar(slug):
+def get_sidebar(slug: str) -> list:
     from interests import views as interests_views
     from questions import views as questions_views
 

@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
@@ -8,41 +10,38 @@ from django.shortcuts import render
 
 
 @login_required
-def index(request, interest):
+def index(request, interest: str):
     from questions.models import Question
 
     context, interest_group = __common_context(request=request, interest=interest, current_page="questions_index")
-    context["load"]["editor"] = False  # Override
     context["questions"] = Question.objects.filter(interest_group=interest_group).order_by("-created_at")
 
-    return render(request, "questions/index.jinja2", context)
+    return render(request=request, template_name="questions/index.jinja2", context=context)
 
 
 @login_required
-def detail(request, interest, uuid):
+def detail(request, interest: str, uuid: str):
     from questions.models import Question, QuestionAnswer, QuestionDiscussion
 
     question = Question.objects.get(id=uuid)
 
     context, _ = __common_context(request=request, interest=interest, current_page="questions_detail")
-    context["datatables"] = False
     context["question"] = question
     context["answers"] = QuestionAnswer.objects.filter(question=question.id)
     context["discussions"] = QuestionDiscussion.objects.filter(question_answer__question_id=question.id)
 
-    return render(request, "questions/detail.jinja2", context)
+    return render(request=request, template_name="questions/detail.jinja2", context=context)
 
 
 @login_required
-def new(request, interest):
+def new(request, interest: str):
     context, _ = __common_context(request=request, interest=interest, current_page="questions_new")
-    context["datatables"] = False
 
-    return render(request, "questions/new.jinja2", context)
+    return render(request=request, template_name="questions/new.jinja2", context=context)
 
 
 @login_required
-def post(request, interest):
+def post(request, interest: str):
     from questions.models import Question
     from members.models import Member
 
@@ -62,7 +61,7 @@ def post(request, interest):
     return render(request=request, template_name="questions/detail.jinja2", context=context)
 
 
-def __common_context(request, interest, current_page):
+def __common_context(request, interest: str, current_page: str) -> (dict, Any):
     from interests.models import InterestGroup
     from core.context import Context
     from interests.context import get_sidebar

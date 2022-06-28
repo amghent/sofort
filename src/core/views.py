@@ -13,10 +13,6 @@ def index(request):
     from interests.models import InterestGroup
 
     context = Context(request=request, current_page="home").get()
-    # TODO: remove these loads. WTH, we send it all the time, they will need it anyway on most pages, simple !
-    context["load"]["datatables"] = False
-    context["load"]["sidebar"] = False
-    context["load"]["editor"] = False
 
     member = context["member"]
 
@@ -27,7 +23,7 @@ def index(request):
 
     context["interest_groups"] = interest_groups
 
-    return render(request, "core/index.jinja2", context)
+    return render(request=request, template_name="core/index.jinja2", context=context)
 
 
 def login_user(request):
@@ -38,17 +34,17 @@ def login_user(request):
 
     if user is not None:
         if user.is_active:
-            login(request, user)
+            login(request=request, user=user)
 
-            return redirect("login_success")
+            return redirect(to="login_success")
 
-    return redirect("login_failure")
+    return redirect(to="login_failure")
 
 
 def logout_user(request):
     logout(request=request)
 
-    return redirect("index")
+    return redirect(to="index")
 
 
 def login_failure(request):
@@ -72,7 +68,7 @@ def login_failure(request):
         "text": "Login failed !"
     }
 
-    return render(request, "core/index.jinja2", context)
+    return render(request=request, template_name="core/index.jinja2", context=context)
 
 
 def login_success(request):
@@ -97,4 +93,4 @@ def login_success(request):
         "text": "Login successful !"
     }
 
-    return render(request, "core/index.jinja2", context)
+    return render(request=request, template_name="core/index.jinja2", context=context)

@@ -3,7 +3,7 @@ from members.models import Member
 
 class Context:
     @staticmethod
-    def get_member_from_username(username):
+    def get_member_from_username(username: str) -> Member:
         member = None
 
         if username != "":

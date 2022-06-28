@@ -5,29 +5,24 @@
 
 
 class Context:
-    def __init__(self, request, **kwargs):
+    def __init__(self, request, **kwargs) -> None:
         from members.context import Context as MemberContext
 
         user = request.user
         member = None
 
         if user is not None:
-            member = MemberContext().get_member_from_username(user.username)
+            member = MemberContext().get_member_from_username(username=user.username)
 
         self.context = {
             "user": user,
             "member": member,
             "settings": self.__get_settings(),
-            "load": {
-                "sidebar": True,
-                "datatables": True,
-                "editor": True
-            },
             "meta": self.__get_meta(**kwargs),  # Do not pass as named parameters (kwargs=kwargs)
             "navigation_menu": self.__get_navigation_menu(),
         }
 
-    def get(self):
+    def get(self) -> dict:
         return self.context
 
     @staticmethod
@@ -40,13 +35,13 @@ class Context:
         return meta
 
     @staticmethod
-    def __get_navigation_menu():
+    def __get_navigation_menu() -> list:
         from pages.models import Page
 
         return list(Page.objects.filter(show_in_navigation=True))
 
     @staticmethod
-    def __get_settings():
+    def __get_settings() -> dict:
         from core.models import Setting
 
         settings_data = Setting.objects.all()
