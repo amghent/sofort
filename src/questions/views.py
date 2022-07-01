@@ -49,8 +49,8 @@ def post(request, interest: str):
 
     question = Question()
 
-    question.title = request.POST["title"]
-    question.text = request.POST["text"]
+    question.title = request.POST["question_title"]
+    question.text = request.POST["question_text"]
     question.author = MemberContext.get_member_from_username(user=request.user)
     question.interest_group = interest_group
 

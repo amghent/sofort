@@ -103,6 +103,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR.parent, '_templates', 'default', 'static'),
 ]
 
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/js/tinymce/tinymce.min.js")
+TINYMCE_COMPRESSOR = False
+
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR.parent.parent, 'media')

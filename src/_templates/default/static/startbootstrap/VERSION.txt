@@ -1,0 +1,14 @@
+https://startbootstrap.com/template/small-business
+5.0.5
+
+https://startbootstrap.com/template/blog-post
+5.0.8
+
+https://startbootstrap.com/template/blog-home
+5.0.8
+
+https://startbootstrap.com/template/simple-sidebar
+6.0.5
+
+https://startbootstrap.com/template/bare
+5.0.8

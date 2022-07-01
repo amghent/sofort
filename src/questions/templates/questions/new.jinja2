@@ -15,16 +15,16 @@
             <form method="POST" action="{{ url('questions_post', args=[interest_group.slug]) }}">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 
-                <label for="title" class="{{ sf_common.layout.form_label }}">Title:</label>
-                <input type="text" id="title" name="title" 
+                <label for="question_title" class="{{ sf_common.layout.form_label }}">Title:</label>
+                <input type="text" id="qeustion_title" name="question_title"
                     class="{{ sf_common.layout.form_control }} {{ sf_questions.layout.new.form.title }}" 
-                    required data-validation-required-message="Please enter the title."/>
+                       required data-validation-required-message="Please enter the title."/>
 
-                <label for="text">Question:</label>
-                <textarea id="text" name="text" class="{{ sf_questions.layout.new.form.text }} enabled"
+                <label for="question_text">Question:</label>
+                <textarea id="question_text" name="question_text" class="{{ sf_questions.layout.new.form.text }} enabled"
                           required data-validation-required-message="Please enter the content of the question."
                     aria-describedby="textHelp"></textarea>
-                <div id="textHelp" class="{{ sf_common.layout.form_help }}">
+                <div id="question_text_help" class="{{ sf_common.layout.form_help }}">
                     Please provide as much detail as possible. If possible, also a screenshot.</div>
 
                 <button type="submit" 
