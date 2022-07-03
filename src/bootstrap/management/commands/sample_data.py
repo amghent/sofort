@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
 from core.models import Setting
@@ -36,7 +38,9 @@ class Command(BaseCommand):
         Setting(name="application_long_name", text="SOftware FORum Tool").save()
         Setting(name="application_title", text="Welcome at SOFORT").save()
         Setting(name="authors", text="Yves Vindevogel").save()
-        Setting(name="copyright", text=f"© { copyright_year }, Arcelor Mittal Ghent").save()
+        Setting(name="copyright",
+                text=f"© { copyright_year }, Arcelor Mittal Ghent(BE). "
+                     f"This software is licensed under the MIT license.").save()
 
         Setting(name="welcome_text", text="Welcome at Arcelor Mittal's SOFORT. This tool provides a common place to "
                                           "ask your questions about your domain of expertise.").save()
@@ -52,6 +56,18 @@ class Command(BaseCommand):
         sidviny.email = "yves.vindevogel.external@arcelormittal.com"
 
         sidviny.save()
+
+        user = User()
+
+        user.username = sidviny.member_name
+        user.email = sidviny.email
+        user.first_name = sidviny.first_name
+        user.last_name = sidviny.last_name
+        user.is_active = True
+
+        user.set_password("sidviny@SOFORT")  # Must use set_password to pass unencrypted pwd, not user.password=xyz
+
+        user.save()
 
     @staticmethod
     def __upload_tags():
