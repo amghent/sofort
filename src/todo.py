@@ -1,5 +1,4 @@
-# TODO: The messsages should appear in the top right corner of the screen and disappear again after 5 seconds
-# TODO: Messages should be on base.jinja2 so it's included everywhere by default
+# FIXME: Only visible elements in settings like margins, padding, ... Code elements (like nav) should not be there
 
 # TODO: Save button on answers
 # TODO: Save button on discussions
@@ -11,6 +10,8 @@
 # TODO: Edit on a question
 # TODO: Edit on an answer
 # TODO: Edit on a discussion
+
+# TODO: Message when question is saved successfully
 
 # TODO: Styling the TinyMCE
 
@@ -26,3 +27,5 @@
 # TODO: All the spacing must come from internal settings that can be changed through the interface
 
 # TODO: The list of questions looks so boring
+
+# TODO: Alert on the homepage should be in a message
