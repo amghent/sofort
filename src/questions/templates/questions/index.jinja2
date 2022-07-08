@@ -20,21 +20,21 @@
             <table id="questions_dt" class="{{ sf_common.layout.datatable }}">
                 <thead>
                     <tr>
+                        <th>Created</th>
                         <th>Title</th>
                         <th>Author</th>
-                        <th>Created</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for q in questions %}
                         <tr>
+                            <td>{{ q.created_at | dt_to_user_frmt }}</td>
                             <td>
                                 <a href="{{ url("questions_detail", args=[interest_group.slug, q.id]) }}">
                                     {{ q.title }}
                                 </a>
                             </td>
                             <td>{{ q.author }}</td>
-                            <td>{{ q.created_at | dt_to_user_frmt }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -42,7 +42,7 @@ class QuestionAnswer(QuestionCommon):
         abstract = False
 
 
-class QuestionDiscussion(QuestionCommon):
+class QuestionReply(QuestionCommon):
     question_answer = models.ForeignKey(QuestionAnswer, on_delete=models.CASCADE)
 
     class Meta:

@@ -39,40 +39,50 @@
                             <div class="{{ sf_questions.layout.detail.discussions.wrapper }} w-100">
                                 <div class="{{ sf_questions.layout.detail.answer.author }}">
                                     {{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</div>
-                                <p>{{ a.text }}</p>
+                                <label>
+                                    <textarea class="disabled">{{ a.text }}</textarea>
+                                </label>
 
-                                {% for d in discussions %}
-                                    {% if d.question_answer == a %}
+                                {% for r in replies %}
+                                    {% if r.question_answer == a %}
                                         <div class="{{ sf_questions.layout.detail.discussion.wrapper }}">
                                             <div class="{{ sf_common.layout.avatar.wrapper }}">
                                                 <img class="{{ sf_common.layout.avatar.image }}"
                                                      src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                     alt="{{ a.author }}" />
+                                                     alt="{{ r.author }}" />
                                             </div>
                                             <div class="{{ sf_questions.layout.detail.discussion.text }}">
                                                 <div class="{{ sf_questions.layout.detail.discussion.author }}">
-                                                    {{ d.author }} - {{ d.created_at | dt_to_user_frmt }}</div>
-                                                <p>{{ d.text }}</p>
+                                                    {{ r.author }} - {{ r.created_at | dt_to_user_frmt }}</div>
+                                                <label>
+                                                    <textarea class="disabled">{{ r.text }}</textarea>
+                                                </label>
                                             </div>
                                         </div>
                                     {% endif %}
                                 {% endfor %}
 
-                                <form>
+                                <form method="POST" action="{{ url('questions_reply', args=[interest_group.slug, question.id, a.id]) }}">
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
+
                                     <label>
-                                        <textarea class="form-control enabled" placeholder="Reply to this answer">
+                                        <textarea id="reply_text" name="reply_text" class="form-control tiny_question_reply" placeholder="Reply to this answer">
                                         </textarea>
                                     </label>
+                                    <button type="submit" class="{{ sf_common.layout.submit_button }}">Submit your reply</button>
                                 </form>
                             </div>
                         </div>
                     {% endfor %}
 
-                    <form>
+                    <form method="POST" action="{{ url('questions_answer', args=[interest_group.slug, question.id]) }}">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
                         <label>
-                            <textarea id="new_answer" class="form-control enabled"
+                            <textarea id="answer_text" name="answer_text" class="form-control tiny_question_answer"
                                       placeholder="Your answer goes there"></textarea>
                         </label>
+
+                        <button type="submit" class="{{ sf_common.layout.submit_button }}">Submit your answer</button>
                     </form>
                 </div>
             </section>

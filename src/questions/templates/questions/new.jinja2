@@ -12,7 +12,7 @@
         <div class="row">
             <h1>New Question</h1>
 
-            <form method="POST" action="{{ url('questions_post', args=[interest_group.slug]) }}">
+            <form method="POST" action="{{ url('questions_save', args=[interest_group.slug]) }}">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 
                 <label for="question_title" class="{{ sf_common.layout.form_label }}">Title:</label>

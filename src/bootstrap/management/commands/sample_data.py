@@ -7,7 +7,7 @@ from core.models import Setting
 from interests.models import InterestGroup
 from members.models import Member
 from pages.models import Page
-from questions.models import Question, QuestionAnswer, QuestionDiscussion
+from questions.models import Question, QuestionAnswer, QuestionReply
 from tags.models import Tag
 
 
@@ -175,21 +175,21 @@ class Command(BaseCommand):
 
         a2.save()
 
-        d1 = QuestionDiscussion()
+        r1 = QuestionReply()
 
-        d1.question_answer = a1
-        d1.author = sidviny
-        d1.text = "That's great !"
+        r1.question_answer = a1
+        r1.author = sidviny
+        r1.text = "That's great !"
 
-        d1.save()
+        r1.save()
 
-        d2 = QuestionDiscussion()
+        r2 = QuestionReply()
 
-        d2.question_answer = a1
-        d2.author = sidviny
-        d2.text = "Indeed, it is"
+        r2.question_answer = a1
+        r2.author = sidviny
+        r2.text = "Indeed, it is"
 
-        d2.save()
+        r2.save()
 
         q2 = Question()
 
@@ -208,13 +208,13 @@ class Command(BaseCommand):
 
         a3.save()
 
-        d3 = QuestionDiscussion()
+        r3 = QuestionReply()
 
-        d3.question_answer = a3
-        d3.author = sidviny
-        d3.text = "Oh, sorry, my mistake"
+        r3.question_answer = a3
+        r3.author = sidviny
+        r3.text = "Oh, sorry, my mistake"
 
-        d3.save()
+        r3.save()
 
     @staticmethod
     def __get_member(member_name: str) -> Member:
