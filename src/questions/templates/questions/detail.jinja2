@@ -1,8 +1,5 @@
 {% extends "base.jinja2" %}
 
-{% from "questions/settings.jinja2" import sf_questions %}
-{% from "core/common.jinja2" import sf_common %}
-
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
@@ -11,15 +8,15 @@
     <div id="content-wrapper" class="container-fluid">
         <div class="row">
             <article>
-                <header class="{{ sf_questions.layout.detail.question.header }}">
+                <header class="mb-3">
                     <h1>{{ question.title }}</h1>
-                    <div class="{{ sf_questions.layout.detail.question.user_date }}">
+                    <div class="text-muted fst-italic mb-2">
                         {{ question.created_at | dt_to_user_frmt }} - {{ question.author }}</div>
                     <!-- for tags
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a -->
                 </header>
 
-                <section class="{{ sf_questions.layout.detail.question.section }}">
+                <section class="mb-3">
                     <label>
                         <textarea class="disabled">{{ question.text }}</textarea>
                     </label>
@@ -27,30 +24,30 @@
             </article>
 
             <section>
-                <div class="{{ sf_questions.layout.detail.answers.wrapper }}">
+                <div class="card card-body bg-light">
 
                     {% for a in answers %}
-                        <div class="{{ sf_questions.layout.detail.answer.wrapper }}">
-                            <div class="{{ sf_common.layout.avatar.wrapper }}">
-                                <img class="{{ sf_common.layout.avatar.image }}"
+                        <div class="d-flex flex-row mb-4">
+                            <div class="flex-shrink-0">
+                                <img class="rounded-circle"
                                      src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
                                      alt="{{ a.author }}" />
                             </div>
-                            <div class="{{ sf_questions.layout.detail.discussions.wrapper }} w-100">
-                                <div class="{{ sf_questions.layout.detail.answer.author }}">
+                            <div class="ms-2">
+                                <div class="fw-bold">
                                     {{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</div>
                                 <p>{{ a.text }}</p>
 
                                 {% for d in discussions %}
                                     {% if d.question_answer == a %}
-                                        <div class="{{ sf_questions.layout.detail.discussion.wrapper }}">
-                                            <div class="{{ sf_common.layout.avatar.wrapper }}">
-                                                <img class="{{ sf_common.layout.avatar.image }}"
+                                        <div class="d-flex flex-row mt-2">
+                                            <div class="flex-shrink-0">
+                                                <img class="rounded-circle"
                                                      src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
                                                      alt="{{ a.author }}" />
                                             </div>
-                                            <div class="{{ sf_questions.layout.detail.discussion.text }}">
-                                                <div class="{{ sf_questions.layout.detail.discussion.author }}">
+                                            <div class="ms-2">
+                                                <div class="fw-bold">
                                                     {{ d.author }} - {{ d.created_at | dt_to_user_frmt }}</div>
                                                 <p>{{ d.text }}</p>
                                             </div>

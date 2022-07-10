@@ -1,10 +1,8 @@
-{% from "core/settings.jinja2" import sf_core %}
-
 <!DOCTYPE html>
 <html lang="en">
     {% include "includes/head.jinja2" %}
 
-    <body class="{{ sf_core.layout.body.wrapper }}">
+    <body class="d-flex flex-column min-vh-100">
         {% include "includes/nav.jinja2" %}
 
         {% include "includes/messages.jinja2" %}

@@ -1,5 +1,3 @@
-{% from "core/common.jinja2" import sf_common %}
-
 <div class="card">
     {% if user.username != "" %}
         <div class="card-header">Welcome</div>
@@ -13,17 +11,17 @@
             <form method="POST" action="{{ url('login_user') }}">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 
-                <label for="username" class="{{ sf_common.layout.form_label }}">User name:</label>
+                <label for="username" class="form-label">User name:</label>
                 <input type="text" id="username" name="username"
-                    class="{{ sf_common.layout.form_control }}"
+                    class="form-control mb-2"
                     required data-validation-required-message="Please enter your user name."/>
 
-                <label for="password" class="{{ sf_common.layout.form_label }}">Password:</label>
+                <label for="password" class="form-label">Password:</label>
                 <input type="password" id="password" name="password"
-                    class="{{ sf_common.layout.form_control }}"
+                    class="form-control mb-2"
                     required data-validation-required-message="Please enter your password."/>
 
-                <button type="submit" class="{{ sf_common.layout.submit_button }}">Submit</button>
+                <button type="submit" class="mt-2 btn btn-primary">Submit</button>
             </form>
         </div>
     {% endif %}

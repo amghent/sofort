@@ -1,8 +1,5 @@
 {% extends "base.jinja2" %}
 
-{% from "questions/settings.jinja2" import sf_questions %}
-{% from "core/common.jinja2" import sf_common%}
-
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
@@ -11,13 +8,13 @@
     <div id="content-wrapper" class="container-fluid">
         <div>
             <a href="{{ url('questions_new', args=[interest_group.slug]) }}"
-               class="{{ sf_questions.layout.index.buttons.new }}" id="new_question">New Question</a>
+               class="btn btn-primary float-end" id="new_question">New Question</a>
         </div>
 
         <div>
             <h1>Questions</h1>    
 
-            <table id="questions_dt" class="{{ sf_common.layout.datatable }}">
+            <table id="questions_dt" class="table table-striped w-100 border border-1">
                 <thead>
                     <tr>
                         <th>Title</th>

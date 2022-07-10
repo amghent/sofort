@@ -1,7 +1,5 @@
 {% extends "base.jinja2" %}
 
-{% from "interests/settings.jinja2" import sf_interests %}
-
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
@@ -11,7 +9,7 @@
         <h1>{{ interest_group.name }}</h1>
 
         {% if interest_group.description.strip() != "" %}
-            <p class="{{ sf_interests.layout.group_about.description }}">{{ interest_group.description }}</p>
+            <p class="lead">{{ interest_group.description }}</p>
         {% endif %}
 
         <p>{{ interest_group.about }}</p>

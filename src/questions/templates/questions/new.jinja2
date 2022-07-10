@@ -1,8 +1,5 @@
 {% extends "base.jinja2" %}
 
-{% from "core/common.jinja2" import sf_common %}
-{% from "questions/settings.jinja2" import sf_questions %}
-
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
@@ -15,21 +12,21 @@
             <form method="POST" action="{{ url('questions_post', args=[interest_group.slug]) }}">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 
-                <label for="question_title" class="{{ sf_common.layout.form_label }}">Title:</label>
+                <label for="question_title" class="form-label">Title:</label>
                 <input type="text" id="question_title" name="question_title"
-                    class="{{ sf_common.layout.form_control }} {{ sf_questions.layout.new.form.title }}" 
+                    class="form-label w-50"
                        required data-validation-required-message="Please enter the title."/>
 
                 <label for="question_text">Question:</label>
                 <textarea id="question_text" name="question_text" class="tiny_question
-                        {{ sf_questions.layout.new.form.text }}"
+                        form-text"
                         required data-validation-required-message="Please enter the content of the question."
                     aria-describedby="textHelp"></textarea>
-                <div id="question_text_help" class="{{ sf_common.layout.form_help }}">
+                <div id="question_text_help" class="form-text">
                     Please provide as much detail as possible. If possible, also a screenshot.</div>
 
                 <button type="submit" 
-                    class="{{ sf_common.layout.submit_button }}">Submit your question</button>
+                    class="mt-2 btn btn-primary">Submit your question</button>
             </form>
         </div>
     </div>
