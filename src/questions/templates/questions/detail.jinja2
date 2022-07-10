@@ -40,8 +40,8 @@
                                     <textarea class="disabled">{{ a.text }}</textarea>
                                 </label>
 
-                                {% for d in discussions %}
-                                    {% if d.question_answer == a %}
+                                {% for r in replies %}
+                                    {% if r.question_answer == a %}
                                         <div class="d-flex flex-row mt-2">
                                             <div class="flex-shrink-0">
                                                 <img class="rounded-circle"
@@ -50,18 +50,21 @@
                                             </div>
                                             <div class="ms-2">
                                                 <div class="fw-bold">
-                                                    {{ d.author }} - {{ d.created_at | dt_to_user_frmt }}</div>
-                                                <p>{{ d.text }}</p>
+                                                    {{ r.author }} - {{ r.created_at | dt_to_user_frmt }}</div>
+                                                <textarea class="disabled">{{ r.text }}</textarea>
                                             </div>
                                         </div>
                                     {% endif %}
                                 {% endfor %}
 
-                                <form method="POST" action="{{ url('questions_reply', args=[interest_group.slug, question.id, a.id]) }}">
+                                <form method="POST" action="{{ url('questions_reply',
+                                        args=[interest_group.slug, question.id, a.id]) }}">
                                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 
                                     <label>
-                                        <textarea id="reply_text" name="reply_text" class="form-control tiny_question_reply" placeholder="Reply to this answer">
+                                        <textarea id="reply_text" name="reply_text"
+                                                  class="form-control tiny_question_reply"
+                                                  placeholder="Reply to this answer">
                                         </textarea>
                                     </label>
                                     <button type="submit" class="mt-2 btn btn-primary">Submit your reply</button>
@@ -74,7 +77,7 @@
                         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
                         <label>
                             <textarea id="answer_text" name="answer_text" class="form-control tiny_question_answer"
-                                      placeholder="Your answer goes there"></textarea>
+                                      placeholder="Your answer goes here"></textarea>
                         </label>
 
                         <button type="submit" class="mt-2 btn btn-primary">Submit your answer</button>
