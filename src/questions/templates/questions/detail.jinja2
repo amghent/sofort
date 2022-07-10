@@ -36,7 +36,9 @@
                             <div class="ms-2">
                                 <div class="fw-bold">
                                     {{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</div>
-                                <p>{{ a.text }}</p>
+                                <label>
+                                    <textarea class="disabled">{{ a.text }}</textarea>
+                                </label>
 
                                 {% for d in discussions %}
                                     {% if d.question_answer == a %}
@@ -44,7 +46,7 @@
                                             <div class="flex-shrink-0">
                                                 <img class="rounded-circle"
                                                      src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                     alt="{{ a.author }}" />
+                                                     alt="{{ r.author }}" />
                                             </div>
                                             <div class="ms-2">
                                                 <div class="fw-bold">
@@ -55,21 +57,27 @@
                                     {% endif %}
                                 {% endfor %}
 
-                                <form>
+                                <form method="POST" action="{{ url('questions_reply', args=[interest_group.slug, question.id, a.id]) }}">
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
+
                                     <label>
-                                        <textarea class="form-control enabled" placeholder="Reply to this answer">
+                                        <textarea id="reply_text" name="reply_text" class="form-control tiny_question_reply" placeholder="Reply to this answer">
                                         </textarea>
                                     </label>
+                                    <button type="submit" class="{{ sf_common.layout.submit_button }}">Submit your reply</button>
                                 </form>
                             </div>
                         </div>
                     {% endfor %}
 
-                    <form>
+                    <form method="POST" action="{{ url('questions_answer', args=[interest_group.slug, question.id]) }}">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
                         <label>
-                            <textarea id="new_answer" class="form-control enabled"
+                            <textarea id="answer_text" name="answer_text" class="form-control tiny_question_answer"
                                       placeholder="Your answer goes there"></textarea>
                         </label>
+
+                        <button type="submit" class="{{ sf_common.layout.submit_button }}">Submit your answer</button>
                     </form>
                 </div>
             </section>

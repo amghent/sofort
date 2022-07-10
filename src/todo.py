@@ -1,7 +1,8 @@
+# FIXME: Order of the questions (related to the datatable)
+# FIXME: Order of the answers and replies (related to the view)
+# FIXME: 100% width on reply
 # FIXME: Only visible elements in settings like margins, padding, ... Code elements (like nav) should not be there
-
-# TODO: Save button on answers
-# TODO: Save button on discussions
+# FIXME: Until we have a real avator for the user, we should have the 2 letters in the avatar
 
 # TODO: Delete on a question
 # TODO: Delete on an answer
@@ -29,3 +30,4 @@
 # TODO: The list of questions looks so boring
 
 # TODO: Alert on the homepage should be in a message
+

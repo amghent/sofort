@@ -21,71 +21,12 @@
     <script src="{{ static("prism/prism.js") }}" type="text/javascript"></script>
     <script src="{{ static("tinymce/js/tinymce/tinymce.min.js") }}" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        tinymce.init(
-        {
-            selector: 'textarea.tiny_question',
-            setup: function (editor) {
-                editor.on('change', function () {
-                    tinymce.triggerSave();
-                });
-            },
-            inline: false,
-            width: '100%',
-            min_height: 400,
-            branding: false,
-            plugins: 'advlist autolink autoresize autosave charmap code codesample emoticons fullscreen help hr ' +
-                'image insertdatetime link lists paste searchreplace table textpattern wordcount ',
-            toolbar: 'undo redo cut copy paste pastetext | bold italic underline align_grp  | numlist bullist | ' +
-                'image link codesample insertdatetime emoticons | restoredraft print fullscreen | help',
-            toolbar_mode: 'floating',
-            toolbar_sticky: true,
-            toolbar_groups: {
-                align_grp: {
-                    icon: 'format',
-                    tooltip: "Align",
-                    items: 'alignleft aligncenter alignright alignjustify alignnone'
-                }
-            },
-            menubar: 'edit format insert table tools',
-            contextmenu: 'image link codesample table',
+    {% include "includes/tiny_disabled.jinja2" %}
+    {% include "includes/tiny_question.jinja2" %}
+    {% include "includes/tiny_question_answer.jinja2" %}
+    {% include "includes/tiny_question_reply.jinja2" %}
 
-            default_link_target: '_blank',
-            default_link_protocol: 'https',
-            codesample_languages: [
-                {text: 'Python', value: 'python'},
-                {text: 'Makefile', value: 'makefile'},
-                {text: 'HTML/XML', value: 'markup' },
-                {text: 'JavaScript', value: 'javascript' },
-                {text: 'CSS', value: 'css' },
-            ],
-            help_tabs: ['shortcuts', 'keyboardnav'],
-            image_caption: true,
-            image_title: true,
-            image_advtab: false,
-            insertdatetime_formats: ['%Y-%m-%d', '%Y-%m-%d %H:%M', '%H:%M:%S', '%H:%M'],
-            insertdatetime_dateformat: '%Y-%m-%d',
-            insertdatetime_timeformat: '%H:%M',
-            insertdatetime_element: true,
-
-            statusbar: false,
-            readonly: false,
-        });
-
-        tinymce.init(
-        {
-            selector: 'textarea.disabled',
-            inline: false,
-            width: '100%',
-            height: 300,
-            branding: false,
-            plugins: 'autoresize',
-            toolbar: '',
-            menubar: '',
-            statusbar: false,
-            readonly: true,
-        });
-    </script>
+    <!-- TODO: only include the above when needed (based on url)-->
 
     {% if message is defined %}
         <script type="text/javascript">
