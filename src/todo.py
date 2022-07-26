@@ -1,5 +1,5 @@
-# FIXME: Only visible elements in settings like margins, padding, ... Code elements (like nav) should not be there
-# FIXME: Until we have a real avator for the user, we should have the 2 letters in the avatar
+# FIXME: Footer does not look ok when screen too small
+# FIXME: Sidebar does not work correctly when screen too small
 
 # TODO: Delete on a question
 # TODO: Delete on an answer
