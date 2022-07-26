@@ -16,7 +16,7 @@ def index(request, interest_slug: str):
 
     context, interest_group = __common_context(request=request, interest_slug=interest_slug,
                                                current_page="questions_index")
-    context["questions"] = Question.objects.filter(interest_group=interest_group).order_by("-created_at")
+    context["questions"] = Question.objects.filter(interest_group=interest_group)
 
     return render(request=request, template_name="questions/index.jinja2", context=context)
 
@@ -29,8 +29,8 @@ def detail(request, interest_slug: str, question_uuid: str):
 
     context, _ = __common_context(request=request, interest_slug=interest_slug, current_page="questions_detail")
     context["question"] = question
-    context["answers"] = QuestionAnswer.objects.filter(question=question.id)
-    context["replies"] = QuestionReply.objects.filter(question_answer__question_id=question.id)
+    context["answers"] = QuestionAnswer.objects.filter(question=question.id).order_by("created_at")
+    context["replies"] = QuestionReply.objects.filter(question_answer__question_id=question.id).order_by("created_at")
 
     print(len(context["replies"]))
     return render(request=request, template_name="questions/detail.jinja2", context=context)

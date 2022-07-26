@@ -1,4 +1,3 @@
-# FIXME: Order of the answers and replies (related to the view)
 # FIXME: 100% width on reply
 # FIXME: Only visible elements in settings like margins, padding, ... Code elements (like nav) should not be there
 # FIXME: Until we have a real avator for the user, we should have the 2 letters in the avatar
