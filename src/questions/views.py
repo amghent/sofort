@@ -32,7 +32,6 @@ def detail(request, interest_slug: str, question_uuid: str):
     context["answers"] = QuestionAnswer.objects.filter(question=question.id).order_by("created_at")
     context["replies"] = QuestionReply.objects.filter(question_answer__question_id=question.id).order_by("created_at")
 
-    print(len(context["replies"]))
     return render(request=request, template_name="questions/detail.jinja2", context=context)
 
 

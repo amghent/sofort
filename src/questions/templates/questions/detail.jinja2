@@ -8,79 +8,56 @@
     <div id="content-wrapper" class="container-fluid">
         <div class="row">
             <article>
-                <header class="mb-3">
+                <header class="m-0 p-0">
                     <h1>{{ question.title }}</h1>
-                    <div class="text-muted fst-italic mb-2">
-                        {{ question.created_at | dt_to_user_frmt }} - {{ question.author }}</div>
                     <!-- for tags
                     <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a -->
                 </header>
 
                 <section class="mb-3">
-                    <label>
-                        <textarea class="disabled">{{ question.text }}</textarea>
-                    </label>
+                    <label class="small text-muted m-0 p-0">{{ question.author.display_name }} - {{ question.created_at | dt_to_user_frmt }}</label>
+                    <textarea class="disabled">{{ question.text }}</textarea>
                 </section>
             </article>
 
             <section>
-                <div class="card card-body bg-light">
-
-                    {% for a in answers %}
-                        <div class="d-flex flex-row mb-4">
-                            <div class="flex-shrink-0">
-                                <img class="rounded-circle"
-                                     src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                     alt="{{ a.author }}" />
+                {% for a in answers %}
+                    <div class="card card-body bg-light m-0 p-3 mb-3">
+                        <div class="d-flex flex-column w-100 m-0 p-0">
+                            <div class="d-flex flex-column m-0 p-0 mb-3">
+                                <label for="answer-{{ a.id }}" class="small text-muted">{{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</label>
+                                <textarea class="disabled" id="answer-{{ a.id }}">{{ a.text }}</textarea>
                             </div>
-                            <div class="ms-2">
-                                <div class="fw-bold">
-                                    {{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</div>
-                                <label>
-                                    <textarea class="disabled">{{ a.text }}</textarea>
-                                </label>
 
-                                {% for r in replies %}
-                                    {% if r.question_answer == a %}
-                                        <div class="d-flex flex-row mt-2">
-                                            <div class="flex-shrink-0">
-                                                <img class="rounded-circle"
-                                                     src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                     alt="{{ r.author }}" />
-                                            </div>
-                                            <div class="ms-2">
-                                                <div class="fw-bold">
-                                                    {{ r.author }} - {{ r.created_at | dt_to_user_frmt }}</div>
-                                                <textarea class="disabled">{{ r.text }}</textarea>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
+                            {% for r in replies %}
+                                {% if r.question_answer == a %}
+                                    <div class="d-flex flex-column m-0 p-0 ms-5 mb-3">
+                                        <label class="small text-muted" for="reply-{{ r.id }}">{{ r.author.display_name }} - {{ r.created_at | dt_to_user_frmt }}</label>
+                                        <textarea class="disabled" id="reply-{{ r.id }}">{{ r.text }}</textarea>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
 
-                                <form method="POST" action="{{ url('questions_reply',
-                                        args=[interest_group.slug, question.id, a.id]) }}">
+                            <div class="m-0 p-0 ms-5">
+                                <form method="POST" action="{{ url('questions_reply', args=[interest_group.slug, question.id, a.id]) }}">
                                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 
-                                    <label>
-                                        <textarea id="reply_text" name="reply_text"
-                                                  class="form-control tiny_question_reply"
-                                                  placeholder="Reply to this answer">
-                                        </textarea>
-                                    </label>
-                                    <button type="submit" class="mt-2 btn btn-primary">Submit your reply</button>
+                                    <label for="reply_text" class="small">Reply to this answer:</label>
+                                    <textarea id="reply_text" name="reply_text" class="form-control tiny_question_reply"></textarea>
+                                    <button type="submit" class="btn btn-primary btn-sm m-0 py-1 px-3 mt-2">Submit your reply</button>
                                 </form>
                             </div>
                         </div>
-                    {% endfor %}
+                    </div>
+                {% endfor %}
 
+                <div class="m-0 p-0">
                     <form method="POST" action="{{ url('questions_answer', args=[interest_group.slug, question.id]) }}">
                         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
-                        <label>
-                            <textarea id="answer_text" name="answer_text" class="form-control tiny_question_answer"
-                                      placeholder="Your answer goes here"></textarea>
-                        </label>
 
-                        <button type="submit" class="mt-2 btn btn-primary">Submit your answer</button>
+                        <label for="answer_text" class="small">Answer this question:</label>
+                        <textarea id="answer_text" name="answer_text" class="form-control tiny_question_answer"></textarea>
+                        <button type="submit" class="btn btn-primary btn-sm m-0 py-1 px-3 mt-2">Submit your answer</button>
                     </form>
                 </div>
             </section>

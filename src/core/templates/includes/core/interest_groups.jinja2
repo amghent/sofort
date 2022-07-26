@@ -1,14 +1,13 @@
-<div class="row gx-3 gx-lg-4">
+<div class="row g-0 gx-3 m-0 p-0">
     {% for ig in interest_groups %}
-        <div class="col-md-4 mb-3">
-            <div class="card h-100">
+        <div class="col-md-4 p-0 m-0 mb-3">
+            <div class="card h-100 m-0 p-0">
                 <div class="card-body">
                     <h2 class="card-title">{{ ig.name }}</h2>
                     <p class="card-text">{{ ig.description }}</p>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-primary btn-sm"
-                       href="{{ url('interest_group_detail', args = [ig.slug]) }}">Go to {{  ig.name }}'s home</a>
+                    <a class="btn btn-primary btn-sm m-0 py-1 px-3 mt-2" href="{{ url('interest_group_detail', args = [ig.slug]) }}">Go to {{  ig.name }}'s home</a>
                 </div>
             </div>
         </div>

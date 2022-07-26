@@ -13,20 +13,13 @@
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 
                 <label for="question_title" class="form-label">Title:</label>
-                <input type="text" id="question_title" name="question_title"
-                    class="form-label w-50"
-                       required data-validation-required-message="Please enter the title."/>
+                <input type="text" id="question_title" name="question_title" class="form-label w-50" required data-validation-required-message="Please enter the title."/>
 
                 <label for="question_text">Question:</label>
-                <textarea id="question_text" name="question_text" class="tiny_question
-                        form-text"
-                        required data-validation-required-message="Please enter the content of the question."
-                    aria-describedby="textHelp"></textarea>
-                <div id="question_text_help" class="form-text">
-                    Please provide as much detail as possible. If possible, also a screenshot.</div>
+                <textarea id="question_text" name="question_text" class="tiny_question form-text" required data-validation-required-message="Please enter the content of the question." aria-describedby="textHelp"></textarea>
+                <div id="question_text_help" class="form-text">Please provide as much detail as possible. If possible, also a screenshot.</div>
 
-                <button type="submit" 
-                    class="mt-2 btn btn-primary">Submit your question</button>
+                <button type="submit" class="btn btn-primary m-0 py-1 px-3 mt-2">Submit your question</button>
             </form>
         </div>
     </div>
