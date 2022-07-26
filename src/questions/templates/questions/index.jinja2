@@ -17,21 +17,21 @@
             <table id="questions_dt" class="table table-striped w-100 border border-1">
                 <thead>
                     <tr>
-                        <th>Created</th>
-                        <th>Title</th>
-                        <th>Author</th>
+                        <th style="width: 65%">Title</th>
+                        <th style="width: 20%">Author</th>
+                        <th style="width: 15%">Created</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for q in questions %}
                         <tr>
-                            <td>{{ q.created_at | dt_to_user_frmt }}</td>
                             <td>
                                 <a href="{{ url("questions_detail", args=[interest_group.slug, q.id]) }}">
                                     {{ q.title }}
                                 </a>
                             </td>
                             <td>{{ q.author }}</td>
+                            <td>{{ q.created_at | dt_to_user_frmt }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -43,7 +43,9 @@
 {% block datatable_scripting %}
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#questions_dt').DataTable();
+            $('#questions_dt').DataTable({
+                order: [[2, 'desc']],
+            });
         });
     </script>
 {% endblock %}
