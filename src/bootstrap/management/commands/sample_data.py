@@ -1,5 +1,7 @@
+import os
 from datetime import datetime
 
+import pandas
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
@@ -26,195 +28,102 @@ class Command(BaseCommand):
         print("sample data created")
 
     @staticmethod
-    def __upload_settings():
+    def __read_csv(file_name):
+        file = os.path.join(os.getcwd(), "src", "bootstrap", "management", "presets", file_name)
+        data = pandas.read_csv(file)
+        data = data.fillna("")
+
+        rows = []
+
+        for _, r in data.iterrows():
+            rows.append(r)
+
+        return rows
+
+    def __upload_settings(self):
         current_year = datetime.now().year
         start_year = 2022
         copyright_year = f"{start_year}"
         
         if current_year > start_year:
             copyright_year += f"-{current_year}"            
-        
-        Setting(name="application_name", text="SOFORT").save()
-        Setting(name="application_long_name", text="SOftware FORum Tool").save()
-        Setting(name="application_title", text="Welcome at SOFORT").save()
-        Setting(name="authors", text="Yves Vindevogel").save()
-        Setting(name="copyright",
-                text=f"© { copyright_year }, Arcelor Mittal Ghent(BE). "
-                     f"This software is licensed under the MIT license.").save()
 
-        Setting(name="welcome_text", text="Welcome at Arcelor Mittal's SOFORT. This tool provides a common place to "
-                                          "ask your questions about your domain of expertise.").save()
-        Setting(name="important_message", text="This tool is under construction ...").save()
+        for row in self.__read_csv("settings.csv"):
+            s = Setting()
+            s.name, s.text = tuple(row)
 
-    @staticmethod
-    def __upload_members():
-        sidviny = Member()
+            if s.name == "copyright":
+                s.text = f"© {copyright_year}, {s.text}"
 
-        sidviny.member_name = "sidviny"
-        sidviny.first_name = "Yves"
-        sidviny.last_name = "Vindevogel"
-        sidviny.email = "yves.vindevogel.external@arcelormittal.com"
+            s.save()
 
-        sidviny.save()
+    def __upload_members(self):
+        for row in self.__read_csv("members.csv"):
+            m = Member()
+            m.member_name, m.first_name, m.last_name, m.email = tuple(row)
+            m.save()
 
-        user = User()
+            u = User()
+            u.username, u.first_name, u.last_name, u.email = tuple(row)
+            u.set_password(f"{u.username}@SOFORT")
+            # Must use set_password to pass unencrypted pwd, not user.password=xyz
+            u.save()
 
-        user.username = sidviny.member_name
-        user.email = sidviny.email
-        user.first_name = sidviny.first_name
-        user.last_name = sidviny.last_name
-        user.is_active = True
-
-        user.set_password("sidviny@SOFORT")  # Must use set_password to pass unencrypted pwd, not user.password=xyz
-
-        user.save()
-
-    @staticmethod
-    def __upload_tags():
-        Tag(name="pandas").save()
-        Tag(name="numpy").save()
-        Tag(name="vsc").save()
-        Tag(name="dap").save()
-        Tag(name="dex").save()
+    def __upload_tags(self):
+        for row in self.__read_csv("tags.csv"):
+            t = Tag()
+            t.name = tuple(row)
+            t.save()
 
     def __upload_interest_groups(self):
-        sofort_group = InterestGroup()
+        for row in self.__read_csv("interest_groups.csv"):
+            i = InterestGroup()
+            i.name, i.slug, i.description, i.about, members = tuple(row)
+            i.save()
 
-        sofort_group.name = "SOFORT"
-        sofort_group.slug = "sofort"
-        sofort_group.description = "Group of people working on this tool."
-        sofort_group.about = "Welcome to the SOFORT Interest Group. " \
-                             "Seems you like the tool and want to help us grow it !"
+            if len(members) == 0:
+                continue
 
-        sofort_group.save()
-
-        py_group = InterestGroup()
-
-        py_group.name = "AM Python"
-        py_group.slug = "python"
-        py_group.description = "AM Python group working around data science."
-        py_group.about = "Welcome to the AM Python Interest Group. " \
-                         "This group is all about data science, Jupyter notebooks, Pandas, Numpy, Plotly, ..."
-
-        py_group.save()
-
-        py_group.members.add(self.__get_member("sidviny"))
+            for m in members.split(";"):
+                i.members.add(self.__get_member(m))
 
     def __upload_pages(self):
-        about = Page()
+        for row in self.__read_csv("pages.csv"):
+            p = Page()
+            p.title, p.slug, p.intro, p.content, p.show_in_navigation, p.show_in_footer, p.menu_title, authors = \
+                tuple(row)
+            p.save()
 
-        about.title = "About SOFORT"
-        about.slug = "about"
-
-        about.content = "SOFORT is a tool written in Python and Django"
-
-        about.show_in_navigation = True
-        about.show_in_footer = False
-        about.menu_title = "About"
-
-        about.save()
-
-        about.authors.add(self.__get_member("sidviny"))
-
-        faq = Page()
-
-        faq.title = "Frequently Asked Questions"
-        faq.slug = "faq"
-
-        faq.intro = "Please read these first"
-        faq.content = "This is the faq page"
-
-        faq.show_in_navigation = True
-        faq.show_in_footer = False
-        faq.menu_title = "FAQ"
-
-        faq.save()
-
-        faq.authors.add(self.__get_member("sidviny"))
-        
-        under_construction = Page()
-
-        under_construction.title = "Under Construction"
-        under_construction.slug = "under_construction"
-
-        under_construction.intro = ""
-        under_construction.content = "This tool is still being developed and this page is not yet finished"
-
-        under_construction.show_in_navigation = False
-        under_construction.show_in_footer = False
-
-        under_construction.save()
-
-        under_construction.authors.add(self.__get_member("sidviny"))
+            for a in authors.split(";"):
+                p.authors.add(self.__get_member(a))
 
     def __upload_questions(self):
-        sidviny = self.__get_member("sidviny")
+        questions = []
+        answers = []
 
-        q1 = Question()
+        for row in self.__read_csv("questions.csv"):
+            qt, qi, qr, author, title, text, interest_group = tuple(row)
 
-        q1.author = self.__get_member("sidviny")
-        q1.title = "Why is SOFORT written in Python ?"
-        q1.text = "I was wondering why SOFORT is written in Python, and Django ?"
-        q1.interest_group = self.__get_interest_group("python")
+            if qt == "q":
+                q = Question()
+                q.author, q.title, q.text, q.interest_group = self.__get_member(author), title, text, \
+                    self.__get_interest_group(interest_group)
+                q.save()
 
-        q1.save()
+                questions.append(q.id)
+                continue
 
-        a1 = QuestionAnswer()
+            if qt == "a":
+                a = QuestionAnswer()
+                a.question_id, a.author, a.text = questions[int(qr)], self.__get_member(author), text
+                a.save()
 
-        a1.question = q1
-        a1.author = sidviny
-        a1.text = "It was written in Python because Python is the best programming language at this moment."
+                answers.append(a.id)
+                continue
 
-        a1.save()
-
-        a2 = QuestionAnswer()
-
-        a2.question = q1
-        a2.author = sidviny
-        a2.text = "Django is a great framework for fast development of this kind of tools"
-
-        a2.save()
-
-        r1 = QuestionReply()
-
-        r1.question_answer = a1
-        r1.author = sidviny
-        r1.text = "That's great !"
-
-        r1.save()
-
-        r2 = QuestionReply()
-
-        r2.question_answer = a1
-        r2.author = sidviny
-        r2.text = "Indeed, it is"
-
-        r2.save()
-
-        q2 = Question()
-
-        q2.author = self.__get_member("sidviny")
-        q2.title = "What are pandas ?"
-        q2.text = "What are pandas and what do they have to do with snakes ?"
-        q2.interest_group = self.__get_interest_group("python")
-
-        q2.save()
-
-        a3 = QuestionAnswer()
-
-        a3.question = q2
-        a3.author = sidviny
-        a3.text = "Pandas are not animals, dude !"
-
-        a3.save()
-
-        r3 = QuestionReply()
-
-        r3.question_answer = a3
-        r3.author = sidviny
-        r3.text = "Oh, sorry, my mistake"
-
-        r3.save()
+            r = QuestionReply()
+            r.question_answer_id, r.author, r.text = answers[int(qr)], self.__get_member(author), text
+            r.save()
 
     @staticmethod
     def __get_member(member_name: str) -> Member:

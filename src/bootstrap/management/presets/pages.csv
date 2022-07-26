@@ -1,0 +1,4 @@
+title,slug,intro,content,show_in_navigation,show_in_footer,menu_title,authors
+About SOFORT,about,,SOFORT is a tool written in Python and Django,1,0,About,sidviny
+Frequently Asked Questions,faq,Please read these first,This is the faq page,1,0,FAQ,sidviny
+Under Construction,under_construction,,This tool is still being developed and this page is not yet finished,0,0,,sidviny
