@@ -6,7 +6,13 @@
 
 {% block content %}
     <div id="content-wrapper" class="container-fluid">
-        <div class="row">
+        <div>
+            <a href="{{ url('questions_index', args=[interest_group.slug]) }}" class="btn btn-primary btn-sm float-end" id="new_question">
+                <i class="fa-solid fa-delete-left"></i>
+            </a>
+        </div>
+
+        <div>
             <article>
                 <header>
                     <h1>{{ question.title }}</h1>
@@ -44,7 +50,7 @@
 
                                     <label for="reply_text" class="small">Reply to this answer:</label>
                                     <textarea id="reply_text" name="reply_text" class="form-control tiny_question_reply"></textarea>
-                                    <button type="submit" class="btn btn-primary btn-sm mt-3">Submit your reply</button>
+                                    <button type="submit" class="btn btn-primary btn-sm mt-2">Submit your reply</button>
                                 </form>
                             </div>
                         </div>
@@ -56,7 +62,7 @@
 
                     <label for="answer_text" class="small">Answer this question:</label>
                     <textarea id="answer_text" name="answer_text" class="form-control tiny_question_answer"></textarea>
-                    <button type="submit" class="btn btn-primary btn-sm">Submit your answer</button>
+                    <button type="submit" class="btn btn-primary btn-sm mt-2">Submit your answer</button>
                 </form>
             </section>
         </div>

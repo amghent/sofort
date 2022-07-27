@@ -7,7 +7,9 @@
 {% block content %}
     <div id="content-wrapper" class="container-fluid">
         <div>
-            <a href="{{ url('questions_new', args=[interest_group.slug]) }}" class="btn btn-primary btn-sm float-end" id="new_question">New Question</a>
+            <a href="{{ url('questions_new', args=[interest_group.slug]) }}" class="btn btn-primary btn-sm float-end" id="new_question">
+                <i class="fa-solid fa-file-circle-plus"></i>
+            </a>
         </div>
 
         <div>

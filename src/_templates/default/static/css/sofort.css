@@ -37,3 +37,7 @@ footer {
 #sidebar-wrapper {
     min-height: calc(100vh - var(--nav-height) - var(--footer-height));
 }
+
+label {
+    width: 100% !important;
+}

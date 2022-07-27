@@ -1,3 +1,16 @@
+# TODO: Implement "viewed x times" on questions
+# TODO: Implement "x answers" on questions
+# TODO: Implement "x replies" on questions
+
+# TODO: Rename "QuestionReply" to "QuestionComment"
+
+# TODO: Introduce macros for recurring elements
+# TODO: Add "add comment" or "answer question" instead of immediately showing the editors
+
+# FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
+
+# TODO: Edit title of a question
+
 # TODO: Delete on a question
 # TODO: Delete on an answer
 # TODO: Delete on a discussion
