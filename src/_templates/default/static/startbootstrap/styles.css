@@ -11291,7 +11291,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-#wrapper {
+#page-wrapper {
   overflow-x: hidden;
 }
 
@@ -11310,11 +11310,7 @@ textarea.form-control-lg {
   width: 15rem;
 }
 
-#page-content-wrapper {
-  min-width: 100vw;
-}
-
-body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+body.sb-sidenav-toggled #page-wrapper #sidebar-wrapper {
   margin-left: 0;
 }
 
@@ -11323,12 +11319,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: 0;
   }
 
-  #page-content-wrapper {
-    min-width: 0;
-    width: 100%;
-  }
-
-  body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+  body.sb-sidenav-toggled #page-wrapper #sidebar-wrapper {
     margin-left: -15rem;
   }
 }

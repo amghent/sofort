@@ -4,9 +4,9 @@
  */
 
 :root {
-    --nav-height: 48px;
+    --nav-height: 3rem;
     /* --nav-height is not used to set the height itself because that would fix it also when the menu is visible */
-    --footer-height: 48px;
+    --footer-height: 3rem;
 }
 
 footer {
@@ -20,18 +20,9 @@ footer {
 
 #content-wrapper {
     padding-top: 1rem !important;
-    padding-bottom: 2rem !important;
+    padding-bottom: 1rem !important;
 }
 
 #sidebar-wrapper {
-    width: auto;
     min-height: calc(100vh - var(--nav-height) - var(--footer-height));
-}
-
-#sidebar-wrapper .list-group {
-    width: 12rem;
-}
-
-label {
-    width: 100% !important;
 }

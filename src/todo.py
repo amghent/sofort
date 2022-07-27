@@ -1,5 +1,5 @@
-# FIXME: Footer does not look ok when screen too small
-# FIXME: Sidebar does not work correctly when screen too small
+# FIXME: Toggle menu button does not work
+# FIXME: House icon not shown in navbar
 
 # TODO: Delete on a question
 # TODO: Delete on an answer
