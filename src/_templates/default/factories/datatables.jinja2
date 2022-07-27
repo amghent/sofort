@@ -1,0 +1,9 @@
+{% macro create_header(columns) %}
+    <thead>
+        <tr>
+            {% for c in columns %}
+                <th style="width: {{ c.width }}">{{ c.title}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+{% endmacro %}

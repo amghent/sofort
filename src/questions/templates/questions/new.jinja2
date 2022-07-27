@@ -6,14 +6,14 @@
 
 {% block content %}
     <div id="content-wrapper" class="container-fluid">
-        <div>
+        <div id="top_right_toolbar">
             <a href="{{ url('questions_index', args=[interest_group.slug]) }}" class="btn btn-primary btn-sm float-end" id="new_question">
                 <i class="fa-solid fa-delete-left"></i>
             </a>
         </div>
 
-        <div>
-            <h1>New Question</h1>
+        <div id="question_detail_fields">
+            {{ element_factory.page_title("New Question") }}
 
             <form method="POST" action="{{ url('questions_save', args=[interest_group.slug]) }}">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
@@ -25,7 +25,7 @@
                 <textarea id="question_text" name="question_text" class="tiny_question form-text" required data-validation-required-message="Please enter the content of the question." aria-describedby="textHelp"></textarea>
                 <div id="question_text_help" class="form-text">Please provide as much detail as possible. If possible, also a screenshot.</div>
 
-                <button type="submit" class="btn btn-primary btn-sm mt-2">Submit your question</button>
+                {{ element_factory.submit_button("Submit your question") }}
             </form>
         </div>
     </div>

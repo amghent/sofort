@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 
 ###
 # To avoid circular references, 
-# put the imports for the SOFORT modules within the functions
+# put the factories for the SOFORT modules within the functions
 ###
 
 

@@ -4,7 +4,7 @@
 
 # TODO: Rename "QuestionReply" to "QuestionComment"
 
-# TODO: Introduce macros for recurring elements
+# TODO: Introduce factories for recurring elements
 # TODO: Add "add comment" or "answer question" instead of immediately showing the editors
 
 # FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
