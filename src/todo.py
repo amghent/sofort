@@ -1,6 +1,3 @@
-# FIXME: Toggle menu button does not work
-# FIXME: House icon not shown in navbar
-
 # TODO: Delete on a question
 # TODO: Delete on an answer
 # TODO: Delete on a discussion

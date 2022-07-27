@@ -9,6 +9,17 @@
     --footer-height: 3rem;
 }
 
+.navbar {
+    position: relative;
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform:translateX(-50%) !important;
+    display: block;
+}
+
 footer {
     min-height: var(--footer-height);
 }
