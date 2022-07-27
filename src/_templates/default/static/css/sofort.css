@@ -6,11 +6,11 @@
 :root {
     --nav-height: 48px;
     /* --nav-height is not used to set the height itself because that would fix it also when the menu is visible */
-    --footer-height: 40px;
+    --footer-height: 48px;
 }
 
 footer {
-    height: var(--footer-height);
+    min-height: var(--footer-height);
 }
 
 #page-wrapper {

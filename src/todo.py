@@ -28,3 +28,4 @@
 
 # TODO: Alert on the homepage should be in a message
 
+# FIXME: 404 errors on some of the tinymce plugins
