@@ -6,23 +6,27 @@
 #
 #####}
 
-{% macro toolbar_button(id, url, icon) %}
-    <a href="{{ url }}" class="btn btn-primary btn-sm float-end" id="{{ id }}">
-        <i class="fa-solid {{ icon }}"></i>
+{% macro toolbar_button(_id, _url, _icon) %}
+    <a href="{{ _url }}" class="btn btn-primary btn-sm float-end" id="{{ _id }}">
+        <i class="fa-solid {{ _icon }}"></i>
     </a>
 {% endmacro %}
 
-{% macro new_button(url) %}
-    {{ toolbar_button("toolbar_new", url, "fa-file-circle-plus") }}
+{% macro new_button(_url) %}
+    {{ toolbar_button("toolbar_new", _url, "fa-file-circle-plus") }}
 {% endmacro %}
 
-{% macro cancel_button(url) %}
-    {{ toolbar_button("toolbar_cancel", url, "fa-delete-left") }}
+{% macro cancel_button(_url) %}
+    {{ toolbar_button("toolbar_cancel", _url, "fa-delete-left") }}
 {% endmacro %}
 
-{% macro build_toolbar(toolbar) %}
+{% macro back_button(_url) %}
+    {{ toolbar_button("toolbar_back", _url, "fa-delete-left") }}
+{% endmacro %}
+
+{% macro build_toolbar(_toolbar) %}
     <div id="top_right_toolbar">
-        {% for button in toolbar.buttons %}
+        {% for button in _toolbar.buttons %}
             {% if button.type == "new" %}
                 {{ new_button(button.url) }}
             {% endif %}

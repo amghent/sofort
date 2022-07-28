@@ -1,70 +1,60 @@
-{% extends "base.jinja2" %}
+{% extends "forms/chat_form.jinja2" %}
+
+{% block toolbar %}
+    {{ toolbar_factory.back_button( url('questions_index', args=[interest_group.slug]) ) }}
+{% endblock %}
+
+{% block page_title %}
+    {{ element_factory.page_title(question.title) }}
+{% endblock %}
+
+{% block detail %}
+    {{ chat_factory.level_1_div(question_content()) }}
+
+    {% for answer in answers %}
+        {{ chat_factory.level_2_div(answer_content(answer, replies)) }}
+    {% endfor %}
+
+    {{ chat_factory.level_1_div(answer_form(question)) }}
+{% endblock %}
+
+{% macro question_content() %}
+    {{ chat_factory.level_1(
+            "question-" + question.id|string,
+            question.author.display_name + " - " + question.created_at | dt_to_user_frmt,
+            question.text
+    ) }}
+{% endmacro %}
+
+{% macro answer_content(answer, replies) %}
+    {{ chat_factory.level_2(
+        "answer-" + answer.id|string,
+        answer.author.display_name + " - " + answer.created_at | dt_to_user_frmt,
+        answer.text
+    ) }}
+
+    {% for r in replies %}
+        {% if r.question_answer == answer %}
+            {{ chat_factory.level_3(
+                "reply-" + r.id|string,
+                r.author.display_name + " - " + r.created_at | dt_to_user_frmt,
+                r.text
+            ) }}
+        {% endif %}
+    {% endfor %}
+
+    {{ chat_factory.level_3_div(reply_form(answer)) }}
+{% endmacro %}
+
+{# do not touch below this line #}
+{% macro reply_form(answer) %}
+    {% include "config/server_side/questions/reply.jinja2" %}
+{% endmacro %}
+
+{% macro answer_form(question) %}
+    {% include "config/server_side/questions/answer.jinja2" %}
+{% endmacro %}
 
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
-{% endblock %}
-
-{% block content %}
-    <div id="content-wrapper" class="container-fluid">
-        <div>
-            <a href="{{ url('questions_index', args=[interest_group.slug]) }}" class="btn btn-primary btn-sm float-end" id="new_question">
-                <i class="fa-solid fa-delete-left"></i>
-            </a>
-        </div>
-
-        <div>
-            <article>
-                <header>
-                    {{ element_factory.page_title(question.title) }}
-                    <!-- for tags
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a -->
-                </header>
-
-                <section class="mb-3">
-                    <label class="small text-muted">{{ question.author.display_name }} - {{ question.created_at | dt_to_user_frmt }}</label>
-                    <textarea class="disabled">{{ question.text }}</textarea>
-                </section>
-            </article>
-
-            <section>
-                {% for a in answers %}
-                    <div class="card card-body bg-light p-3 mb-3">
-                        <div class="d-flex flex-column w-100">
-                            <div class="d-flex flex-column mb-3">
-                                <label for="answer-{{ a.id }}" class="small text-muted">{{ a.author }} - {{ a.created_at | dt_to_user_frmt }}</label>
-                                <textarea class="disabled" id="answer-{{ a.id }}">{{ a.text }}</textarea>
-                            </div>
-
-                            {% for r in replies %}
-                                {% if r.question_answer == a %}
-                                    <div class="d-flex flex-column ms-5 mb-3">
-                                        <label class="small text-muted" for="reply-{{ r.id }}">{{ r.author.display_name }} - {{ r.created_at | dt_to_user_frmt }}</label>
-                                        <textarea class="disabled" id="reply-{{ r.id }}">{{ r.text }}</textarea>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-
-                            <div class="ms-5">
-                                <form method="POST" action="{{ url('questions_reply', args=[interest_group.slug, question.id, a.id]) }}">
-                                    {{ csrf_security() }}
-
-                                    <label for="reply_text" class="small">Reply to this answer:</label>
-                                    <textarea id="reply_text" name="reply_text" class="form-control tiny_question_reply"></textarea>
-                                    <button type="submit" class="btn btn-primary btn-sm mt-2">Submit your reply</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-                <form method="POST" action="{{ url('questions_answer', args=[interest_group.slug, question.id]) }}">
-                    {{ csrf_security() }}
-
-                    <label for="answer_text" class="small">Answer this question:</label>
-                    <textarea id="answer_text" name="answer_text" class="form-control tiny_question_answer"></textarea>
-                    <button type="submit" class="btn btn-primary btn-sm mt-2">Submit your answer</button>
-                </form>
-            </section>
-        </div>
-    </div>
 {% endblock %}

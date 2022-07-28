@@ -6,7 +6,7 @@
 #
 #####}
 
-{% extends "forms/datalist.jinja2" %}
+{% extends "forms/list_form.jinja2" %}
 
 {% macro create_toolbar() %}
     {% set toolbar = {
@@ -16,8 +16,8 @@
     } %} {{ toolbar_factory.build_toolbar(toolbar) }}
 {% endmacro %}
 
-{% macro create_rows(questions) %}
-    {% for q in questions %}
+{% macro create_rows(_questions) %}
+    {% for q in _questions %}
         <tr>
             <td>
                 <a href="{{ url("questions_detail", args=[interest_group.slug, q.id]) }}">{{ q.title }}</a>
@@ -28,15 +28,12 @@
     {% endfor %}
 {% endmacro %}
 
-{# do not touch below this line #}
-
-{% macro init_datatable() %}
-    {% include "config/server_side/questions/index_datatable.jinja2" %}
-{% endmacro %}
-
 {% block page_title %}
     {{ element_factory.page_title("Questions") }}
 {% endblock %}
+
+
+{# do not touch below this line #}
 
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
@@ -47,9 +44,9 @@
 {% endblock %}
 
 {% block datatable %}
-    {{ init_datatable() }}
+    {% include "config/server_side/questions/index.jinja2" %}
 {% endblock %}
 
 {% block client_side_config %}
-    {% include "config/client_side/questions/index_datatable.js" %}
+    {% include "config/client_side/questions/index.js" %}
 {% endblock %}

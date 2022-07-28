@@ -1,7 +1,7 @@
 <script type="text/javascript">
     tinymce.init(
     {
-        selector: 'textarea.tiny_question_reply',
+        selector: 'textarea.tiny_enabled',
         setup: function (editor) {
             editor.on('change', function () {
                 tinymce.triggerSave();
@@ -9,7 +9,7 @@
         },
         inline: false,
         width: '100%',
-        min_height: 100,
+        min_height: 400,
         branding: false,
         plugins: 'advlist autolink autoresize autosave charmap code codesample emoticons fullscreen help hr ' +
             'image insertdatetime link lists paste searchreplace table textpattern wordcount ',

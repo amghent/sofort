@@ -1,0 +1,17 @@
+{%  set form = {
+    "id": "answer",
+    "csrf_token": csrf_token,
+    "post_url": url('questions_answer', args=[interest_group.slug, question.id]),
+    "submit_button_text": "Submit your answer",
+    "fields": [
+        {
+            "id": "answer_text",
+            "type": "required_textarea",
+            "label": "Answer this question:",
+            "required_message": "Please enter the answer's content."
+        }
+    ]
+} %}
+
+{#  do not touch below this line #}
+{{ entry_factory.create_form(form) }}

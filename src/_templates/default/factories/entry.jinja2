@@ -1,0 +1,27 @@
+{% import "factories/elements.jinja2" as element_factory %}
+
+{% macro create_form(_form) %}
+    <form id="_form.id" method="POST" action="{{ _form.post_url }}">
+        {{ element_factory.csrf_security(_form.csrf_token) }}
+
+        {% for field in _form.fields %}
+            <label for="{{ field.id }}" class="form-label">{{ field.label }}</label>
+
+            {% if field.type == "required_text" %}
+                <input type="text" id="{{ field.id }}" name="{{ field.id }}" class="form-label {{ field.width }}"
+                       required data-validation-required-message="{{ field.required_message }}"/>
+            {% endif %}
+
+            {% if field.type == "required_textarea" %}
+                <textarea id="{{ field.id }}" name="{{ field.id }}" class="tiny_enabled form-text"
+                          required data-validation-required-message="{{ field.required_message }}"></textarea>
+            {% endif %}
+
+            {% if field.help_message %}
+                <div id="{{ field.id }}_help" class="form-text">{{ field.help_message }}</div>
+            {% endif %}
+        {% endfor %}
+
+        {{ element_factory.submit_button(_form.submit_button_text) }}
+    </form>
+{% endmacro %}

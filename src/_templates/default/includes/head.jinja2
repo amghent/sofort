@@ -23,11 +23,7 @@
     <script src="{{ static("tinymce/js/tinymce/tinymce.min.js") }}" type="text/javascript"></script>
 
     {% include "includes/tiny_disabled.jinja2" %}
-    {% include "includes/tiny_question.jinja2" %}
-    {% include "includes/tiny_question_answer.jinja2" %}
-    {% include "includes/tiny_question_reply.jinja2" %}
-
-    <!-- TODO: only include the above when needed (based on url)-->
+    {% include "includes/tiny_enabled.jinja2" %}
 
     {% if message is defined %}
         <script type="text/javascript">

@@ -6,20 +6,20 @@
 #
 #####}
 
-{% macro create_header(columns) %}
+{% macro create_header(_columns) %}
     <thead>
         <tr>
-            {% for c in columns %}
+            {% for c in _columns %}
                 <th style="width: {{ c.width }}">{{ c.title}}</th>
             {% endfor %}
         </tr>
     </thead>
 {% endmacro %}
 
-{% macro create_datatable(datatable, data) %}
-        <table id="{{ datatable.id }}" class="table table-striped w-100 border border-1">
-            {{ create_header(datatable.columns) }}
+{% macro create_datatable(_datatable, _data) %}
+        <table id="{{ _datatable.id }}" class="table table-striped w-100 border border-1">
+            {{ create_header(_datatable.columns) }}
 
-            <tbody>{{ data }}</tbody>
+            <tbody>{{ _data }}</tbody>
         </table>
 {% endmacro %}

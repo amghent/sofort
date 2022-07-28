@@ -1,30 +1,19 @@
-{% extends "base.jinja2" %}
+{% extends "forms/entry_form.jinja2" %}
+
+{% block toolbar %}
+    {{ toolbar_factory.cancel_button( url('questions_index', args=[interest_group.slug]) ) }}
+{% endblock %}
+
+{% block page_title %}
+    {{ element_factory.page_title("New Question") }}
+{% endblock %}
+
+
+{# do not touch below this line #}
+{% block form %}
+    {% include "config/server_side/questions/new.jinja2" %}
+{% endblock %}
 
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
-{% endblock %}
-
-{% block content %}
-    <div id="content-wrapper" class="container-fluid">
-        <div id="top_right_toolbar">
-            {{ toolbar_factory.new_button( url('questions_index', args=[interest_group.slug]) ) }}
-        </div>
-
-        <div id="question_detail_fields">
-            {{ element_factory.page_title("New Question") }}
-
-            <form method="POST" action="{{ url('questions_save', args=[interest_group.slug]) }}">
-                {{ csrf_security() }}
-
-                <label for="question_title" class="form-label">Title:</label>
-                <input type="text" id="question_title" name="question_title" class="form-label w-50" required data-validation-required-message="Please enter the title."/>
-
-                <label for="question_text">Question:</label>
-                <textarea id="question_text" name="question_text" class="tiny_question form-text" required data-validation-required-message="Please enter the content of the question." aria-describedby="textHelp"></textarea>
-                <div id="question_text_help" class="form-text">Please provide as much detail as possible. If possible, also a screenshot.</div>
-
-                {{ element_factory.submit_button("Submit your question") }}
-            </form>
-        </div>
-    </div>
 {% endblock %}

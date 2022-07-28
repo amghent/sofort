@@ -1,20 +1,17 @@
+# FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
+
 # TODO: Implement "viewed x times" on questions
 # TODO: Implement "x answers" on questions
 # TODO: Implement "x replies" on questions
 
-# TODO: Rename "QuestionReply" to "QuestionComment"
-
-# TODO: Introduce factories for recurring elements
+# TODO: All becomes "chat" with "message", "reply" and "comment"
 # TODO: Add "add comment" or "answer question" instead of immediately showing the editors
-
-# FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
-
-# TODO: Edit title of a question
 
 # TODO: Delete on a question
 # TODO: Delete on an answer
 # TODO: Delete on a discussion
 
+# TODO: Edit title of a question
 # TODO: Edit on a question
 # TODO: Edit on an answer
 # TODO: Edit on a discussion
@@ -31,8 +28,6 @@
 # TODO: TinyMCE -> Advanced images
 # TODO: TinyMCE -> Import css
 # TODO: TinyMCE -> Insert username via toolbar and menu
-
-# TODO: All the spacing must come from internal settings that can be changed through the interface
 
 # TODO: The list of questions looks so boring
 
