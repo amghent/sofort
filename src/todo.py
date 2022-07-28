@@ -1,12 +1,9 @@
 # FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
 
-# TODO: sort interest groups on name on homepage
-
 # TODO: Implement "viewed x times" on questions
 # TODO: Implement "x answers" on questions
 # TODO: Implement "x replies" on questions
 
-# TODO: All becomes "chat" with "message", "reply" and "comment"
 # TODO: Add "add comment" or "answer question" instead of immediately showing the editors
 
 # TODO: Delete on a question

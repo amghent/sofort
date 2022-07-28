@@ -19,7 +19,7 @@ def index(request):
     if member is None:
         interest_groups = []
     else:
-        interest_groups = list(InterestGroup.objects.filter(members__in=[member]))
+        interest_groups = InterestGroup.objects.filter(members__in=[member]).order_by("name")
 
     context["interest_groups"] = interest_groups
 
@@ -60,7 +60,7 @@ def login_failure(request):
     if member is None:
         interest_groups = []
     else:
-        interest_groups = list(InterestGroup.objects.filter(members__in=[member]))
+        interest_groups = InterestGroup.objects.filter(members__in=[member])
 
     context["interest_groups"] = interest_groups
     context["message"] = {
@@ -84,7 +84,7 @@ def login_success(request):
     if member is None:
         interest_groups = []
     else:
-        interest_groups = list(InterestGroup.objects.filter(members__in=[member]))
+        interest_groups = InterestGroup.objects.filter(members__in=[member])
 
     context["interest_groups"] = interest_groups
 
