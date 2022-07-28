@@ -1,13 +1,13 @@
-{% extends "base.jinja2" %}
+{% extends "forms/static_page.jinja2" %}
 
-{% block content %}
-    <div id="content-wrapper" class="container-fluid">
-        <h1>{{ page.title }}</h1>
+{% block page_title %}
+    {{ element_factory.page_title(page.title) }}
+{% endblock %}
 
-        {% if page.intro.strip() != "" %}
-            <p class="lead">{{ page.intro }}</p>
-        {% endif %}
+{% block page_content %}
+    {% if page.intro.strip() != "" %}
+        <p class="lead">{{ page.intro }}</p>
+    {% endif %}
 
-        <p>{{ page.content }}</p>
-    </div>
+    <p>{{ page.content }}</p>
 {% endblock %}
