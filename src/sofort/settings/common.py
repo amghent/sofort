@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     'grappelli',
     'filebrowser',
     
-    'bootstrap.apps.BootstrapConfig',
+    '_bootstrap.apps.BootstrapConfig',
     'core.apps.CoreConfig',
 
     'bookmarks.apps.BookmarksConfig',

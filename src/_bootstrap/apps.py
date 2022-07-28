@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class BootstrapConfig(AppConfig):
-    name = 'bootstrap'
+    name = '_bootstrap'

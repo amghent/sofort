@@ -35,15 +35,15 @@ class Question(QuestionCommon):
         abstract = False
     
     
-class QuestionAnswer(QuestionCommon):
+class QuestionResponse(QuestionCommon):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     class Meta:
         abstract = False
 
 
-class QuestionReply(QuestionCommon):
-    question_answer = models.ForeignKey(QuestionAnswer, on_delete=models.CASCADE)
+class QuestionComment(QuestionCommon):
+    response = models.ForeignKey(QuestionResponse, on_delete=models.CASCADE)
 
     class Meta:
         abstract = False

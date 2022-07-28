@@ -9,6 +9,7 @@ urlpatterns = [
 
     # because of the string in uuid, this must be defined after new and post
     path("<str:interest_slug>/<str:question_uuid>", views.detail, name="questions_detail"),
-    path("<str:interest_slug>/<str:question_uuid>/answer", views.answer, name="questions_answer"),
-    path("<str:interest_slug>/<str:question_uuid>/<str:answer_uuid>reply", views.reply, name="questions_reply"),
+    path("<str:interest_slug>/<str:question_uuid>/respond", views.respond, name="questions_respond"),
+    path("<str:interest_slug>/<str:question_uuid>/<str:response_uuid>/comment", views.comment,
+         name="questions_comment"),
 ]

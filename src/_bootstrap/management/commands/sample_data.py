@@ -9,7 +9,7 @@ from core.models import Setting
 from interests.models import InterestGroup
 from members.models import Member
 from pages.models import Page
-from questions.models import Question, QuestionAnswer, QuestionReply
+from questions.models import Question, QuestionResponse, QuestionComment
 from tags.models import Tag
 
 
@@ -29,7 +29,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def __read_csv(file_name):
-        file = os.path.join(os.getcwd(), "src", "bootstrap", "management", "presets", file_name)
+        file = os.path.join(os.getcwd(), "src", "_bootstrap", "management", "presets", file_name)
         data = pandas.read_csv(file)
         data = data.fillna("")
 
@@ -99,7 +99,7 @@ class Command(BaseCommand):
 
     def __upload_questions(self):
         questions = []
-        answers = []
+        responses = []
 
         for row in self.__read_csv("questions.csv"):
             qt, qi, qr, author, title, text, interest_group = tuple(row)
@@ -113,17 +113,17 @@ class Command(BaseCommand):
                 questions.append(q.id)
                 continue
 
-            if qt == "a":
-                a = QuestionAnswer()
-                a.question_id, a.author, a.text = questions[int(qr)], self.__get_member(author), text
-                a.save()
+            if qt == "r":
+                r = QuestionResponse()
+                r.question_id, r.author, r.text = questions[int(qr)], self.__get_member(author), text
+                r.save()
 
-                answers.append(a.id)
+                responses.append(r.id)
                 continue
 
-            r = QuestionReply()
-            r.question_answer_id, r.author, r.text = answers[int(qr)], self.__get_member(author), text
-            r.save()
+            c = QuestionComment()
+            c.response_id, c.author, c.text = responses[int(qr)], self.__get_member(author), text
+            c.save()
 
     @staticmethod
     def __get_member(member_name: str) -> Member:

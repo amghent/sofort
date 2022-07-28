@@ -47,9 +47,9 @@ endif
 #
 login: validate
 ifeq ("$(SETTINGS)", "sofort.settings.mssql")
-	source ./src/bootstrap/management/config/mssql/sa.secret && \
-	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/drop_login.sql  && \
-	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/create_login.sql
+	source ./src/_bootstrap/management/config/mssql/sa.secret && \
+	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/_bootstrap/management/sql/mssql/drop_login.sql  && \
+	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/_bootstrap/management/sql/mssql/create_login.sql
 endif
 #
 ###
@@ -62,13 +62,13 @@ ifeq ("$(SETTINGS)", "sofort.settings.sqlite3")
 endif
 
 ifeq ("$(SETTINGS)", "sofort.settings.postgres")
-	sudo -u postgres psql -d postgres -f src/bootstrap/management/sql/postgres/create_db.sql ;
+	sudo -u postgres psql -d postgres -f src/_bootstrap/management/sql/postgres/create_db.sql ;
 endif
 
 ifeq ("$(SETTINGS)", "sofort.settings.mssql")
-	source ./src/bootstrap/management/config/mssql/sa.secret && \
-	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/drop_db.sql && \
-	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/bootstrap/management/sql/mssql/create_db.sql
+	source ./src/_bootstrap/management/config/mssql/sa.secret && \
+	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/_bootstrap/management/sql/mssql/drop_db.sql && \
+	$(MS_SQLCMD) -S localhost -C -U sa -P "$(MSSQL_SA_PASSWORD)" -i ./src/_bootstrap/management/sql/mssql/create_db.sql
 endif
 #
 ###

@@ -23,14 +23,14 @@ def index(request, interest_slug: str):
 
 @login_required
 def detail(request, interest_slug: str, question_uuid: str):
-    from questions.models import Question, QuestionAnswer, QuestionReply
+    from questions.models import Question, QuestionResponse, QuestionComment
 
     question = Question.objects.get(id=question_uuid)
 
     context, _ = __common_context(request=request, interest_slug=interest_slug, current_page="questions_detail")
     context["question"] = question
-    context["answers"] = QuestionAnswer.objects.filter(question=question.id).order_by("created_at")
-    context["replies"] = QuestionReply.objects.filter(question_answer__question_id=question.id).order_by("created_at")
+    context["responses"] = QuestionResponse.objects.filter(question=question.id).order_by("created_at")
+    context["comments"] = QuestionComment.objects.filter(response__question_id=question.id).order_by("created_at")
 
     return render(request=request, template_name="questions/detail.jinja2", context=context)
 
@@ -61,33 +61,33 @@ def save(request, interest_slug: str):
 
 
 @login_required
-def answer(request, interest_slug: str, question_uuid: str):
-    from questions.models import QuestionAnswer
+def respond(request, interest_slug: str, question_uuid: str):
+    from questions.models import QuestionResponse
     from members.context import Context as MemberContext
 
-    question_answer = QuestionAnswer()
+    question_response = QuestionResponse()
 
-    question_answer.question_id = question_uuid
-    question_answer.author = MemberContext.get_member_from_username(user=request.user)
-    question_answer.text = request.POST["answer_text"]
+    question_response.question_id = question_uuid
+    question_response.author = MemberContext.get_member_from_username(user=request.user)
+    question_response.text = request.POST["response_text"]
 
-    question_answer.save()
+    question_response.save()
 
     return redirect(to="questions_detail", interest_slug=interest_slug, question_uuid=question_uuid)
 
 
 @login_required
-def reply(request, interest_slug: str, question_uuid: str, answer_uuid: str):
-    from questions.models import QuestionReply
+def comment(request, interest_slug: str, question_uuid: str, response_uuid: str):
+    from questions.models import QuestionComment
     from members.context import Context as MemberContext
 
-    question_reply = QuestionReply()
+    question_comment = QuestionComment()
 
-    question_reply.question_answer_id = answer_uuid
-    question_reply.author = MemberContext.get_member_from_username(user=request.user)
-    question_reply.text = request.POST["reply_text"]
+    question_comment.response_id = response_uuid
+    question_comment.author = MemberContext.get_member_from_username(user=request.user)
+    question_comment.text = request.POST["comment_text"]
 
-    question_reply.save()
+    question_comment.save()
 
     return redirect(to="questions_detail", interest_slug=interest_slug, question_uuid=question_uuid)
 

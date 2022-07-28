@@ -3,30 +3,31 @@
     <textarea id="{{ _id }}" class="disabled tiny-disabled">{{ _text }}</textarea>
 {% endmacro %}
 
-{% macro level_1(_id, _label, _text) %}
+{% macro message(_id, _label, _text) %}
     <div class="d-flex flex-column mb-3">
         {{ communication_field(_id, _label, _text) }}
     </div>
 {% endmacro %}
 
-{% macro level_2(_id, _label, _text) %}
+{% macro response(_id, _label, _text) %}
     <div class="d-flex flex-column mb-3">
         {{ communication_field(_id, _label, _text) }}
     </div>
 {% endmacro %}
 
-{% macro level_3(_id, _label, _text) %}
+{# TODO: the ms-5 is on the comment block already, nest it better in questions #}
+{% macro comment(_id, _label, _text) %}
     <div class="d-flex flex-column ms-5 mb-3">
         {{ communication_field(_id, _label, _text) }}
     </div>
 {% endmacro %}
 
 
-{% macro level_1_div(_inner_code) %}
+{% macro message_block(_inner_code) %}
     <div>{{ _inner_code }}</div>
 {% endmacro %}
 
-{% macro level_2_div(_inner_code) %}
+{% macro response_block(_inner_code) %}
     <div class="card card-body bg-light p-3 mb-3">
         <div class="d-flex flex-column w-100">
             {{ _inner_code }}
@@ -34,7 +35,7 @@
     </div>
 {% endmacro %}
 
-{% macro level_3_div(_inner_code) %}
+{% macro comment_block(_inner_code) %}
     <div class="ms-5">
         {{ _inner_code }}
     </div>

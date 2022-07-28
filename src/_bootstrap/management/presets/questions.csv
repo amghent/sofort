@@ -1,0 +1,9 @@
+type,id,relation,author,title,text,interest_group
+q,0,,sidlvdp,Why is SOFORT written in Python ?,"I was wondering why SOFORT is written in Python, and Django ?",python
+r,0,0,sidviny,,It was written in Python because Python is the best programming language at this moment.,
+r,1,0,sidviny,,Django is a great framework for fast development of this kind of tools,
+c,0,0,sidlvdp,,That's great !,
+c,1,0,sidviny,,"Indeed, it is",
+q,1,,sidnkar,What are pandas ?,What are pandas and what do they have to do with snakes ?,python
+r,2,1,sidviny,,"Pandas are not animals, dude !",
+c,2,2,sidnkar,,"Oh, sorry, my mistake",

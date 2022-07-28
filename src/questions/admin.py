@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from questions.models import Question, QuestionAnswer, QuestionReply
+from questions.models import Question, QuestionResponse, QuestionComment
 
 admin.site.register(Question)
-admin.site.register(QuestionAnswer)
-admin.site.register(QuestionReply)
+admin.site.register(QuestionResponse)
+admin.site.register(QuestionComment)

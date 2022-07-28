@@ -9,50 +9,50 @@
 {% endblock %}
 
 {% block detail %}
-    {{ chat_factory.level_1_div(question_content()) }}
+    {{ chat_factory.message_block(question_content()) }}
 
-    {% for answer in answers %}
-        {{ chat_factory.level_2_div(answer_content(answer, replies)) }}
+    {% for response in responses %}
+        {{ chat_factory.response_block(response_content(response, comments)) }}
     {% endfor %}
 
-    {{ chat_factory.level_1_div(answer_form(question)) }}
+    {{ chat_factory.message_block(response_form(question)) }}
 {% endblock %}
 
 {% macro question_content() %}
-    {{ chat_factory.level_1(
+    {{ chat_factory.message(
             "question-" + question.id|string,
             question.author.display_name + " - " + question.created_at | dt_to_user_frmt,
             question.text
     ) }}
 {% endmacro %}
 
-{% macro answer_content(answer, replies) %}
-    {{ chat_factory.level_2(
-        "answer-" + answer.id|string,
-        answer.author.display_name + " - " + answer.created_at | dt_to_user_frmt,
-        answer.text
+{% macro response_content(response, comments) %}
+    {{ chat_factory.response(
+        "response_" + response.id|string|replace("-", "_"),
+        response.author.display_name + " - " + response.created_at | dt_to_user_frmt,
+        response.text
     ) }}
 
-    {% for r in replies %}
-        {% if r.question_answer == answer %}
-            {{ chat_factory.level_3(
-                "reply-" + r.id|string,
-                r.author.display_name + " - " + r.created_at | dt_to_user_frmt,
-                r.text
+    {% for comment in comments %}
+        {% if comment.response == response %}
+            {{ chat_factory.comment(
+                "comment_" + comment.id|string|replace("-", "_"),
+                comment.author.display_name + " - " + comment.created_at | dt_to_user_frmt,
+                comment.text
             ) }}
         {% endif %}
     {% endfor %}
 
-    {{ chat_factory.level_3_div(reply_form(answer)) }}
+    {{ chat_factory.comment_block(comment_form(response)) }}
 {% endmacro %}
 
 {# do not touch below this line #}
-{% macro reply_form(answer) %}
-    {% include "config/server_side/questions/reply.jinja2" %}
+{% macro response_form(question) %}
+    {% include "config/server_side/questions/response.jinja2" %}
 {% endmacro %}
 
-{% macro answer_form(question) %}
-    {% include "config/server_side/questions/answer.jinja2" %}
+{% macro comment_form(response) %}
+    {% include "config/server_side/questions/comment.jinja2" %}
 {% endmacro %}
 
 {% block sidebar %}
