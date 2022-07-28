@@ -1,0 +1,28 @@
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-07-28
+#   Author:     Yves Vindevogel
+#
+#####}
+
+{% extends "base.jinja2" %}
+
+{% block sidebar %}{% endblock %}
+
+{% block content %}
+    <div id="content-wrapper" class="container-fluid">
+        {% block toolbar %}{% endblock %}
+
+        <div id="content_list">
+            {% block page_title %}{% endblock %}
+            {% block datatable %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block datatable_scripting %}
+    <script type="text/javascript">
+        {% block client_side_config %}{% endblock %}
+    </script>
+{% endblock %}

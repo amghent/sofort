@@ -1,3 +1,11 @@
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-07-28
+#   Author:     Yves Vindevogel
+#
+#####}
+
 {% macro page_title(_title) %}
     <h1>{{ _title }}</h1>
 {% endmacro %}
@@ -6,8 +14,6 @@
     <button type="submit" class="btn btn-primary btn-sm mt-2">{{ _btn_text }}</button>
 {% endmacro %}
 
-{% macro toolbar_button(id, url, icon) %}
-            <a href="{{ url }}" class="btn btn-primary btn-sm float-end" id="{{ id }}">
-                <i class="fa-solid {{ icon }}"></i>
-            </a>
+{% macro csrf_security() %}
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
 {% endmacro %}

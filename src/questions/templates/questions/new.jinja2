@@ -7,16 +7,14 @@
 {% block content %}
     <div id="content-wrapper" class="container-fluid">
         <div id="top_right_toolbar">
-            <a href="{{ url('questions_index', args=[interest_group.slug]) }}" class="btn btn-primary btn-sm float-end" id="new_question">
-                <i class="fa-solid fa-delete-left"></i>
-            </a>
+            {{ toolbar_factory.new_button( url('questions_index', args=[interest_group.slug]) ) }}
         </div>
 
         <div id="question_detail_fields">
             {{ element_factory.page_title("New Question") }}
 
             <form method="POST" action="{{ url('questions_save', args=[interest_group.slug]) }}">
-                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
+                {{ csrf_security() }}
 
                 <label for="question_title" class="form-label">Title:</label>
                 <input type="text" id="question_title" name="question_title" class="form-label w-50" required data-validation-required-message="Please enter the title."/>

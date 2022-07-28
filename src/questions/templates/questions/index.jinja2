@@ -1,8 +1,20 @@
-{% extends "base.jinja2" %}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-07-28
+#   Author:     Yves Vindevogel
+#
+#####}
 
-{% block sidebar %}
-    {% include "includes/interests/sidebar.jinja2" %}
-{% endblock %}
+{% extends "forms/datalist.jinja2" %}
+
+{% macro create_toolbar() %}
+    {% set toolbar = {
+        "buttons": [
+            {"type": "new", "url": url('questions_new', args=[interest_group.slug])}
+        ],
+    } %} {{ toolbar_factory.build_toolbar(toolbar) }}
+{% endmacro %}
 
 {% macro create_rows(questions) %}
     {% for q in questions %}
@@ -16,38 +28,28 @@
     {% endfor %}
 {% endmacro %}
 
-{% block content %}
-    <div id="content-wrapper" class="container-fluid">
-        <div id="top_right_toolbar">
-            {{ element_factory.toolbar_button("new_question",
-                url('questions_new', args=[interest_group.slug]), "fa-file-circle-plus") }}
-        </div>
+{# do not touch below this line #}
 
-        <div id="questions_list">
-            {{ element_factory.page_title("Questions") }}
+{% macro init_datatable() %}
+    {% include "config/server_side/questions/index_datatable.jinja2" %}
+{% endmacro %}
 
-            {% set columns = [
-                    {"width": "65%", "title": "Title"},
-                    {"width": "20%", "title": "Author"},
-                    {"width": "15%", "title": "Created"},
-                ]
-            %}
-
-            <table id="questions_dt" class="table table-striped w-100 border border-1">
-                {{ datatable_factory.create_header(columns) }}
-
-                <tbody>{{ create_rows(questions) }}</tbody>
-            </table>
-        </div>
-    </div>
+{% block page_title %}
+    {{ element_factory.page_title("Questions") }}
 {% endblock %}
 
-{% block datatable_scripting %}
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#questions_dt').DataTable({
-                order: [[2, 'desc']],
-            });
-        });
-    </script>
+{% block sidebar %}
+    {% include "includes/interests/sidebar.jinja2" %}
+{% endblock %}
+
+{% block toolbar %}
+    {{ create_toolbar() }}
+{% endblock %}
+
+{% block datatable %}
+    {{ init_datatable() }}
+{% endblock %}
+
+{% block client_side_config %}
+    {% include "config/client_side/questions/index_datatable.js" %}
 {% endblock %}

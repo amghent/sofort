@@ -46,7 +46,7 @@
 
                             <div class="ms-5">
                                 <form method="POST" action="{{ url('questions_reply', args=[interest_group.slug, question.id, a.id]) }}">
-                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
+                                    {{ csrf_security() }}
 
                                     <label for="reply_text" class="small">Reply to this answer:</label>
                                     <textarea id="reply_text" name="reply_text" class="form-control tiny_question_reply"></textarea>
@@ -58,7 +58,7 @@
                 {% endfor %}
 
                 <form method="POST" action="{{ url('questions_answer', args=[interest_group.slug, question.id]) }}">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
+                    {{ csrf_security() }}
 
                     <label for="answer_text" class="small">Answer this question:</label>
                     <textarea id="answer_text" name="answer_text" class="form-control tiny_question_answer"></textarea>
