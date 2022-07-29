@@ -17,7 +17,7 @@
             <div class="card h-100">
                 <div class="card-header">Members</div>
                 <div class="card-body">
-                    <p class="card-text">Count: {{ interest_group.member_count }}</p>
+                    <p class="card-text mb-0">Count: {{ interest_group.member_count }}</p>
                 </div>
             </div>
         </div>
@@ -26,7 +26,9 @@
             <div class="card h-100">
                 <div class="card-header">Questions</div>
                 <div class="card-body">
-                    <p class="card-text">Total: {{ interest_group.question_count }}</p>
+                    <p class="card-text mb-0">Total: {{ interest_group.question_count }}</p>
+                    <p class="card-text mb-0">Responses: {{ interest_group.question_response_count }}</p>
+                    <p class="card-text mb-0">Comments: {{ interest_group.question_comment_count }}</p>
                 </div>
             </div>
         </div>

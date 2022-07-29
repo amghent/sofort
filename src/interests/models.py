@@ -32,3 +32,15 @@ class InterestGroup(CoreModel):
         from questions.models import Question
 
         return Question.objects.filter(interest_group=self).count()
+
+    @property
+    def question_response_count(self):
+        from questions.models import QuestionResponse
+
+        return QuestionResponse.objects.filter(question__interest_group=self).count()
+
+    @property
+    def question_comment_count(self):
+        from questions.models import QuestionComment
+
+        return QuestionComment.objects.filter(response__question__interest_group=self).count()
