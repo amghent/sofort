@@ -1,15 +1,8 @@
-<div class="row d-flex flex-row my-0 gy-3">
+{% macro create_ig_boxes() %}
     {% for ig in interest_groups %}
-        <div class="col-12 col-md-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">{{ ig.name }}</h2>
-                    <p class="card-text">{{ ig.description }}</p>
-                </div>
-                <div class="card-footer">
-                    <a class="btn btn-primary btn-sm" href="{{ url('interest_group_index', args = [ig.slug]) }}">Go to {{  ig.name }}'s home</a>
-                </div>
-            </div>
-        </div>
+        {{ card_factory.create_action_card(ig.name, ig.description, url('interest_group_index', args = [ig.slug]),
+            "Go to "+  ig.name + "'s home") }}
     {% endfor %}
-</div>
+{% endmacro %}
+
+{{ card_factory.create_card_box(create_ig_boxes()) }}

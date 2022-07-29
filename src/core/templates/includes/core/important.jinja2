@@ -1,7 +1,3 @@
 {% if settings.important_message %}
-    <div class="card text-white bg-secondary text-center mt-3">
-        <div class="card-body">
-            <p class="text-white">{{ settings.important_message }}</p>
-        </div>
-    </div>
+    {{ element_factory.information_box(settings.important_message) }}
 {% endif %}

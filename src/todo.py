@@ -1,6 +1,10 @@
 # FIXME: There should be no pure html code in any of the pages called by a view. Move all to the factories
 # FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
 
+# TODO: local vars should start with _
+# TODO: parameters should start with _
+# TODO: all factory methods must be a verb
+
 # TODO: Mail system
 # TODO: Add "add comment" or "answer question" instead of immediately showing the editors
 # TODO: "Search" on datatable is more "Quick filter", so rename the label
@@ -19,7 +23,9 @@
 # TODO: Edit on a comment
 
 # TODO: Implement "questions not yet seen"
+# TODO: Implement "my question is answered"
 
+# TODO: fontawesome icons on V/R/C (maybe also on created and author)
 # TODO: The fonts can be smaller everywhere
 
 # TODO: Message when question is saved successfully

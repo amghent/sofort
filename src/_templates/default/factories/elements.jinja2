@@ -10,6 +10,14 @@
     <h1>{{ _title }}</h1>
 {% endmacro %}
 
+{% macro information_box(_message) %}
+    <div class="card text-white bg-secondary text-center mt-3">
+        <div class="card-body">
+            <p class="text-white">{{ _message }}</p>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro submit_button(_btn_text) %}
     <button type="submit" class="btn btn-primary btn-sm mt-2">{{ _btn_text }}</button>
 {% endmacro %}

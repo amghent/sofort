@@ -1,17 +1,17 @@
-{% extends "base.jinja2" %}
+{% extends "forms/generic_page.jinja2" %}
 
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
 
-{% block content %}
-    <div id="content-wrapper" class="container-fluid">
-        <h1>{{ interest_group.name }}</h1>
+{% block page_title %}
+    {{ element_factory.page_title(interest_group.name) }}
+{% endblock %}
 
-        {% if interest_group.description.strip() != "" %}
-            <p class="lead">{{ interest_group.description }}</p>
-        {% endif %}
+{% block page_content %}
+    {% if interest_group.description.strip() != "" %}
+        <p class="lead">{{ interest_group.description }}</p>
+    {% endif %}
 
-        <p>{{ interest_group.about }}</p>
-    </div>
+    <p>{{ interest_group.about }}</p>
 {% endblock %}

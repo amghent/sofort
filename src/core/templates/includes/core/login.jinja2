@@ -1,23 +1,9 @@
-<div class="card">
-    {% if user.username != "" %}
-        <div class="card-header">Welcome</div>
-        <div class="card-body">
-            <p>User: {{ user.username }}</p>
-        </div>
-    {% else %}
-        <div class="card-header">Login</div>
-        <div class="card-body">
-            <form method="POST" action="{{ url('login_user') }}">
-                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
+{% macro create_login_form() %}
+    {% include "config/server_side/core/login.jinja2" %}
+{% endmacro %}
 
-                <label for="username" class="form-label">User name:</label>
-                <input type="text" id="username" name="username" class="form-control mb-2" required data-validation-required-message="Please enter your user name."/>
-
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" id="password" name="password" class="form-control mb-2" required data-validation-required-message="Please enter your password."/>
-
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
-            </form>
-        </div>
-    {% endif %}
-</div>
+{% if user.username != "" %}
+    {{ card_factory.create_card("Welcome", "User: " + user.username) }}
+{% else %}
+    {{ card_factory.create_card("Login", create_login_form()) }}
+{% endif %}

@@ -1,12 +1,25 @@
-<div class="row pt-3">
-    <div class="col-12 col-md-3">
-        <img class="img-fluid rounded" src="{{ static('images/home.jpg') }}" alt="{{ meta.application_name }} home page"/>
-    </div>
-    <div class="px-md-3 py-3 py-md-0 col-12 col-md-6 col-xl-7">
-        <h1>{{ settings.application_title }}</h1>
-        <p>{{ settings.welcome_text }}</p>
-    </div>
-    <div class="col-12 col-md-3 col-xl-2">
-        {% include "includes/core/login.jinja2" %}
-    </div>    
-</div>
+{% macro create_image_cell(_meta) %}
+    {{ images_factory.create_image( static("images/home.jpg"), "homepage") }}
+{% endmacro %}
+
+{# TODO: this should come from a real page that is stored in the database, so accepting it for now, even if it's html #}
+{% macro create_wellcome_cell(settings) %}
+    <h1>{{ settings.application_title }}</h1>
+    <p>{{ settings.welcome_text }}</p>
+{% endmacro %}
+
+{% macro create_login_cell() %}
+    {% include "includes/core/login.jinja2" %}
+{% endmacro %}
+
+
+{% set row = {
+    "spacing": "pt-3",
+    "cells": [
+        {"sizing": "col-12 col-md-3", "content": create_image_cell(meta)},
+        {"sizing": "px-md-3 py-3 py-md-0 col-12 col-md-6 col-xl-7", "content": create_wellcome_cell(settings)},
+        {"sizing": "col-12 col-md-3 col-xl-2", "content": create_login_cell()}
+    ],
+} %}
+
+{{ row_factory.create_row(row) }}

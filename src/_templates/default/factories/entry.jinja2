@@ -8,7 +8,12 @@
             <label for="{{ field.id }}" class="form-label">{{ field.label }}</label>
 
             {% if field.type == "required_text" %}
-                <input type="text" id="{{ field.id }}" name="{{ field.name }}" class="form-label {{ field.width }}"
+                <input type="text" id="{{ field.id }}" name="{{ field.name }}" class="form-text {{ field.width }}"
+                       required data-validation-required-message="{{ field.required_message }}"/>
+            {% endif %}
+
+            {% if field.type == "password" %}
+                <input type="password" id="{{ field.id }}" name="{{ field.name }}" class="form-text {{ field.width }}"
                        required data-validation-required-message="{{ field.required_message }}"/>
             {% endif %}
 
