@@ -7,7 +7,7 @@
                     <p class="card-text">{{ ig.description }}</p>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-primary btn-sm" href="{{ url('interest_group_detail', args = [ig.slug]) }}">Go to {{  ig.name }}'s home</a>
+                    <a class="btn btn-primary btn-sm" href="{{ url('interest_group_index', args = [ig.slug]) }}">Go to {{  ig.name }}'s home</a>
                 </div>
             </div>
         </div>

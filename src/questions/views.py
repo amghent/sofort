@@ -22,7 +22,7 @@ def index(request, interest_slug: str):
 
 
 @login_required
-def detail(request, interest_slug: str, question_uuid: str):
+def read(request, interest_slug: str, question_uuid: str):
     from questions.models import Question, QuestionResponse, QuestionComment
 
     question = Question.objects.get(id=question_uuid)
@@ -30,7 +30,7 @@ def detail(request, interest_slug: str, question_uuid: str):
     question.view_count += 1
     question.save()
 
-    context, _ = __common_context(request=request, interest_slug=interest_slug, current_page="questions_detail")
+    context, _ = __common_context(request=request, interest_slug=interest_slug, current_page="questions_read")
     context["question"] = question
     context["responses"] = QuestionResponse.objects.filter(question=question.id).order_by("created_at")
     context["comments"] = QuestionComment.objects.filter(response__question_id=question.id).order_by("created_at")
@@ -46,7 +46,7 @@ def new(request, interest_slug: str):
 
 
 @login_required
-def save(request, interest_slug: str):
+def create(request, interest_slug: str):
     from interests.models import InterestGroup
     from questions.models import Question
     from members.context import Context as MemberContext
@@ -60,7 +60,7 @@ def save(request, interest_slug: str):
 
     question.save()
 
-    return redirect(to="questions_detail", interest_slug=interest_slug, question_uuid=question.id)
+    return redirect(to="questions_read", interest_slug=interest_slug, question_uuid=question.id)
 
 
 @login_required
@@ -76,7 +76,7 @@ def respond(request, interest_slug: str, question_uuid: str):
 
     question_response.save()
 
-    return redirect(to="questions_detail", interest_slug=interest_slug, question_uuid=question_uuid)
+    return redirect(to="questions_read", interest_slug=interest_slug, question_uuid=question_uuid)
 
 
 @login_required
@@ -92,7 +92,7 @@ def comment(request, interest_slug: str, question_uuid: str, response_uuid: str)
 
     question_comment.save()
 
-    return redirect(to="questions_detail", interest_slug=interest_slug, question_uuid=question_uuid)
+    return redirect(to="questions_read", interest_slug=interest_slug, question_uuid=question_uuid)
 
 
 def __common_context(request, interest_slug: str, current_page: str) -> (dict, Any):

@@ -22,3 +22,13 @@ class InterestGroup(CoreModel):
 
     def __str__(self):
         return f"{self.name} ({self.slug})"
+
+    @property
+    def member_count(self):
+        return self.members.count()
+
+    @property
+    def question_count(self):
+        from questions.models import Question
+
+        return Question.objects.filter(interest_group=self).count()

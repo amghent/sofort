@@ -1,0 +1,35 @@
+{% extends "forms/generic_page.jinja2" %}
+
+{% block sidebar %}
+    {% include "includes/interests/sidebar.jinja2" %}
+{% endblock %}
+
+{% block page_title %}
+    {{ element_factory.page_title("Dashboard") }}
+{% endblock %}
+
+{% block page_content %}
+    <p class="lead">{{ interest_group.description }}</p>
+
+    <div class="row d-flex flex-row my-0 gy-3">
+
+        <div class="col-12 col-md-4">
+            <div class="card h-100">
+                <div class="card-header">Members</div>
+                <div class="card-body">
+                    <p class="card-text">Count: {{ interest_group.member_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="card h-100">
+                <div class="card-header">Questions</div>
+                <div class="card-body">
+                    <p class="card-text">Total: {{ interest_group.question_count }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,7 +1,13 @@
+# FIXME: There should be no pure html code in any of the pages called by a view. Move all to the factories
 # FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
 
+# TODO: Mail system
 # TODO: Add "add comment" or "answer question" instead of immediately showing the editors
 # TODO: "Search" on datatable is more "Quick filter", so rename the label
+# TODO: Add interest groups in the top menu (1: link, more: dropdown)
+# TODO: make card_factory and use on dashboard and homepage
+# TODO: make message_factory and use in questions
+# TODO: Multi-level menu in questions
 
 # TODO: Delete on a question
 # TODO: Delete on an answer
@@ -15,9 +21,6 @@
 # TODO: Implement "questions not yet seen"
 
 # TODO: The fonts can be smaller everywhere
-
-# TODO: Put question statistics on the dashboard
-# TODO: Put member statistics on the dashboard
 
 # TODO: Message when question is saved successfully
 # TODO: Message when response is saved successfully
@@ -34,8 +37,11 @@
 # TODO: TinyMCE -> Import css
 # TODO: TinyMCE -> Insert username via toolbar and menu
 
+# TODO: Single Sign On
 # TODO: The list of questions looks so boring
 
 # TODO: Alert on the homepage should be in a message
 
 # FIXME: 404 errors on some of the tinymce plugins
+
+# TODO: API to get the data only

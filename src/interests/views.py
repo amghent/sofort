@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 
 @login_required
-def interest_group_detail(request, slug: str):
+def index(request, slug: str):
     from core.context import Context
     from interests.models import InterestGroup
     from interests.context import get_sidebar
@@ -19,11 +19,11 @@ def interest_group_detail(request, slug: str):
     context["sidebar"] = get_sidebar(slug=slug)
     context["interest_group"] = interest_group
     
-    return render(request=request, template_name="interests/interest_group_detail.jinja2", context=context)
+    return render(request=request, template_name="interests/index.jinja2", context=context)
 
 
 @login_required
-def interest_group_about(request, slug: str):
+def about(request, slug: str):
     from core.context import Context
     from interests.models import InterestGroup
     from interests.context import get_sidebar
@@ -34,11 +34,11 @@ def interest_group_about(request, slug: str):
     context["sidebar"] = get_sidebar(slug=slug)
     context["interest_group"] = interest_group
 
-    return render(request=request, template_name="interests/interest_group_about.jinja2", context=context)
+    return render(request=request, template_name="interests/about.jinja2", context=context)
 
 
 @login_required
-def interest_group_under_construction(request, slug: str):
+def under_construction(request, slug: str):
     from core.context import Context
     from interests.models import InterestGroup
     from interests.context import get_sidebar
@@ -49,4 +49,4 @@ def interest_group_under_construction(request, slug: str):
     context["sidebar"] = get_sidebar(slug=slug)
     context["interest_group"] = interest_group
 
-    return render(request=request, template_name="interests/interest_group_under_construction.jinja2", context=context)
+    return render(request=request, template_name="interests/under_construction.jinja2", context=context)

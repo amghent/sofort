@@ -1,7 +1,7 @@
 {%  set form = {
         "id": "new_question",
         "csrf_token": csrf_token,
-        "post_url": url('questions_save', args=[interest_group.slug]),
+        "post_url": url('questions_create', args=[interest_group.slug]),
         "submit_button_text": "Submit your question",
         "fields": [
             {
