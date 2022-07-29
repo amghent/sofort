@@ -26,11 +26,21 @@ class QuestionCommon(CoreModel):
 
 class Question(QuestionCommon):
     from interests.models import InterestGroup
-    from core.fields import MandatoryCharField
+    from core.fields import MandatoryCharField, OptionalBigIntegerField
 
     interest_group = models.ForeignKey(InterestGroup, on_delete=models.CASCADE)
     title = MandatoryCharField(max_length=250)
-    
+    view_count = OptionalBigIntegerField()
+
+    # TODO: verify if the properties below do not cause too many queries. If so, de-normalise and make it a property
+    @property
+    def response_count(self):
+        return QuestionResponse.objects.filter(question_id=self.id).count()
+
+    @property
+    def comment_count(self):
+        return QuestionComment.objects.filter(response__question_id=self.id).count()
+
     class Meta:
         abstract = False
     

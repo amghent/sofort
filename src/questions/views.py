@@ -27,6 +27,9 @@ def detail(request, interest_slug: str, question_uuid: str):
 
     question = Question.objects.get(id=question_uuid)
 
+    question.view_count += 1
+    question.save()
+
     context, _ = __common_context(request=request, interest_slug=interest_slug, current_page="questions_detail")
     context["question"] = question
     context["responses"] = QuestionResponse.objects.filter(question=question.id).order_by("created_at")

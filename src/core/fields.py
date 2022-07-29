@@ -64,6 +64,20 @@ class OptionalTextField(models.TextField):
         abstract = True
 
 
+class OptionalBigIntegerField(models.BigIntegerField):
+    def __init__(self, *args, **kwargs):
+        presets = ["blank", "null", "default"]
+
+        for pre in presets:
+            if pre in kwargs:
+                del kwargs[pre]
+
+        super(OptionalBigIntegerField, self).__init__(blank=True, null=False, default=0, *args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
 class MandatoryTextField(models.TextField):
     def __init__(self, *args, **kwargs):
         presets = ["blank", "null"]

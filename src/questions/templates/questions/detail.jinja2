@@ -22,7 +22,9 @@
     {{ chat_factory.message(
             "question-" + question.id|string,
             question.author.display_name + " - " + question.created_at | dt_to_user_frmt,
-            question.text
+            question.text,
+            "Views: " + question.view_count|string + " - Responses: " + question.response_count|string +
+                " - Comments: " + question.comment_count|string
     ) }}
 {% endmacro %}
 

@@ -1,7 +1,7 @@
 {#####
 #
 #   Version:    1.0.0
-#   Date:       2022-07-28
+#   Date:       2022-07-29
 #   Author:     Yves Vindevogel
 #
 #####}
@@ -24,6 +24,9 @@
             </td>
             <td>{{ q.author }}</td>
             <td>{{ q.created_at | dt_to_user_frmt }}</td>
+            <td>{{ q.view_count }}</td>
+            <td>{{ q.response_count }}</td>
+            <td>{{ q.comment_count }}</td>
         </tr>
     {% endfor %}
 {% endmacro %}

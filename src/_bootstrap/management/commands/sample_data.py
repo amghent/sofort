@@ -1,4 +1,5 @@
 import os
+import random
 from datetime import datetime
 
 import pandas
@@ -108,6 +109,7 @@ class Command(BaseCommand):
                 q = Question()
                 q.author, q.title, q.text, q.interest_group = self.__get_member(author), title, text, \
                     self.__get_interest_group(interest_group)
+                q.view_count = random.randint(10, 100)
                 q.save()
 
                 questions.append(q.id)
