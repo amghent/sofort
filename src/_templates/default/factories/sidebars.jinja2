@@ -1,11 +1,19 @@
-{% macro create_sidebar(_sidebar) %}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
+
+{% macro get_sidebar(_sidebar) %}
     <div class="border-end" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light">{{ _sidebar.title }}</div>
 
         <div class="list-group list-group-flush border-bottom">
-            {% for sb in _sidebar.menu_items %}
+            {% for menu_item in _sidebar.menu_items %}
                 <a class="list-group-item list-group-item-action list-group-item-light px-2 py-1"
-                href="{{ sb.href }}">{{ sb.title }}</a>
+                    href="{{ menu_item.href }}">{{ menu_item.title }}</a>
             {% endfor%}
         </div>
     </div>

@@ -1,25 +1,33 @@
-{% macro create_image_cell(_meta) %}
-    {{ images_factory.create_image( static("images/home.jpg"), "homepage") }}
-{% endmacro %}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
 
-{# TODO: this should come from a real page that is stored in the database, so accepting it for now, even if it's html #}
-{% macro create_wellcome_cell(settings) %}
-    <h1>{{ settings.application_title }}</h1>
-    <p>{{ settings.welcome_text }}</p>
-{% endmacro %}
+{% from "includes/core/login.jinja2" import login_form as login %}
 
-{% macro create_login_cell() %}
-    {% include "includes/core/login.jinja2" %}
-{% endmacro %}
+{% set ns = namespace(user=user, csrf_token=csrf_token) %}
 
+{% set image = {
+    "src": static("images/home.jpg"),
+    "alt": "homepage"
+} %}
+
+{% set image_cell = basic_factory.get_image(image) %}
+
+{% set welcome_cell =
+    basic_factory.get_title({"text": settings.application_title}) +
+    basic_factory.get_text({"text": settings.welcome_text}) %}
 
 {% set row = {
     "spacing": "pt-3",
     "cells": [
-        {"sizing": "col-12 col-md-3", "content": create_image_cell(meta)},
-        {"sizing": "px-md-3 py-3 py-md-0 col-12 col-md-6 col-xl-7", "content": create_wellcome_cell(settings)},
-        {"sizing": "col-12 col-md-3 col-xl-2", "content": create_login_cell()}
+        {"sizing": "col-12 col-md-3", "content": image_cell},
+        {"sizing": "px-md-3 py-3 py-md-0 col-12 col-md-6 col-xl-7", "content": welcome_cell},
+        {"sizing": "col-12 col-md-3 col-xl-2", "content": login(ns)}
     ],
 } %}
 
-{{ row_factory.create_row(row) }}
+{{ basic_factory.get_cell_row(row) }}

@@ -1,40 +1,48 @@
-{% macro message(_id, _label, _text, _information) %}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
+
+{% macro get_message(_message) %}
     <div class="d-flex flex-column mb-3">
-        <label for="{{ _id }}" class="form-label">{{ _label }}</label>
-        <p class="small text-muted">{{ _information}}</p>
-        <textarea id="{{ _id }}" class="disabled tiny-disabled">{{ _text }}</textarea>
+        <label for="{{ _message.id }}" class="form-label">{{ _message.label }}</label>
+        <p class="small text-muted">{{ _message.information}}</p>
+        <textarea id="{{ _message.id }}" class="disabled tiny-disabled">{{ _message.text }}</textarea>
     </div>
 {% endmacro %}
 
-{% macro response(_id, _label, _text) %}
+{% macro get_response(_response) %}
     <div class="d-flex flex-column mb-3">
-        <label for="{{ _id }}" class="form-label">{{ _label }}</label>
-        <textarea id="{{ _id }}" class="disabled tiny-disabled">{{ _text }}</textarea>
+        <label for="{{ _response.id }}" class="form-label">{{ _response.label }}</label>
+        <textarea id="{{ _response.id }}" class="disabled tiny-disabled">{{ _response.text }}</textarea>
     </div>
 {% endmacro %}
 
 {# TODO: the ms-5 is on the comment block already, nest it better in questions #}
-{% macro comment(_id, _label, _text) %}
+{% macro get_comment(_comment) %}
     <div class="d-flex flex-column ms-5 mb-3">
-        <label for="{{ _id }}" class="form-label">{{ _label }}</label>
-        <textarea id="{{ _id }}" class="disabled tiny-disabled">{{ _text }}</textarea>
+        <label for="{{ _comment.id }}" class="form-label">{{ _comment.label }}</label>
+        <textarea id="{{ _comment.id }}" class="disabled tiny-disabled">{{ _comment.text }}</textarea>
     </div>
 {% endmacro %}
 
-{% macro message_block(_inner_code) %}
-    <div>{{ _inner_code }}</div>
+{% macro get_message_cell(_inner_code) %}
+    <div>{{ _inner_code.code }}</div>
 {% endmacro %}
 
-{% macro response_block(_inner_code) %}
+{% macro get_response_cell(_inner_code) %}
     <div class="card card-body bg-light p-3 mb-3">
         <div class="d-flex flex-column w-100">
-            {{ _inner_code }}
+            {{ _inner_code.code }}
         </div>
     </div>
 {% endmacro %}
 
-{% macro comment_block(_inner_code) %}
+{% macro get_chat_comment_cell(_inner_code) %}
     <div class="ms-5">
-        {{ _inner_code }}
+        {{ _inner_code.code }}
     </div>
 {% endmacro %}

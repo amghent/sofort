@@ -1,7 +1,7 @@
 {#####
 #
 #   Version:    1.0.0
-#   Date:       2022-07-28
+#   Date:       2022-08-01
 #   Author:     Yves Vindevogel
 #
 #####}
@@ -16,8 +16,9 @@
             {% block toolbar %}{% endblock %}
         </div>
 
-        <div id="item_detail">
-            {% block page_title %}{% endblock %}
+        <div id="content">
+            <h1>{% block page_title %}{% endblock %}</h1>
+
             {% block detail %}{% endblock %}
         </div>
     </div>

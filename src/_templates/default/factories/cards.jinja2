@@ -1,28 +1,72 @@
-{% macro create_card_box(_inner_code) %}
-    <div class="row d-flex flex-row my-0 gy-3">
-        {{ _inner_code }}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
+
+{% macro get_inner_card(_card) %}
+    <div class="card-header">{{ _card.header }}</div>
+    <div class="card-body">
+        {% if _card.text %}
+            <p class="card-text">{{ _card.text }}</p>
+        {% endif %}
+
+        {% if _card.form %}
+            {{ _card.form }}
+        {% endif %}
+
+        {% if _card.stats %}
+            {% for stat in _card.stats %}
+                <p class="card-text mb-0">{{ stat }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% if _card.url %}
+        <div class="card-footer">
+            <a class="btn btn-primary btn-sm" href="{{ _card.url }}">{{ _card.button_text}}</a>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro get_full_card(_card) %}
+    <div class="card h-100">
+        {{ get_inner_card(_card) }}
     </div>
 {% endmacro %}
 
-{% macro create_card(_header, _text) %}
+{% macro get_card(_card) %}
     <div class="card">
-        <div class="card-header">{{ _header }}</div>
-        <div class="card-body">
-            <p class="card-text">{{ _text }}</p>
-        </div>
+        {{ get_inner_card(_card) }}
     </div>
 {% endmacro %}
 
-{% macro create_action_card(_header, _text, _url, _button_text) %}
+{% macro get_action_row(_row) %}
+    <div class="row d-flex flex-row my-0 gy-3">
+        {% for card in _row.cards %}
+            {{ get_action_card(card) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro get_action_card(_card) %}
     <div class="col-12 col-md-4">
-        <div class="card h-100">
-            <div class="card-header">{{ _header }}</div>
-            <div class="card-body">
-                <p class="card-text">{{ _text }}</p>
-            </div>
-            <div class="card-footer">
-                <a class="btn btn-primary btn-sm" href="{{ _url }}">{{ _button_text}}</a>
-            </div>
-        </div>
+        {{ get_full_card(_card) }}
+    </div>
+{% endmacro %}
+
+{% macro get_statistics_row(_row) %}
+    <div class="row d-flex flex-row my-0 gy-3">
+        {% for card in _row.cards %}
+            {{ get_statistics_card(card) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro get_statistics_card(_card) %}
+    <div class="col-12 col-md-4">
+        {{ get_full_card(_card) }}
     </div>
 {% endmacro %}

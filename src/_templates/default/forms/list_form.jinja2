@@ -1,7 +1,7 @@
 {#####
 #
 #   Version:    1.0.0
-#   Date:       2022-07-28
+#   Date:       2022-08-01
 #   Author:     Yves Vindevogel
 #
 #####}
@@ -12,10 +12,13 @@
 
 {% block content %}
     <div id="content-wrapper" class="container-fluid">
-        {% block toolbar %}{% endblock %}
+        <div id="top_right_toolbar">
+            {% block toolbar %}{% endblock %}
+        </div>
 
-        <div id="content_list">
-            {% block page_title %}{% endblock %}
+        <div id="content">
+            <h1>{% block page_title %}{% endblock %}</h1>
+
             {% block datatable %}{% endblock %}
         </div>
     </div>

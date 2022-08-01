@@ -1,34 +1,34 @@
 {#####
 #
 #   Version:    1.0.0
-#   Date:       2022-07-28
+#   Date:       2022-08-01
 #   Author:     Yves Vindevogel
 #
 #####}
 
-{% macro toolbar_button(_id, _url, _icon) %}
-    <a href="{{ _url }}" class="btn btn-primary btn-sm float-end" id="{{ _id }}">
-        <i class="fa-solid {{ _icon }}"></i>
+{% macro get_button(_button) %}
+    <a href="{{ _button.url }}" class="btn btn-primary btn-sm float-end" id="{{ _button.id }}">
+        <i class="fa-solid {{ _button.icon }}"></i>
     </a>
 {% endmacro %}
 
-{% macro new_button(_url) %}
-    {{ toolbar_button("toolbar_new", _url, "fa-file-circle-plus") }}
+{% macro get_new_button(_button) %}
+    {{ toolbar_button({"id": "toolbar_new", "url": _button.url, "icon": "fa-file-circle-plus"}) }}
 {% endmacro %}
 
-{% macro cancel_button(_url) %}
-    {{ toolbar_button("toolbar_cancel", _url, "fa-delete-left") }}
+{% macro get_cancel_button(_button) %}
+    {{ toolbar_button({"id": "toolbar_cancel", "url": _button.url, "icon": "fa-delete-left"}) }}
 {% endmacro %}
 
-{% macro back_button(_url) %}
-    {{ toolbar_button("toolbar_back", _url, "fa-delete-left") }}
+{% macro get_back_button(_button) %}
+    {{ toolbar_button({"id": "toolbar_back", "url": _button.url, "icon": "fa-delete-left"}) }}
 {% endmacro %}
 
-{% macro build_toolbar(_toolbar) %}
+{% macro get_toolbar(_toolbar) %}
     <div id="top_right_toolbar">
         {% for button in _toolbar.buttons %}
             {% if button.type == "new" %}
-                {{ new_button(button.url) }}
+                {{ get_new_button(button) }}
             {% endif %}
         {% endfor %}
     </div>

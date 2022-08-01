@@ -1,25 +1,25 @@
 {#####
 #
 #   Version:    1.0.0
-#   Date:       2022-07-28
+#   Date:       2022-08-01
 #   Author:     Yves Vindevogel
 #
 #####}
 
-{% macro create_header(_columns) %}
+{% macro get_header(_columns) %}
     <thead>
         <tr>
-            {% for c in _columns %}
+            {% for c in _columns.columns %}
                 <th style="width: {{ c.width }}">{{ c.title}}</th>
             {% endfor %}
         </tr>
     </thead>
 {% endmacro %}
 
-{% macro create_datatable(_datatable, _data) %}
-        <table id="{{ _datatable.id }}" class="table table-striped w-100 border border-1">
-            {{ create_header(_datatable.columns) }}
+{% macro get_table(_datatable) %}
+    <table id="{{ _datatable.id }}" class="table table-striped w-100 border border-1">
+        {{ get_header(_datatable.columns) }}
 
-            <tbody>{{ _data }}</tbody>
-        </table>
+        <tbody>{{ _datatable.data }}</tbody>
+    </table>
 {% endmacro %}

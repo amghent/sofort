@@ -1,8 +1,22 @@
-{% import "factories/elements.jinja2" as element_factory %}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
 
-{% macro create_form(_form) %}
+{% macro get_submit_button(_btn) %}
+    <button type="submit" class="btn btn-primary btn-sm mt-2">{{ _btn.button_text }}</button>
+{% endmacro %}
+
+{% macro get_csrf_security(_token) %}
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ _token.token }}"/>
+{% endmacro %}
+
+{% macro get_form(_form) %}
     <form id="{{ _form.id }}" method="POST" action="{{ _form.post_url }}">
-        {{ element_factory.csrf_security(_form.csrf_token) }}
+        {{ get_csrf_security({"token": _form.csrf_token}) }}
 
         {% for field in _form.fields %}
             <label for="{{ field.id }}" class="form-label">{{ field.label }}</label>
@@ -27,6 +41,6 @@
             {% endif %}
         {% endfor %}
 
-        {{ element_factory.submit_button(_form.submit_button_text) }}
+        {{ get_submit_button({"button_text": _form.submit_button_text}) }}
     </form>
 {% endmacro %}

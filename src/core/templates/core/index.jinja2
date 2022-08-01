@@ -1,14 +1,20 @@
-{% extends "base.jinja2" %}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
 
-{% block content %}
-    <div id="content-wrapper" class="container-fluid">
-        {% include "includes/core/welcome.jinja2" %}
-        {% include "includes/core/important.jinja2" %}
+{% extends "forms/home_page.jinja2" %}
 
-        {% if user.username != "" %}
-            {% include "includes/core/interest_groups.jinja2" %}
-        {% endif %}
-    </div>
+{% block home_page %}
+    {% include "includes/core/welcome.jinja2" %}
+    {% include "includes/core/important.jinja2" %}
+
+    {% if user.username != "" %}
+        {% include "includes/core/interest_groups.jinja2" %}
+    {% endif %}
 {% endblock %}
 
 

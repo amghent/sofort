@@ -1,33 +1,28 @@
-{% if message is defined %}
-    <!-- TODO: This code should have a variable, for the type and then have one piece for the div construction -->
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
 
+{% macro show_alert(_type) %}
+    <div class="alert {{ _type }} alert-dismissible fade show float-none" id="sofort-alert" role="alert">
+        {{ message.text }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endmacro %}
+
+{% if message is defined %}
     <div class="position-absolute w-100 p-2">
         {% if message.status == "SUCCESS" %}
-            <div class="alert alert-success alert-dismissible fade show float-none" id="sofort-alert" role="alert">
-                {{ message.text }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endif %}
-
-        {% if message.status == "INFO" %}
-            <div class="alert alert-info alert-dismissible fade show float-none" id="sofort-alert" role="alert">
-                {{ message.text }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endif %}
-
-        {% if message.status == "WARN" %}
-            <div class="alert alert-warning alert-dismissible fade show float-none" id="sofort-alert" role="alert">
-                {{ message.text }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endif %}
-
-        {% if message.status == "ERROR" %}
-            <div class="alert alert-danger alert-dismissible fade show float-none" id="sofort-alert" role="alert">
-                {{ message.text }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            {{ show_alert("alert-success") }}
+        {% elif message.status == "INFO" %}
+            {{ show_alert("alert-info") }}
+        {% elif message.status == "WARN" %}
+            {{ show_alert("alert-warning") }}
+        {% elif message.status == "ERROR" %}
+            {{ show_alert("alert-danger") }}
         {% endif %}
     </div>
 {% endif %}

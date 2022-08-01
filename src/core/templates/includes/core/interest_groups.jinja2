@@ -1,8 +1,23 @@
-{% macro create_ig_boxes() %}
-    {% for ig in interest_groups %}
-        {{ card_factory.create_action_card(ig.name, ig.description, url('interest_group_index', args = [ig.slug]),
-            "Go to "+  ig.name + "'s home") }}
-    {% endfor %}
-{% endmacro %}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
 
-{{ card_factory.create_card_box(create_ig_boxes()) }}
+{% set cards=[] %}
+
+{% for ig in interest_groups %}
+    {% set card = {
+        "header": ig.name,
+        "text": ig.description,
+        "url": url('interest_group_index', args = [ig.slug]),
+        "button_text": "Go to "+  ig.name + "'s home"
+    } %}
+
+    {% set _ = cards.append(card) %}
+{% endfor %}
+
+{{ card_factory.get_action_row({"cards": cards}) }}
+

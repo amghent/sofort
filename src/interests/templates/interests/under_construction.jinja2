@@ -1,13 +1,11 @@
 {% extends "forms/generic_page.jinja2" %}
 
+{% block page_title %}Under construction{% endblock %}
+
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
 
-{% block page_title %}
-    {{ element_factory.page_title("Under construction") }}
-{% endblock %}
-
-{% block page_content %}
-    <p>This tool is still under construction and this module is not yet finished.</p>
+{% block page %}
+    {% basic_factory.get_text("This tool is still under construction and this module is not yet finished.")
 {% endblock %}

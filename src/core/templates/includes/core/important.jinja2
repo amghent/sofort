@@ -1,3 +1,16 @@
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
+
 {% if settings.important_message %}
-    {{ element_factory.information_box(settings.important_message) }}
+    {% set textbox = {
+        "message": settings.important_message,
+        "spacing": "mt-3"
+    } %}
+
+    {{ basic_factory.get_textbox(textbox) }}
 {% endif %}

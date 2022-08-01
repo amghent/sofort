@@ -51,18 +51,10 @@ def login_failure(request):
     # TODO: this must be removed and become one index page, but don't know how to do it yet
 
     from core.context import Context
-    from interests.models import InterestGroup
 
     context = Context(request=request, current_page="login_failure").get()
 
-    member = context["member"]
-
-    if member is None:
-        interest_groups = []
-    else:
-        interest_groups = InterestGroup.objects.filter(members__in=[member])
-
-    context["interest_groups"] = interest_groups
+    context["interest_groups"] = []
     context["message"] = {
         "status": "ERROR",
         "text": "Login failed !"
@@ -84,7 +76,7 @@ def login_success(request):
     if member is None:
         interest_groups = []
     else:
-        interest_groups = InterestGroup.objects.filter(members__in=[member])
+        interest_groups = InterestGroup.objects.filter(members__in=[member]).order_by("name")
 
     context["interest_groups"] = interest_groups
 

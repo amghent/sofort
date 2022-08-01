@@ -1,9 +1,53 @@
-{% macro create_login_form() %}
-    {% include "config/server_side/core/login.jinja2" %}
-{% endmacro %}
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
 
-{% if user.username != "" %}
-    {{ card_factory.create_card("Welcome", "User: " + user.username) }}
-{% else %}
-    {{ card_factory.create_card("Login", create_login_form()) }}
-{% endif %}
+{% import "factories/cards.jinja2" as card_factory %}
+{% import "factories/entry.jinja2" as entry_factory %}
+
+{% macro login_form(ns) %}
+    {% if ns.user.username == "" %}
+        {%  set login_form_def = {
+                "id": "login",
+                "csrf_token": ns.csrf_token,
+                "post_url": url("login_user"),
+                "submit_button_text": "Login",
+                "fields": [
+                    {
+                        "id": "username",
+                        "name": "username",
+                        "type": "required_text",
+                        "label": "User name:",
+                        "width": "w-100",
+                        "required_message": "Please enter your name."
+                    },
+                    {
+                        "id": "password",
+                        "name": "password",
+                        "type": "password",
+                        "label": "Password:",
+                        "width": "w-100",
+                        "required_message": "Please enter your password."
+                    },
+                ]
+            }
+        %}
+
+        {% set card = {
+            "header": "Login",
+            "form": entry_factory.get_form(login_form_def)
+        } %}
+
+    {% else %}
+        {% set card = {
+            "header": "Welcome",
+            "text": "User: " + ns.user.username
+        } %}
+    {% endif %}
+
+    {{ card_factory.get_card(card) }}
+{% endmacro %}

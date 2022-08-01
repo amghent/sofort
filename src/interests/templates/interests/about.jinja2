@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block page_title %}
-    {{ element_factory.page_title(interest_group.name) }}
+    {{ interest_group.name }}
 {% endblock %}
 
-{% block page_content %}
+{% block page %}
     {% if interest_group.description.strip() != "" %}
-        <p class="lead">{{ interest_group.description }}</p>
+        {{ basic_factory.get_lead_text(interest_group.description) }}
     {% endif %}
 
-    <p>{{ interest_group.about }}</p>
+    {{ basic_factory.get_text(interest_group.about) }}
 {% endblock %}

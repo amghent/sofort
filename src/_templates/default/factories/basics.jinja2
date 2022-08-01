@@ -1,0 +1,87 @@
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
+
+{% macro get_text(_text) %}
+    {% if _text is mapping %}
+        <p>{{ _text.text }}</p>
+    {% else %}
+        <p>{{ _text }}</p>
+    {% endif %}
+{% endmacro %}
+
+{% macro get_lead_text(_text)%}
+    {% if _text is mapping %}
+        <p class="lead">{{ _text.text }}</p>
+    {% else %}
+        <p class="lead">{{ _text }}</p>
+    {% endif %}
+{% endmacro %}
+
+{% macro get_title(_title) %}
+    {% if _title is mapping %}
+        <h1>{{ _title.text }}</h1>
+    {% else %}
+        <h1>{{ _title }}</h1>
+    {% endif %}
+{% endmacro %}
+
+{% macro get_subtitle(_title) %}
+    {% if _title is mapping %}
+        <h2>{{ _title.text }}</h2>
+    {% else %}
+        <h2>{{ _title }}</h2>
+    {% endif %}
+{% endmacro %}
+
+{% macro get_image(_image) %}
+    {% if _image is mapping %}
+        <img class="img-fluid rounded" src="{{ _image.src }}" alt="{{ _image.alt }}"/>
+    {% else %}
+        <img class="img-fluid rounded" src="{{ _image }}" alt=""/>
+    {% endif %}
+{% endmacro %}
+
+{% macro get_textbox(_textbox) %}
+    {% set ns = namespace(colour="bg-secondary", text_colour="text-white", spacing="") %}
+
+    {% if _textbox is mapping %}
+        {% if _textbox.colour %}
+            {% set ns.colour = _textbox.colour %}
+        {% endif %}
+
+        {% if _textbox.text_colour %}
+            {% set ns.text_colour = _textbox.text_colour %}
+        {% endif %}
+
+        {% if _textbox.spacing %}
+            {% set ns.spacing = _textbox.spacing %}
+        {% endif %}
+
+        <div class="card text-center {{ ns.colour }} {{ ns.spacing }}">
+            <div class="card-body">
+                <p class="{{ ns.text_colour }}">{{ _textbox.message }}</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="card text-center bg-secondary">
+            <div class="card-body">
+                <p class="text-white">{{ _textbox }}</p>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro get_cell_row(_row) %}
+    <div class="row {{ _row.spacing}}">
+        {% for cell in _row.cells %}
+            <div class="{{ cell.sizing }}">
+                {{ cell.content }}
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

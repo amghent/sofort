@@ -1,9 +1,13 @@
+# FIXME: todo in chats.jinja2
+
 # FIXME: There should be no pure html code in any of the pages called by a view. Move all to the factories
 # FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
 
+# TODO: disabled tinymce editor should have copy and print button
 # TODO: local vars should start with _
 # TODO: parameters should start with _
-# TODO: all factory methods must be a verb
+
+# TODO: static pages must be updatable via admin with tinymce
 
 # TODO: Mail system
 # TODO: Add "add comment" or "answer question" instead of immediately showing the editors

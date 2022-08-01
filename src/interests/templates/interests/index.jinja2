@@ -1,37 +1,35 @@
 {% extends "forms/generic_page.jinja2" %}
 
+{% block page_title %}Dashboard{% endblock %}
+
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
 
-{% block page_title %}
-    {{ element_factory.page_title("Dashboard") }}
-{% endblock %}
+{% block page %}
+    {% set cards = [] %}
 
-{% block page_content %}
-    <p class="lead">{{ interest_group.description }}</p>
+    {% set member_stats = {
+        "header": "Members",
+        "stats": [
+            "Count: " + interest_group.member_count|string
+        ]
+    } %}
 
-    {# TODO: Call factories #}
-    <div class="row d-flex flex-row my-0 gy-3">
-        <div class="col-12 col-md-4">
-            <div class="card h-100">
-                <div class="card-header">Members</div>
-                <div class="card-body">
-                    <p class="card-text mb-0">Count: {{ interest_group.member_count }}</p>
-                </div>
-            </div>
-        </div>
+    {% set question_stats = {
+        "header": "Questions",
+        "stats": [
+            "Total: " +  interest_group.question_count|string,
+            "Responses: " + interest_group.question_response_count|string,
+            "Comments: " + interest_group.question_comment_count|string
+        ]
+    } %}
 
-        <div class="col-12 col-md-4">
-            <div class="card h-100">
-                <div class="card-header">Questions</div>
-                <div class="card-body">
-                    <p class="card-text mb-0">Total: {{ interest_group.question_count }}</p>
-                    <p class="card-text mb-0">Responses: {{ interest_group.question_response_count }}</p>
-                    <p class="card-text mb-0">Comments: {{ interest_group.question_comment_count }}</p>
-                </div>
-            </div>
-        </div>
 
-    </div>
+    {% set _ = cards.append(member_stats) %}
+    {% set _ = cards.append(question_stats) %}
+
+    {{ basic_factory.get_lead_text(interest_group.description) }}
+
+    {{ card_factory.get_statistics_row({"cards": cards}) }}
 {% endblock %}

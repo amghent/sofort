@@ -1,9 +1,0 @@
-{% macro create_row(_row) %}
-    <div class="row {{ _row.spacing}}">
-        {% for cell in _row.cells %}
-            <div class="{{ cell.sizing }}">
-                {{ cell.content }}
-            </div>
-        {% endfor %}
-    </div>
-{% endmacro %}

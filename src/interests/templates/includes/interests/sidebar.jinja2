@@ -1,8 +1,8 @@
 {% if sidebar %}
-    {% set _sb = {
+    {% set ig_sidebar = {
         "title": interest_group.name,
         "menu_items": sidebar
     } %}
 
-    {{ sidebar_factory.create_sidebar(_sb) }}
+    {{ sidebar_factory.get_sidebar(ig_sidebar) }}
 {% endif %}
