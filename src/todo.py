@@ -1,10 +1,7 @@
-# FIXME: todo in chats.jinja2
-# FIXME: Spacing below comment is not correct
 # FIXME: Must have some space between toolbar buttons
 # FIXME: Back on detail should have other icon than back on new
 # FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
 # FIXME: Responding / commenting should not raise the number of views
-# FIXME: question detail: toolbar makes content shift down
 # FIXME: 404 errors on some of the tinymce plugins
 
 # TODO: disabled tinymce editor should have copy and print button

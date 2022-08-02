@@ -27,7 +27,7 @@
         {{ get_csrf_security({"token": _form.csrf_token}) }}
 
         {% for _field_ in _form.fields %}
-            <label for="{{ _field_.id }}" class="form-label">{{ _field_.label }}</label>
+            <label for="{{ _field_.id }}" class="form-label mb-0 ms-1 small">{{ _field_.label }}</label>
 
             {% if _field_.type == "required_text" %}
                 <input type="text" id="{{ _field_.id }}" name="{{ _field_.name }}" class="form-text {{ _field_.width }}"

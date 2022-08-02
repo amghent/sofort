@@ -3,14 +3,17 @@ from django.urls import reverse
 
 
 class TestIndex(TestCase):
+    def setup(self):
+        self.client = Client()
+
     def test_index(self):
-        client = Client()
-        response = client.get("/")
+        self.setup()
+
+        response = self.client.get("/")
 
         assert response.status_code == 200
 
     def test_index_reverse(self):
-        client = Client()
-        response = client.get(reverse("index"))
+        response = self.client.get(reverse("index"))
 
         assert response.status_code == 200

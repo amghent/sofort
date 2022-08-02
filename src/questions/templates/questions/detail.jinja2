@@ -18,10 +18,12 @@
 
 {% block toolbar %}
     {{ toolbar_factory.get_back_button( url('questions_index', args=[interest_group.slug]) ) }}
-    {{ toolbar_factory.get_new_button( url('questions_new', args=[interest_group.slug]) ) }},
+    {{ toolbar_factory.get_new_button( url('questions_new', args=[interest_group.slug]) ) }}
 {% endblock %}
 
 {% block detail %}
+    {% set _ns_ = namespace(output="") %}
+
     {% set _message_def_ = {
         "id": "question-" + question.id|string,
         "label": question.author.display_name + " - " + question.created_at | dt_to_user_frmt,
@@ -30,26 +32,32 @@
         "text": question.text
     }%}
 
-    {{ chat_factory.get_message_cell(chat_factory.get_message(_message_def_)) }}
+    {% set _message_html_ = chat_factory.get_message(_message_def_) %}
+    {{ chat_factory.get_message_cell(_message_html_) }}
 
     {% for _response_ in responses %}
+        {% set _ns_.output = "" %}
+
         {% set _response_def_ = {
             "id": "response_" + _response_.id|string|replace("-", "_"),
             "label": _response_.author.display_name + " - " + _response_.created_at | dt_to_user_frmt,
             "text": _response_.text
         } %}
 
-        {{ chat_factory.get_response(_response_def_) }}
+        {% set _response_html_ = chat_factory.get_response(_response_def_) %}
+        {% set _ns_.output = _ns_.output + _response_html_ %}
 
         {% for _comment_ in comments %}
-            {% if _comment_.response == _response_ %}
+            {% if _comment_.response.id|string == _response_.id|string %}
                 {% set _comment_def_ = {
                     "id": "comment_" + _comment_.id|string|replace("-", "_"),
                     "label": _comment_.author.display_name + " - " + _comment_.created_at | dt_to_user_frmt,
                     "text": _comment_.text
                 } %}
 
-                {{ chat_factory.get_comment(_comment_def_) }}
+                {% set _comment_html_ = chat_factory.get_comment(_comment_def_) %}
+                {% set _comment_cell_ = chat_factory.get_comment_cell(_comment_html_) %}
+                {% set _ns_.output = _ns_.output + _comment_cell_ %}
             {% endif %}
         {% endfor %}
 
@@ -70,8 +78,11 @@
         } %}
 
         {% set _comment_form_ = entry_factory.get_form(_comment_form_def_) %}
+        {% set _comment_cell_ = chat_factory.get_comment_cell(_comment_form_) %}
+        {% set _ns_.output = _ns_.output + _comment_cell_ %}
 
-        {{ chat_factory.get_comment_cell(_comment_form_) }}
+        <!-- everything surrounded by a response cell (second level) -->
+        {{ chat_factory.get_response_cell(_ns_.output) }}
     {% endfor %}
 
     {%  set _response_form_def_ = {
@@ -92,5 +103,6 @@
 
     {% set _response_form_ = entry_factory.get_form(_response_form_def_) %}
 
+    <!-- level of the message, completely left -->
     {{ chat_factory.get_message_cell(_response_form_) }}
 {% endblock %}

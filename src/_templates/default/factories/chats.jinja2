@@ -7,38 +7,37 @@
 #####}
 
 {% macro get_message(_message) %}
-    <div class="d-flex flex-column mb-3">
-        <label for="{{ _message.id }}" class="form-label">{{ _message.label }}</label>
-        <p class="small text-muted">{{ _message.information}}</p>
+    <div class="d-flex flex-column">
+        <label for="{{ _message.id }}" class="form-label mb-0 small">{{ _message.label }}</label>
+        <p class="small text-muted mb-1">{{ _message.information}}</p>
         <textarea id="{{ _message.id }}" class="disabled tiny-disabled">{{ _message.text }}</textarea>
     </div>
 {% endmacro %}
 
 {% macro get_response(_response) %}
-    <div class="d-flex flex-column mb-3">
-        <label for="{{ _response.id }}" class="form-label">{{ _response.label }}</label>
+    <div class="d-flex flex-column mb-2">
+        <label for="{{ _response.id }}" class="form-label mb-0 ms-1 small">{{ _response.label }}</label>
         <textarea id="{{ _response.id }}" class="disabled tiny-disabled">{{ _response.text }}</textarea>
     </div>
 {% endmacro %}
 
-{# TODO: the ms-5 is on the comment block already, nest it better in questions #}
 {% macro get_comment(_comment) %}
-    <div class="d-flex flex-column ms-5 mb-3">
-        <label for="{{ _comment.id }}" class="form-label">{{ _comment.label }}</label>
+    <div class="d-flex flex-column mb-2">
+        <label for="{{ _comment.id }}" class="form-label mb-0 ms-1 small">{{ _comment.label }}</label>
         <textarea id="{{ _comment.id }}" class="disabled tiny-disabled">{{ _comment.text }}</textarea>
     </div>
 {% endmacro %}
 
 {% macro get_message_cell(_inner_code) %}
     {% if _inner_code is mapping %}
-        <div>{{ _inner_code.code }}</div>
+        <div class="mb-2">{{ _inner_code.code }}</div>
     {% else %}
-        <div>{{ _inner_code }}</div>
+        <div class="mb-2">{{ _inner_code }}</div>
     {% endif %}
 {% endmacro %}
 
 {% macro get_response_cell(_inner_code) %}
-    <div class="card card-body bg-light p-3 mb-3">
+    <div class="card card-body bg-light mb-2">
         <div class="d-flex flex-column w-100">
             {% if _inner_code is mapping %}
                 {{ _inner_code.code }}
@@ -50,11 +49,11 @@
 {% endmacro %}
 
 {% macro get_comment_cell(_inner_code) %}
-    <div class="ms-5">
+    <div class="d-flex flex-column w-100 ps-5">
         {% if _inner_code is mapping %}
             {{ _inner_code.code }}
         {% else %}
-            <div>{{ _inner_code }}</div>
+            {{ _inner_code }}
         {% endif %}
     </div>
 {% endmacro %}
