@@ -17,8 +17,14 @@
 {% endblock %}
 
 {% block toolbar %}
-    {{ toolbar_factory.get_back_button( url('questions_index', args=[interest_group.slug]) ) }}
-    {{ toolbar_factory.get_new_button( url('questions_new', args=[interest_group.slug]) ) }}
+    {% set _toolbar_ = {
+        "buttons": [
+            {"type": "list", "url": url('questions_index', args=[interest_group.slug])},
+            {"type": "new", "url": url('questions_new', args=[interest_group.slug])}
+        ],
+    } %}
+
+    {{ toolbar_factory.get_toolbar(_toolbar_) }}
 {% endblock %}
 
 {% block detail %}

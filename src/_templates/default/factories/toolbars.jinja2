@@ -7,17 +7,9 @@
 #####}
 
 {% macro get_button(_button) %}
-    <a href="{{ _button.url }}" class="btn btn-primary btn-sm float-end" id="{{ _button.id }}">
+    <a href="{{ _button.url }}" class="btn btn-primary btn-sm float-end ms-1" id="{{ _button.id }}">
         <i class="fa-solid {{ _button.icon }}"></i>
     </a>
-{% endmacro %}
-
-{% macro get_new_button(_button) %}
-    {% if _button is mapping %}
-        {{ get_button({"id": "toolbar_new", "url": _button.url, "icon": "fa-file-circle-plus"}) }}
-    {% else %}
-        {{ get_button({"id": "toolbar_new", "url": _button, "icon": "fa-file-circle-plus"}) }}
-    {% endif %}
 {% endmacro %}
 
 {% macro get_cancel_button(_button) %}
@@ -28,19 +20,31 @@
     {% endif %}
 {% endmacro %}
 
-{% macro get_back_button(_button) %}
+{% macro get_list_button(_button) %}
     {% if _button is mapping %}
-        {{ get_button({"id": "toolbar_back", "url": _button.url, "icon": "fa-delete-left"}) }}
+        {{ get_button({"id": "toolbar_back", "url": _button.url, "icon": "fa-list"}) }}
     {% else %}
-        {{ get_button({"id": "toolbar_back", "url": _button, "icon": "fa-delete-left"}) }}
+        {{ get_button({"id": "toolbar_back", "url": _button, "icon": "fa-list"}) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro get_new_button(_button) %}
+    {% if _button is mapping %}
+        {{ get_button({"id": "toolbar_new", "url": _button.url, "icon": "fa-file-circle-plus"}) }}
+    {% else %}
+        {{ get_button({"id": "toolbar_new", "url": _button, "icon": "fa-file-circle-plus"}) }}
     {% endif %}
 {% endmacro %}
 
 {% macro get_toolbar(_toolbar) %}
     <div id="top_right_toolbar">
         {% for _button_ in _toolbar.buttons %}
-            {% if _button_.type == "new" %}
+            {% if _button_.type == "cancel" %}
+                {{ get_cancel_button(_button_) }}
+            {% elif _button_.type == "new" %}
                 {{ get_new_button(_button_) }}
+            {% elif _button_.type == "list" %}
+                {{ get_list_button(_button_) }}
             {% endif %}
         {% endfor %}
     </div>

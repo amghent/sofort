@@ -1,8 +1,4 @@
-# FIXME: Must have some space between toolbar buttons
-# FIXME: Back on detail should have other icon than back on new
-# FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
 # FIXME: Responding / commenting should not raise the number of views
-# FIXME: 404 errors on some of the tinymce plugins
 
 # TODO: disabled tinymce editor should have copy and print button
 # TODO: View: <i class="fa-solid fa-eye"></i>
@@ -40,3 +36,6 @@
 # TODO: Single Sign On
 # TODO: Alert on the homepage should be in a message
 # TODO: API to get the data only
+
+# FIXME: IMPOSSIBLE TO DO AT THE MOMENT
+# FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
