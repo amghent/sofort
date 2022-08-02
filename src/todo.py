@@ -1,13 +1,25 @@
 # FIXME: todo in chats.jinja2
 
+# FIXME: Must have some space between toolbar buttons
+# FIXME: Back on detail should have other icon than back on new
 # FIXME: There should be no pure html code in any of the pages called by a view. Move all to the factories
 # FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
+# FIXME: Responding / commenting should not raise the number of views
+# FIXME: question detail: toolbar makes content shift down
 
 # TODO: disabled tinymce editor should have copy and print button
-# TODO: local vars should start with _
+# TODO: local vars should start with _ ?
 # TODO: parameters should start with _
 
+# TODO: View: <i class="fa-solid fa-eye"></i>
+# TODO: Message: <i class="fa-solid fa-message"></i>
+# TODO: Comment: <i class="fa-solid fa-comment-dots"></i>
+# TODO: Open / Closed: <i class="fa-solid fa-folder-open"></i>  <i class="fa-solid fa-folder-closed"></i>
+# TODO: Locked: <i class="fa-solid fa-lock"></i>
+
 # TODO: static pages must be updatable via admin with tinymce
+
+# TODO: gamification: add stats on homepage for the user
 
 # TODO: Mail system
 # TODO: Add "add comment" or "answer question" instead of immediately showing the editors

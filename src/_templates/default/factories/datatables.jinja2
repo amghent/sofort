@@ -9,7 +9,7 @@
 {% macro get_header(_columns) %}
     <thead>
         <tr>
-            {% for c in _columns.columns %}
+            {% for c in _columns %}
                 <th style="width: {{ c.width }}">{{ c.title}}</th>
             {% endfor %}
         </tr>

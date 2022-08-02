@@ -30,19 +30,31 @@
 {% endmacro %}
 
 {% macro get_message_cell(_inner_code) %}
-    <div>{{ _inner_code.code }}</div>
+    {% if _inner_code is mapping %}
+        <div>{{ _inner_code.code }}</div>
+    {% else %}
+        <div>{{ _inner_code }}</div>
+    {% endif %}
 {% endmacro %}
 
 {% macro get_response_cell(_inner_code) %}
     <div class="card card-body bg-light p-3 mb-3">
         <div class="d-flex flex-column w-100">
-            {{ _inner_code.code }}
+            {% if _inner_code is mapping %}
+                {{ _inner_code.code }}
+            {% else %}
+                <div>{{ _inner_code }}</div>
+            {% endif %}
         </div>
     </div>
 {% endmacro %}
 
 {% macro get_comment_cell(_inner_code) %}
     <div class="ms-5">
-        {{ _inner_code.code }}
+        {% if _inner_code is mapping %}
+            {{ _inner_code.code }}
+        {% else %}
+            <div>{{ _inner_code }}</div>
+        {% endif %}
     </div>
 {% endmacro %}
