@@ -22,18 +22,27 @@ def index(request, interest_slug: str):
 
 
 @login_required
-def read(request, interest_slug: str, question_uuid: str):
+def read(request, interest_slug: str, question_uuid: str, status: str = None):
     from questions.models import Question, QuestionResponse, QuestionComment
 
     question = Question.objects.get(id=question_uuid)
 
-    question.view_count += 1
-    question.save()
+    if status is None:
+        question.view_count += 1
+        question.save()
 
     context, _ = __common_context(request=request, interest_slug=interest_slug, current_page="questions_read")
     context["question"] = question
     context["responses"] = QuestionResponse.objects.filter(question=question.id).order_by("created_at")
     context["comments"] = QuestionComment.objects.filter(response__question_id=question.id).order_by("created_at")
+
+    if status == "create_ok":
+        message = {
+            "status": "SUCCESS",
+            "text": "Question created successfully"
+        }
+
+        context["message"] = message
 
     return render(request=request, template_name="questions/detail.jinja2", context=context)
 
@@ -60,7 +69,7 @@ def create(request, interest_slug: str):
 
     question.save()
 
-    return redirect(to="questions_read", interest_slug=interest_slug, question_uuid=question.id)
+    return redirect(to="questions_read", interest_slug=interest_slug, question_uuid=question.id, status="create_ok")
 
 
 @login_required

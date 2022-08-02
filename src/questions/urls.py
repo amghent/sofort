@@ -12,5 +12,7 @@ urlpatterns = [
     path("<str:interest_slug>/<str:question_uuid>", views.read, name="questions_read"),
 
     path("<str:interest_slug>/<str:question_uuid>/respond", views.respond, name="questions_respond"),
-    path("<str:interest_slug>/<str:question_uuid>/<str:response_uuid>/comment", views.comment, name="questions_comment")
+    path("<str:interest_slug>/<str:question_uuid>/<str:response_uuid>/comment", views.comment, name="questions_comment"),
+
+    path("<str:interest_slug>/<str:question_uuid>/<str:status>", views.read, name="questions_read"),
 ]
