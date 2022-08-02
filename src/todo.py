@@ -1,6 +1,9 @@
 # FIXME: Responding / commenting should not raise the number of views
 
-# TODO: disabled tinymce editor should have copy and print button
+# TODO: Message when question is saved successfully
+# TODO: Message when response is saved successfully
+# TODO: Message when comment is saved successfully
+
 # TODO: View: <i class="fa-solid fa-eye"></i>
 # TODO: Message: <i class="fa-solid fa-message"></i>
 # TODO: Comment: <i class="fa-solid fa-comment-dots"></i>
@@ -24,10 +27,6 @@
 # TODO: Implement "my question is answered"
 # TODO: fontawesome icons on V/R/C (maybe also on created and author)
 # TODO: The fonts can be smaller everywhere
-# TODO: Message when question is saved successfully
-# TODO: Message when response is saved successfully
-# TODO: Message when comment is saved successfully
-# TODO: Styling the TinyMCE
 # TODO: Get rid of fields in Member that are also in User
 # TODO: TinyMCE -> Upload files is possible when there's an extra script for accepting the upload
 # TODO: TinyMCE -> Advanced images
@@ -36,6 +35,10 @@
 # TODO: Single Sign On
 # TODO: Alert on the homepage should be in a message
 # TODO: API to get the data only
+
+# TODO: IMPOSSIBLE TO DO AT THE MOMENT
+# TODO: disabled tinymce editor should have copy and print button (disabling tiny disables the menu and toolbar)
+# TODO: Styling the TinyMCE (seems only to be possible in paying variant)
 
 # FIXME: IMPOSSIBLE TO DO AT THE MOMENT
 # FIXME: There a big gap under each question / answer  or reply.  Maybe because of the <p></p> ?
