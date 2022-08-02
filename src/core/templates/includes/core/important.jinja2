@@ -7,10 +7,10 @@
 #####}
 
 {% if settings.important_message %}
-    {% set textbox = {
+    {% set _textbox_ = {
         "message": settings.important_message,
         "spacing": "mt-3"
     } %}
 
-    {{ basic_factory.get_textbox(textbox) }}
+    {{ basic_factory.get_textbox(_textbox_) }}
 {% endif %}

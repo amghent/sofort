@@ -9,39 +9,42 @@
 {% extends "forms/list_form.jinja2" %}
 
 {% macro create_rows() %}
-    {% for q in questions %}
+    {% for _question_ in questions %}
         <tr>
             <td>
-                <a href="{{ url("questions_read", args=[interest_group.slug, q.id]) }}">{{ q.title }}</a>
+                <a href="{{ url("questions_read",
+                    args=[interest_group.slug, _question_.id]) }}">{{ _question_.title }}</a>
             </td>
-            <td>{{ q.author }}</td>
-            <td>{{ q.created_at | dt_to_user_frmt }}</td>
-            <td>{{ q.view_count }}</td>
-            <td>{{ q.response_count }}</td>
-            <td>{{ q.comment_count }}</td>
+            <td>{{ _question_.author }}</td>
+            <td>{{ _question_.created_at | dt_to_user_frmt }}</td>
+            <td>{{ _question_.view_count }}</td>
+            <td>{{ _question_.response_count }}</td>
+            <td>{{ _question_.comment_count }}</td>
         </tr>
     {% endfor %}
 {% endmacro %}
 
-{% block page_title %}Questions{% endblock %}
+{% block page_title %}
+    Questions
+{% endblock %}
 
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
 
 {% block toolbar %}
-    {% set toolbar = {
+    {% set _toolbar_ = {
         "buttons": [
             {"type": "new", "url": url('questions_new', args=[interest_group.slug])}
         ],
     } %}
 
-    {{ toolbar_factory.get_toolbar(toolbar) }}
+    {{ toolbar_factory.get_toolbar(_toolbar_) }}
 {% endblock %}
 
 {% block datatable %}
     {%
-        set columns = [
+        set _columns_ = [
             {"width": "53%", "title": "Title"},
             {"width": "20%", "title": "Author"},
             {"width": "12%", "title": "Created"},
@@ -51,7 +54,7 @@
         ]
     %}
 
-    {{ datatable_factory.get_table({"id": "questions_dt", "columns": columns, "data": create_rows()}) }}
+    {{ datatable_factory.get_table({"id": "questions_dt", "columns": _columns_, "data": create_rows()}) }}
 {% endblock %}
 
 {% block client_side_config %}

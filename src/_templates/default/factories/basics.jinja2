@@ -47,24 +47,24 @@
 {% endmacro %}
 
 {% macro get_textbox(_textbox) %}
-    {% set ns = namespace(colour="bg-secondary", text_colour="text-white", spacing="") %}
+    {% set _ns_ = namespace(colour="bg-secondary", text_colour="text-white", spacing="") %}
 
     {% if _textbox is mapping %}
         {% if _textbox.colour %}
-            {% set ns.colour = _textbox.colour %}
+            {% set _ns_.colour = _textbox.colour %}
         {% endif %}
 
         {% if _textbox.text_colour %}
-            {% set ns.text_colour = _textbox.text_colour %}
+            {% set _ns_.text_colour = _textbox.text_colour %}
         {% endif %}
 
         {% if _textbox.spacing %}
-            {% set ns.spacing = _textbox.spacing %}
+            {% set _ns_.spacing = _textbox.spacing %}
         {% endif %}
 
-        <div class="card text-center {{ ns.colour }} {{ ns.spacing }}">
+        <div class="card text-center {{ _ns_.colour }} {{ _ns_.spacing }}">
             <div class="card-body">
-                <p class="{{ ns.text_colour }}">{{ _textbox.message }}</p>
+                <p class="{{ _ns_.text_colour }}">{{ _textbox.message }}</p>
             </div>
         </div>
     {% else %}
@@ -78,9 +78,9 @@
 
 {% macro get_cell_row(_row) %}
     <div class="row {{ _row.spacing}}">
-        {% for cell in _row.cells %}
-            <div class="{{ cell.sizing }}">
-                {{ cell.content }}
+        {% for _cell_ in _row.cells %}
+            <div class="{{ _cell_.sizing }}">
+                {{ _cell_.content }}
             </div>
         {% endfor %}
     </div>

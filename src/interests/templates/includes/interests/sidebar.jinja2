@@ -7,10 +7,10 @@
 #####}
 
 {% if sidebar %}
-    {% set ig_sidebar = {
+    {% set _interest_group_sidebar_ = {
         "title": interest_group.name,
         "menu_items": sidebar
     } %}
 
-    {{ sidebar_factory.get_sidebar(ig_sidebar) }}
+    {{ sidebar_factory.get_sidebar(_interest_group_sidebar_) }}
 {% endif %}

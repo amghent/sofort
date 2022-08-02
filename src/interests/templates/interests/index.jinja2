@@ -15,16 +15,16 @@
 {% endblock %}
 
 {% block page %}
-    {% set cards = [] %}
+    {% set _cards_ = [] %}
 
-    {% set member_stats = {
+    {% set _member_stats_ = {
         "header": "Members",
         "stats": [
             "Count: " + interest_group.member_count|string
         ]
     } %}
 
-    {% set question_stats = {
+    {% set _question_stats_ = {
         "header": "Questions",
         "stats": [
             "Total: " +  interest_group.question_count|string,
@@ -34,10 +34,10 @@
     } %}
 
 
-    {% set _ = cards.append(member_stats) %}
-    {% set _ = cards.append(question_stats) %}
+    {% set _ = _cards_.append(_member_stats_) %}
+    {% set _ = _cards_.append(_question_stats_) %}
 
     {{ basic_factory.get_lead_text(interest_group.description) }}
 
-    {{ card_factory.get_statistics_row({"cards": cards}) }}
+    {{ card_factory.get_statistics_row({"cards": _cards_}) }}
 {% endblock %}

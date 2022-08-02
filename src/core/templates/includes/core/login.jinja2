@@ -9,45 +9,44 @@
 {% import "factories/cards.jinja2" as card_factory %}
 {% import "factories/entry.jinja2" as entry_factory %}
 
-{% macro login_form(ns) %}
-    {% if ns.user.username == "" %}
-        {%  set login_form_def = {
-                "id": "login",
-                "csrf_token": ns.csrf_token,
-                "post_url": url("login_user"),
-                "submit_button_text": "Login",
-                "fields": [
-                    {
-                        "id": "username",
-                        "name": "username",
-                        "type": "required_text",
-                        "label": "User name:",
-                        "width": "w-100",
-                        "required_message": "Please enter your name."
-                    },
-                    {
-                        "id": "password",
-                        "name": "password",
-                        "type": "password",
-                        "label": "Password:",
-                        "width": "w-100",
-                        "required_message": "Please enter your password."
-                    },
-                ]
-            }
-        %}
+{% macro login_form(_ns) %}
+    {% if _ns.user.username == "" %}
+        {%  set _login_form_def_ = {
+            "id": "login",
+            "csrf_token": _ns.csrf_token,
+            "post_url": url("login_user"),
+            "submit_button_text": "Login",
+            "fields": [
+                {
+                    "id": "username",
+                    "name": "username",
+                    "type": "required_text",
+                    "label": "User name:",
+                    "width": "w-100",
+                    "required_message": "Please enter your name."
+                },
+                {
+                    "id": "password",
+                    "name": "password",
+                    "type": "password",
+                    "label": "Password:",
+                    "width": "w-100",
+                    "required_message": "Please enter your password."
+                },
+            ]
+        } %}
 
-        {% set card = {
+        {% set _card_ = {
             "header": "Login",
-            "form": entry_factory.get_form(login_form_def)
+            "form": entry_factory.get_form(_login_form_def_)
         } %}
 
     {% else %}
-        {% set card = {
+        {% set _card_ = {
             "header": "Welcome",
-            "text": "User: " + ns.user.username
+            "text": "User: " + _ns.user.username
         } %}
     {% endif %}
 
-    {{ card_factory.get_card(card) }}
+    {{ card_factory.get_card(_card_) }}
 {% endmacro %}

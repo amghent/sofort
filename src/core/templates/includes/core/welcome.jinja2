@@ -8,26 +8,26 @@
 
 {% from "includes/core/login.jinja2" import login_form as login %}
 
-{% set ns = namespace(user=user, csrf_token=csrf_token) %}
+{% set _ns_ = namespace(user=user, csrf_token=csrf_token) %}
 
-{% set image = {
+{% set _image_ = {
     "src": static("images/home.jpg"),
     "alt": "homepage"
 } %}
 
-{% set image_cell = basic_factory.get_image(image) %}
+{% set _image_cell_ = basic_factory.get_image(_image_) %}
 
-{% set welcome_cell =
+{% set _welcome_cell_ =
     basic_factory.get_title({"text": settings.application_title}) +
     basic_factory.get_text({"text": settings.welcome_text}) %}
 
-{% set row = {
+{% set _row_ = {
     "spacing": "pt-3",
     "cells": [
-        {"sizing": "col-12 col-md-3", "content": image_cell},
-        {"sizing": "px-md-3 py-3 py-md-0 col-12 col-md-6 col-xl-7", "content": welcome_cell},
-        {"sizing": "col-12 col-md-3 col-xl-2", "content": login(ns)}
+        {"sizing": "col-12 col-md-3", "content": _image_cell_},
+        {"sizing": "px-md-3 py-3 py-md-0 col-12 col-md-6 col-xl-7", "content": _welcome_cell_},
+        {"sizing": "col-12 col-md-3 col-xl-2", "content": login(_ns_)}
     ],
 } %}
 
-{{ basic_factory.get_cell_row(row) }}
+{{ basic_factory.get_cell_row(_row_) }}

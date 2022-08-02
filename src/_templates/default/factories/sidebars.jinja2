@@ -11,9 +11,9 @@
         <div class="sidebar-heading border-bottom bg-light">{{ _sidebar.title }}</div>
 
         <div class="list-group list-group-flush border-bottom">
-            {% for menu_item in _sidebar.menu_items %}
+            {% for _menu_item_ in _sidebar.menu_items %}
                 <a class="list-group-item list-group-item-action list-group-item-light px-2 py-1"
-                    href="{{ menu_item.href }}">{{ menu_item.title }}</a>
+                    href="{{ _menu_item_.href }}">{{ _menu_item_.title }}</a>
             {% endfor%}
         </div>
     </div>

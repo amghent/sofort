@@ -38,9 +38,9 @@
 
 {% macro get_toolbar(_toolbar) %}
     <div id="top_right_toolbar">
-        {% for button in _toolbar.buttons %}
-            {% if button.type == "new" %}
-                {{ get_new_button(button) }}
+        {% for _button_ in _toolbar.buttons %}
+            {% if _button_.type == "new" %}
+                {{ get_new_button(_button_) }}
             {% endif %}
         {% endfor %}
     </div>

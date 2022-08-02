@@ -10,9 +10,8 @@
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
 
-below this line #}
 {% block form %}
-    {%  set form = {
+    {%  set _form_def_ = {
         "id": "new_question",
         "csrf_token": csrf_token,
         "post_url": url('questions_create', args=[interest_group.slug]),
@@ -36,6 +35,6 @@ below this line #}
         ]
     } %}
 
-    {{ entry_factory.get_form(form) }}
+    {{ entry_factory.get_form(_form_def_) }}
 {% endblock %}
 

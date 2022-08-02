@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block detail %}
-    {% set __message = {
+    {% set _message_def_ = {
         "id": "question-" + question.id|string,
         "label": question.author.display_name + " - " + question.created_at | dt_to_user_frmt,
         "information": "Views: " + question.view_count|string + " - Responses: " + question.response_count|string +
@@ -30,37 +30,37 @@
         "text": question.text
     }%}
 
-    {{ chat_factory.get_message_cell(chat_factory.get_message(__message)) }}
+    {{ chat_factory.get_message_cell(chat_factory.get_message(_message_def_)) }}
 
-    {% for response in responses %}
-        {% set resp = {
-            "id": "response_" + response.id|string|replace("-", "_"),
-            "label": response.author.display_name + " - " + response.created_at | dt_to_user_frmt,
-            "text": response.text
+    {% for _response_ in responses %}
+        {% set _response_def_ = {
+            "id": "response_" + _response_.id|string|replace("-", "_"),
+            "label": _response_.author.display_name + " - " + _response_.created_at | dt_to_user_frmt,
+            "text": _response_.text
         } %}
 
-        {{ chat_factory.get_response(resp) }}
+        {{ chat_factory.get_response(_response_def_) }}
 
-        {% for comment in comments %}
-            {% if comment.response == response %}
-                {% set comment = {
-                    "id": "comment_" + comment.id|string|replace("-", "_"),
-                    "label": comment.author.display_name + " - " + comment.created_at | dt_to_user_frmt,
-                    "text": comment.text
+        {% for _comment_ in comments %}
+            {% if _comment_.response == _response_ %}
+                {% set _comment_def_ = {
+                    "id": "comment_" + _comment_.id|string|replace("-", "_"),
+                    "label": _comment_.author.display_name + " - " + _comment_.created_at | dt_to_user_frmt,
+                    "text": _comment_.text
                 } %}
 
-                {{ chat_factory.get_comment(comment) }}
+                {{ chat_factory.get_comment(_comment_def_) }}
             {% endif %}
         {% endfor %}
 
-        {%  set comment_form_def = {
-            "id": "comment_" + response.id|string|replace("-", "_"),
+        {%  set _comment_form_def_ = {
+            "id": "comment_" + _response_.id|string|replace("-", "_"),
             "csrf_token": csrf_token,
-            "post_url": url('questions_comment', args=[interest_group.slug, question.id, response.id]),
+            "post_url": url('questions_comment', args=[interest_group.slug, question.id, _response_.id]),
             "submit_button_text": "Submit your comment",
             "fields": [
                 {
-                    "id": "comment_text" + response.id|string|replace("-", "_"),
+                    "id": "comment_text" + _response_.id|string|replace("-", "_"),
                     "name": "comment_text",
                     "type": "required_textarea",
                     "label": "Comment this response:",
@@ -69,12 +69,12 @@
             ]
         } %}
 
-        {% set comment_form = entry_factory.get_form(comment_form_def) %}
+        {% set _comment_form_ = entry_factory.get_form(_comment_form_def_) %}
 
-        {{ chat_factory.get_comment_cell(comment_form) }}
+        {{ chat_factory.get_comment_cell(_comment_form_) }}
     {% endfor %}
 
-    {%  set resp_form_def = {
+    {%  set _response_form_def_ = {
         "id": "response",
         "csrf_token": csrf_token,
         "post_url": url('questions_respond', args=[interest_group.slug, question.id]),
@@ -90,7 +90,7 @@
         ]
     } %}
 
-    {% set resp_form = entry_factory.get_form(resp_form_def) %}
+    {% set _response_form_ = entry_factory.get_form(_response_form_def_) %}
 
-    {{ chat_factory.get_message_cell(resp_form) }}
+    {{ chat_factory.get_message_cell(_response_form_) }}
 {% endblock %}

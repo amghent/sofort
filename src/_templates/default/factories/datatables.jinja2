@@ -9,8 +9,8 @@
 {% macro get_header(_columns) %}
     <thead>
         <tr>
-            {% for c in _columns %}
-                <th style="width: {{ c.width }}">{{ c.title}}</th>
+            {% for _c_ in _columns %}
+                <th style="width: {{ _c_.width }}">{{ _c_.title}}</th>
             {% endfor %}
         </tr>
     </thead>

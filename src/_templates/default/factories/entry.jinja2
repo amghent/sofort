@@ -26,26 +26,27 @@
     <form id="{{ _form.id }}" method="POST" action="{{ _form.post_url }}">
         {{ get_csrf_security({"token": _form.csrf_token}) }}
 
-        {% for field in _form.fields %}
-            <label for="{{ field.id }}" class="form-label">{{ field.label }}</label>
+        {% for _field_ in _form.fields %}
+            <label for="{{ _field_.id }}" class="form-label">{{ _field_.label }}</label>
 
-            {% if field.type == "required_text" %}
-                <input type="text" id="{{ field.id }}" name="{{ field.name }}" class="form-text {{ field.width }}"
-                       required data-validation-required-message="{{ field.required_message }}"/>
+            {% if _field_.type == "required_text" %}
+                <input type="text" id="{{ _field_.id }}" name="{{ _field_.name }}" class="form-text {{ _field_.width }}"
+                       required data-validation-required-message="{{ _field_.required_message }}"/>
             {% endif %}
 
-            {% if field.type == "password" %}
-                <input type="password" id="{{ field.id }}" name="{{ field.name }}" class="form-text {{ field.width }}"
-                       required data-validation-required-message="{{ field.required_message }}"/>
+            {% if _field_.type == "password" %}
+                <input type="password" id="{{ _field_.id }}" name="{{ _field_.name }}"
+                        class="form-text {{ _field_.width }}"
+                       required data-validation-required-message="{{ _field_.required_message }}"/>
             {% endif %}
 
-            {% if field.type == "required_textarea" %}
-                <textarea id="{{ field.id }}" name="{{ field.name }}" class="tiny_enabled form-text"
-                          required data-validation-required-message="{{ field.required_message }}"></textarea>
+            {% if _field_.type == "required_textarea" %}
+                <textarea id="{{ _field_.id }}" name="{{ _field_.name }}" class="tiny_enabled form-text"
+                          required data-validation-required-message="{{ _field_.required_message }}"></textarea>
             {% endif %}
 
-            {% if field.help_message %}
-                <div id="{{ field.id }}_help" class="form-text">{{ field.help_message }}</div>
+            {% if _field_.help_message %}
+                <div id="{{ _field_.id }}_help" class="form-text">{{ _field_.help_message }}</div>
             {% endif %}
         {% endfor %}
 

@@ -6,18 +6,18 @@
 #
 #####}
 
-{% set cards=[] %}
+{% set _cards_ = [] %}
 
-{% for ig in interest_groups %}
-    {% set card = {
-        "header": ig.name,
-        "text": ig.description,
-        "url": url('interest_group_index', args = [ig.slug]),
-        "button_text": "Go to "+  ig.name + "'s home"
+{% for _interest_group_ in interest_groups %}
+    {% set _card_ = {
+        "header": _interest_group_.name,
+        "text": _interest_group_.description,
+        "url": url('interest_group_index', args = [_interest_group_.slug]),
+        "button_text": "Go to "+  _interest_group_.name + "'s home"
     } %}
 
-    {% set _ = cards.append(card) %}
+    {% set _ = _cards_.append(_card_) %}
 {% endfor %}
 
-{{ card_factory.get_action_row({"cards": cards}) }}
+{{ card_factory.get_action_row({"cards": _cards_}) }}
 
