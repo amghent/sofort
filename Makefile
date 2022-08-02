@@ -107,3 +107,10 @@ run: validate migrate
 	python src/manage.py runserver --settings=$(SETTINGS)
 #
 ###
+
+###
+#
+test: validate
+	cd src && python manage.py test --settings=$(SETTINGS) && cd ..
+#
+###
