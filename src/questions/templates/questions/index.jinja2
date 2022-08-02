@@ -1,23 +1,15 @@
 {#####
 #
 #   Version:    1.0.0
-#   Date:       2022-07-29
+#   Date:       2022-08-01
 #   Author:     Yves Vindevogel
 #
 #####}
 
 {% extends "forms/list_form.jinja2" %}
 
-{% macro create_toolbar() %}
-    {% set toolbar = {
-        "buttons": [
-            {"type": "new", "url": url('questions_new', args=[interest_group.slug])}
-        ],
-    } %} {{ toolbar_factory.build_toolbar(toolbar) }}
-{% endmacro %}
-
-{% macro create_rows(_questions) %}
-    {% for q in _questions %}
+{% macro create_rows() %}
+    {% for q in questions %}
         <tr>
             <td>
                 <a href="{{ url("questions_read", args=[interest_group.slug, q.id]) }}">{{ q.title }}</a>
@@ -31,25 +23,37 @@
     {% endfor %}
 {% endmacro %}
 
-{% block page_title %}
-    {{ element_factory.page_title("Questions") }}
-{% endblock %}
-
-
-{# do not touch below this line #}
+{% block page_title %}Questions{% endblock %}
 
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
 
 {% block toolbar %}
-    {{ create_toolbar() }}
+    {% set toolbar = {
+        "buttons": [
+            {"type": "new", "url": url('questions_new', args=[interest_group.slug])}
+        ],
+    } %}
+
+    {{ toolbar_factory.get_toolbar(toolbar) }}
 {% endblock %}
 
 {% block datatable %}
-    {% include "config/server_side/questions/index.jinja2" %}
+    {%
+        set columns = [
+            {"width": "53%", "title": "Title"},
+            {"width": "20%", "title": "Author"},
+            {"width": "12%", "title": "Created"},
+            {"width": "5%", "title": "V"},
+            {"width": "5%", "title": "R"},
+            {"width": "5%", "title": "C"},
+        ]
+    %}
+
+    {{ datatable_factory.get_table({"id": "questions_dt", "columns": columns, "data": create_rows()}) }}
 {% endblock %}
 
 {% block client_side_config %}
-    {% include "config/client_side/questions/index.js" %}
+    {% include "config/questions/index.js" %}
 {% endblock %}

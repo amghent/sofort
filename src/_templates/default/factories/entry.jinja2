@@ -7,11 +7,19 @@
 #####}
 
 {% macro get_submit_button(_btn) %}
-    <button type="submit" class="btn btn-primary btn-sm mt-2">{{ _btn.button_text }}</button>
+    {% if _btn is mapping %}
+        <button type="submit" class="btn btn-primary btn-sm mt-2">{{ _btn.button_text }}</button>
+    {% else %}
+        <button type="submit" class="btn btn-primary btn-sm mt-2">{{ _btn }}</button>
+    {% endif %}
 {% endmacro %}
 
 {% macro get_csrf_security(_token) %}
-    <input type="hidden" name="csrfmiddlewaretoken" value="{{ _token.token }}"/>
+    {% if _token is mapping %}
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ _token.token }}"/>
+    {% else %}
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ _token }}"/>
+    {% endif %}
 {% endmacro %}
 
 {% macro get_form(_form) %}

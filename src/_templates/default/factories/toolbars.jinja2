@@ -13,15 +13,27 @@
 {% endmacro %}
 
 {% macro get_new_button(_button) %}
-    {{ toolbar_button({"id": "toolbar_new", "url": _button.url, "icon": "fa-file-circle-plus"}) }}
+    {% if _button is mapping %}
+        {{ get_button({"id": "toolbar_new", "url": _button.url, "icon": "fa-file-circle-plus"}) }}
+    {% else %}
+        {{ get_button({"id": "toolbar_new", "url": _button, "icon": "fa-file-circle-plus"}) }}
+    {% endif %}
 {% endmacro %}
 
 {% macro get_cancel_button(_button) %}
-    {{ toolbar_button({"id": "toolbar_cancel", "url": _button.url, "icon": "fa-delete-left"}) }}
+    {% if _button is mapping %}
+        {{ get_button({"id": "toolbar_cancel", "url": _button.url, "icon": "fa-delete-left"}) }}
+    {% else %}
+        {{ get_button({"id": "toolbar_cancel", "url": _button, "icon": "fa-delete-left"}) }}
+    {% endif %}
 {% endmacro %}
 
 {% macro get_back_button(_button) %}
-    {{ toolbar_button({"id": "toolbar_back", "url": _button.url, "icon": "fa-delete-left"}) }}
+    {% if _button is mapping %}
+        {{ get_button({"id": "toolbar_back", "url": _button.url, "icon": "fa-delete-left"}) }}
+    {% else %}
+        {{ get_button({"id": "toolbar_back", "url": _button, "icon": "fa-delete-left"}) }}
+    {% endif %}
 {% endmacro %}
 
 {% macro get_toolbar(_toolbar) %}

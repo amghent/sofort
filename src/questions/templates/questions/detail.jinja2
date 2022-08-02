@@ -1,62 +1,110 @@
+{#####
+#
+#   Version:    1.0.0
+#   Date:       2022-08-01
+#   Author:     Yves Vindevogel
+#
+#####}
+
 {% extends "forms/chat_form.jinja2" %}
 
-{% block toolbar %}
-    {{ toolbar_factory.back_button( url('questions_index', args=[interest_group.slug]) ) }}
-{% endblock %}
-
-{% block page_title %}
-    {{ element_factory.page_title(question.title) }}
-{% endblock %}
-
-{% block detail %}
-    {{ chat_factory.message_block(question_content()) }}
-
-    {% for response in responses %}
-        {{ chat_factory.response_block(response_content(response, comments)) }}
-    {% endfor %}
-
-    {{ chat_factory.message_block(response_form(question)) }}
-{% endblock %}
-
-{% macro question_content() %}
-    {{ chat_factory.message(
-            "question-" + question.id|string,
-            question.author.display_name + " - " + question.created_at | dt_to_user_frmt,
-            question.text,
-            "Views: " + question.view_count|string + " - Responses: " + question.response_count|string +
-                " - Comments: " + question.comment_count|string
-    ) }}
-{% endmacro %}
-
-{% macro response_content(response, comments) %}
-    {{ chat_factory.response(
-        "response_" + response.id|string|replace("-", "_"),
-        response.author.display_name + " - " + response.created_at | dt_to_user_frmt,
-        response.text
-    ) }}
-
-    {% for comment in comments %}
-        {% if comment.response == response %}
-            {{ chat_factory.comment(
-                "comment_" + comment.id|string|replace("-", "_"),
-                comment.author.display_name + " - " + comment.created_at | dt_to_user_frmt,
-                comment.text
-            ) }}
-        {% endif %}
-    {% endfor %}
-
-    {{ chat_factory.comment_block(comment_form(response)) }}
-{% endmacro %}
-
-{# do not touch below this line #}
 {% macro response_form(question) %}
-    {% include "config/server_side/questions/response.jinja2" %}
+    {%  set form = {
+        "id": "response",
+        "csrf_token": csrf_token,
+        "post_url": url('questions_respond', args=[interest_group.slug, question.id]),
+        "submit_button_text": "Submit your response",
+        "fields": [
+            {
+                "id": "response_text",
+                "name": "response_text",
+                "type": "required_textarea",
+                "label": "Respond to this question:",
+                "required_message": "Please enter the response's content."
+            }
+        ]
+    } %}
+
+    {{ entry_factory.get_form(form) }}
 {% endmacro %}
 
 {% macro comment_form(response) %}
-    {% include "config/server_side/questions/comment.jinja2" %}
+    {%  set form = {
+        "id": "comment_" + response.id|string|replace("-", "_"),
+        "csrf_token": csrf_token,
+        "post_url": url('questions_comment', args=[interest_group.slug, question.id, response.id]),
+        "submit_button_text": "Submit your comment",
+        "fields": [
+            {
+                "id": "comment_text" + response.id|string|replace("-", "_"),
+                "name": "comment_text",
+                "type": "required_textarea",
+                "label": "Comment this response:",
+                "required_message": "Please enter the comment's content."
+            }
+        ]
+    } %}
+
+    {{ entry_factory.get_form(form) }}
 {% endmacro %}
+
+{% block page_title %}
+    {{ question.title }}
+{% endblock %}
+
+{% block toolbar %}
+    {{ toolbar_factory.get_back_button( url('questions_index', args=[interest_group.slug]) ) }}
+{% endblock %}
 
 {% block sidebar %}
     {% include "includes/interests/sidebar.jinja2" %}
 {% endblock %}
+
+{% block detail %}
+    {% set ns = namespace(output=[]) %}
+
+    {% set message = {
+        "id": "question-" + question.id|string,
+        "label": question.author.display_name + " - " + question.created_at | dt_to_user_frmt,
+        "information": "Views: " + question.view_count|string + " - Responses: " + question.response_count|string +
+            "- Comments: " + question.comment_count|string,
+        "text": question.text
+    }%}
+
+    {% set _ = ns.output.append(chat_factory.get_message_cell(chat_factory.get_message(message))) %}
+
+    {% for response in responses %}
+        {% set _ = ns.output.append(chat_factory.get_response_cell(response_content(response, comments))) %}
+    {% endfor %}
+
+    {% set _ = ns.output.append(chat_factory.get_message_cell(response_form(question))) %}
+
+    {{ ns.output }}
+{% endblock %}
+
+
+{% macro response_content(response, comments) %}
+    {% set response = {
+        "id": "response_" + response.id|string|replace("-", "_"),
+        "label": response.author.display_name + " - " + response.created_at | dt_to_user_frmt,
+        "text": response.text
+    } %}
+
+    {{ chat_factory.get_response(response) }}
+
+    {% for comment in comments %}
+        {% if comment.response == response %}
+            {% set comment = {
+                "id": "comment_" + comment.id|string|replace("-", "_"),
+                "label": comment.author.display_name + " - " + comment.created_at | dt_to_user_frmt,
+                "comment": comment.text
+            } %}
+
+            {{ chat_factory.get_comment(comment) }}
+        {% endif %}
+    {% endfor %}
+
+    {{ chat_factory.get_comment_cell(comment_form(response)) }}
+{% endmacro %}
+
+
